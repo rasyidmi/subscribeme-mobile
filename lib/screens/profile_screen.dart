@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:subscribeme_mobile/blocs/auth/auth_bloc.dart';
-import 'package:subscribeme_mobile/commons/extensions/string_extension.dart';
 import 'package:subscribeme_mobile/commons/resources/icons.dart';
 import 'package:subscribeme_mobile/commons/resources/images.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';

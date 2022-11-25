@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:subscribeme_mobile/blocs/auth/auth_bloc.dart';
+import 'package:subscribeme_mobile/commons/constants/response_status.dart';
 import 'package:subscribeme_mobile/commons/resources/icons.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/routes.dart';
@@ -30,13 +31,12 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     FlutterNativeSplash.remove();
-
-    // _tryAutoLogin();
+    _tryAutoLogin();
   }
 
-  // void _tryAutoLogin() {
-  //   context.read<AuthBloc>().add(AutoLogin());
-  // }
+  void _tryAutoLogin() {
+    context.read<AuthBloc>().add(AutoLogin());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +46,10 @@ class _LoginScreenState extends State<LoginScreen> {
           listener: (context, state) {
             if (state is LoginSuccess) {
               // Navigate to home screen
-              Navigator.of(context).pushReplacementNamed(Routes.home);
-              FlutterNativeSplash.remove();
-            } else if (state is AuthFailed) {
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil(Routes.home, (route) => false);
+            } else if (state is AuthFailed &&
+                state.status != ResponseStatus.unauthorized) {
               SubsFlushbar.showFailed(context, state.message!);
             }
           },

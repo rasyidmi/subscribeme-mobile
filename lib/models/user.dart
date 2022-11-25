@@ -2,7 +2,7 @@ import 'package:subscribeme_mobile/commons/constants/role.dart';
 
 class User {
   User({
-    this.id,
+    required this.id,
     required this.name,
     required this.email,
     required this.role,
@@ -16,11 +16,11 @@ class User {
   String? avatar;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-      id: json['ID'],
-      name: json["Name"],
-      email: json["Email"],
-      role: json["Role"] == 'admin' ? Role.admin : Role.user,
-      avatar: json["Avatar"]);
+      id: json['id'],
+      name: json["name"],
+      email: json["email"],
+      role: json["role"] == 'admin' ? Role.admin : Role.user,
+      avatar: json["avatar"]);
 
   Map<String, dynamic> toJson() => {
         "id": id,

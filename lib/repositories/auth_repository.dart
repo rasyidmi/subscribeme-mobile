@@ -14,11 +14,11 @@ class AuthRepository {
     return _authApi.signIn(data);
   }
 
-  // Future<User?> doAutoLogin() async {
-  //   return _authApi.tryAutoLogin();
-  // }
+  Future<User?> doAutoLogin() async {
+    return _authApi.tryAutoLogin();
+  }
 
   Future<void> logout() async {
-    return await _authApi.logout();
+    await _authApi.logout();
   }
 }

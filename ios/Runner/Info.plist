@@ -56,5 +56,7 @@
 			</dict>
 		</array>
 		<!-- End of Google Sign-in Section -->
-	</dict>
+		<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+</dict>
 </plist>

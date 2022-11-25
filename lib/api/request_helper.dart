@@ -5,14 +5,12 @@ import 'package:subscribeme_mobile/api/api_constants.dart';
 import 'package:subscribeme_mobile/api/auth_api.dart';
 import 'package:subscribeme_mobile/commons/constants/response_status.dart';
 import 'package:subscribeme_mobile/service_locator/service_locator.dart';
-import 'package:subscribeme_mobile/services/secure_storage.dart';
 
 class RequestHelper {
   static final apiPath = baseUrl;
-  final LocalStorageService _storageService = LocalStorageService(); 
 
   static Future<HttpResponse> get(String path) async {
-    final token = await locator<AuthApi>().getIDToken();
+    final token = await locator<AuthApi>().getAccessToken();
     final urlPath = '$apiPath$path';
 
     final response = await http.get(
@@ -40,7 +38,7 @@ class RequestHelper {
   }
 
   static Future<HttpResponse> delete(String path) async {
-    final token = await locator<AuthApi>().getIDToken();
+    final token = await locator<AuthApi>().getAccessToken();
     final urlPath = '$apiPath$path';
 
     final response = await http.delete(Uri.parse(urlPath),
@@ -69,7 +67,7 @@ class RequestHelper {
 
   static Future<HttpResponse> post(
       String path, Map<String, dynamic>? body) async {
-    final token = await locator<AuthApi>().getIDToken();
+    final token = await locator<AuthApi>().getAccessToken();
     final urlPath = '$apiPath$path';
 
     final response = await http.post(
@@ -79,6 +77,23 @@ class RequestHelper {
         'Authorization': 'Bearer $token'
       },
       body: json.encoder.convert(body),
+    );
+
+    final decodedBody = json.decode(response.body);
+
+    return _responseHandler(response.statusCode, decodedBody);
+  }
+
+  static Future<HttpResponse> refreshToken() async {
+    final token = await locator<AuthApi>().getRefreshToken();
+    final urlPath = '$apiPath/user/refresh';
+
+    final response = await http.post(
+      Uri.parse(urlPath),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
     );
 
     final decodedBody = json.decode(response.body);

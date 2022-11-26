@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:subscribeme_mobile/api/request_helper.dart';
 import 'package:subscribeme_mobile/commons/arguments/http_exception.dart';
 import 'package:subscribeme_mobile/commons/constants/response_status.dart';
@@ -8,7 +7,6 @@ import 'package:subscribeme_mobile/models/user.dart';
 import 'package:subscribeme_mobile/services/secure_storage.dart';
 
 class AuthApi {
-  firebase_auth.User? _currentUser;
   final LocalStorageService _storageService = LocalStorageService();
   final _authPath = '/user';
 

@@ -20,7 +20,7 @@ class EventsApi {
   // Actually no need to return bool, but somehow if the return value is void
   // when server is down the error is not catched.
   Future<bool> createEvent(Map<String, dynamic>? body) async {
-    final response = await RequestHelper.post(_eventsPath, body);
+    final response = await RequestHelper.post('$_eventsPath/create', body);
 
     if (response.status == ResponseStatus.success) {
       return true;

@@ -24,7 +24,7 @@ class CoursesApi {
   // Actually no need to return bool, but somehow if the return value is void
   // when server is down the error is not catched.
   Future<bool> createCourse(Map<String, dynamic>? body) async {
-    final response = await RequestHelper.post(_coursesPath, body);
+    final response = await RequestHelper.post('$_coursesPath/create', body);
 
     if (response.status == ResponseStatus.success) {
       return true;
@@ -36,7 +36,7 @@ class CoursesApi {
   // Actually no need to return bool, but somehow if the return value is void
   // when server is down the error is not catched.
   Future<bool> deleteCourse(int id) async {
-    final response = await RequestHelper.delete('$_coursesPath/$id');
+    final response = await RequestHelper.delete('$_coursesPath/delete/$id');
 
     if (response.status == ResponseStatus.success) {
       return true;

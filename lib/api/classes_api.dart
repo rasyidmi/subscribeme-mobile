@@ -4,7 +4,7 @@ import 'package:subscribeme_mobile/commons/constants/response_status.dart';
 import 'package:subscribeme_mobile/models/event.dart';
 
 class ClassesApi {
-  final _classesPath = '/kelas';
+  final _classesPath = '/class';
 
   Future<List<Event>> getEventsClass(int id) async {
     final response = await RequestHelper.get('$_classesPath/$id');

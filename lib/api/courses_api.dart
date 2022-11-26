@@ -5,7 +5,7 @@ import 'package:subscribeme_mobile/models/class.dart';
 import 'package:subscribeme_mobile/models/course.dart';
 
 class CoursesApi {
-  final _coursesPath = '/mata-kuliah';
+  final _coursesPath = '/subject';
 
   Future<List<Course>> getAllCourses() async {
     final response = await RequestHelper.get(_coursesPath);

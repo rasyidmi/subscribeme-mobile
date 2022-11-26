@@ -3,7 +3,7 @@ import 'package:subscribeme_mobile/commons/arguments/http_exception.dart';
 import 'package:subscribeme_mobile/commons/constants/response_status.dart';
 
 class EventsApi {
-  final _eventsPath = '/agenda';
+  final _eventsPath = '/event';
 
   // Actually no need to return bool, but somehow if the return value is void
   // when server is down the error is not catched.

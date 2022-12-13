@@ -26,7 +26,7 @@ class CoursesBloc extends Bloc<CoursesEvent, CoursesState> {
   Future<void> _onFetchCourses(
       FetchCourses event, Emitter<CoursesState> emit) async {
     emit(LoadCoursesLoading());
-    await Future.delayed(const Duration(seconds: 1), () {});
+    await Future.delayed(const Duration(milliseconds: 500), () {});
 
     try {
       final listCourses = await _coursesRepository.getAllCourses();
@@ -47,7 +47,7 @@ class CoursesBloc extends Bloc<CoursesEvent, CoursesState> {
   Future<void> _onCreateCourse(
       CreateCourse event, Emitter<CoursesState> emit) async {
     emit(CreateCourseLoading());
-    await Future.delayed(const Duration(seconds: 1), () {});
+    await Future.delayed(const Duration(milliseconds: 500));
     try {
       await _coursesRepository.createCourse(event.data);
       emit(CreateCourseSuccess());
@@ -82,7 +82,7 @@ class CoursesBloc extends Bloc<CoursesEvent, CoursesState> {
   Future<void> _onDeleteCourseHandler(
       DeleteCourse event, Emitter<CoursesState> emit) async {
     emit(DeleteCourseLoading());
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 500));
     try {
       await _coursesRepository.deleteCourse(event.id);
       emit(DeleteCourseSuccess());

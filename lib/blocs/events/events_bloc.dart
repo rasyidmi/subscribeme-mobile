@@ -21,7 +21,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
   Future<void> _onCreateEventHandler(
       CreateEvent event, Emitter<EventsState> emit) async {
     emit(CreateEventLoading());
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 500));
     try {
       await _eventsRepository.createEvent(event.data);
       emit(CreateEventSuccess());
@@ -39,7 +39,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
   Future<void> _onDeleteEventHandler(
       DeleteEvent event, Emitter<EventsState> emit) async {
     emit(DeleteEventLoading());
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 500));
     try {
       await _eventsRepository.deleteEvent(event.id);
       emit(DeleteEventSuccess());

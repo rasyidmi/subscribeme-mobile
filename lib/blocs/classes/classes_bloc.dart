@@ -21,7 +21,7 @@ class ClassesBloc extends Bloc<ClassesEvent, ClassesState> {
   Future<void> _onFetchClassEvents(
       FetchClassEvents event, Emitter<ClassesState> emit) async {
     emit(FetchEventsLoading());
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 500));
     try {
       final listEvents = await _classesRepository.getEventsClass(event.id);
       emit(FetchEventsSuccess(listEvents));

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subscribeme_mobile/blocs/bloc_state.dart';
 import 'package:subscribeme_mobile/commons/constants/response_status.dart';
 import 'package:subscribeme_mobile/routes.dart';
+import 'package:subscribeme_mobile/widgets/subs_flushbar.dart';
 
 class SubsConsumer<C extends BlocBase<S>, S extends BlocState>
     extends StatelessWidget {
@@ -34,6 +35,9 @@ class SubsConsumer<C extends BlocBase<S>, S extends BlocState>
       Navigator.pushNamedAndRemoveUntil(
           context, Routes.maintenance, (route) => false);
     } else if (status == ResponseStatus.unauthorized) {
+      Navigator.pushNamedAndRemoveUntil(
+          context, Routes.login, (route) => false);
+      SubsFlushbar.showFailed(context, "Sesi habis, harap login kembali.");
       log('Unauthorized');
       return;
     } else {

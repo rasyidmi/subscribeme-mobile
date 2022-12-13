@@ -1,13 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:subscribeme_mobile/blocs/auth/auth_bloc.dart';
-
-import 'package:subscribeme_mobile/commons/resources/icons.dart';
-import 'package:subscribeme_mobile/commons/resources/images.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/screens/screens.dart';
+import 'package:subscribeme_mobile/widgets/primary_appbar.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -16,30 +10,13 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  int _selectedIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(vsync: this, length: 4);
-
-    _tabController.addListener(_handleTabSelection);
-  }
-
-  void _handleTabSelection() {
-    if (_selectedIndex != _tabController.animation!.value.round()) {
-      setState(() {
-        _selectedIndex = _tabController.index;
-      });
-    }
-  }
+class _MainScreenState extends State<MainScreen> {
+  final PageController _pageViewController = PageController(initialPage: 0);
+  int _selectedPage = 0;
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _pageViewController.dispose();
     super.dispose();
   }
 
@@ -49,9 +26,9 @@ class _MainScreenState extends State<MainScreen>
       color: Colors.white,
       child: SafeArea(
         child: Scaffold(
-          appBar: _selectedIndex == 3 ? null : mainAppbar(),
-          body: TabBarView(
-            controller: _tabController,
+          appBar: _selectedPage == 3 ? null : const PrimaryAppbar(),
+          body: PageView(
+            controller: _pageViewController,
             children: const [
               HomeScreen(),
               ListCoursesScreen(),
@@ -60,6 +37,11 @@ class _MainScreenState extends State<MainScreen>
               ),
               ProfileScreen()
             ],
+            onPageChanged: (index) {
+              setState(() {
+                _selectedPage = index;
+              });
+            },
           ),
           bottomNavigationBar: DecoratedBox(
             decoration: BoxDecoration(
@@ -70,20 +52,42 @@ class _MainScreenState extends State<MainScreen>
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.15),
-                  offset: const Offset(0, -8),
-                  blurRadius: 8,
-                  spreadRadius: 0,
+                  color: Colors.black.withOpacity(0.1),
+                  offset: const Offset(0, -0.5),
+                  blurRadius: 4,
+                  spreadRadius: 0.5,
                 ),
               ],
             ),
-            child: TabBar(
-              controller: _tabController,
-              tabs: [
-                _buildTabBar('Beranda', SubsIcons.home, 0),
-                _buildTabBar('Mata Kuliah', SubsIcons.course, 1),
-                _buildTabBar('Kelas Saya', SubsIcons.classIcon, 2),
-                _buildTabBar('Profil', SubsIcons.accountCircle, 3),
+            child: BottomNavigationBar(
+              backgroundColor: ColorPalettes.white,
+              currentIndex: _selectedPage,
+              onTap: (index) {
+                _pageViewController.animateToPage(
+                  index,
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.linear,
+                );
+              },
+              elevation: 0,
+              type: BottomNavigationBarType.fixed,
+              showUnselectedLabels: true,
+              selectedItemColor: ColorPalettes.primary,
+              selectedLabelStyle: const TextStyle(color: ColorPalettes.primary),
+              selectedFontSize: 12,
+              unselectedItemColor: ColorPalettes.dark70,
+              unselectedLabelStyle:
+                  const TextStyle(color: ColorPalettes.dark70),
+              items: const [
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.home), label: "Beranda"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.format_list_bulleted),
+                    label: "Mata Kuliah"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.book), label: "Kelas Saya"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.account_circle), label: "Profil"),
               ],
             ),
           ),
@@ -92,71 +96,7 @@ class _MainScreenState extends State<MainScreen>
     );
   }
 
-  AppBar mainAppbar() {
-    return AppBar(
-      title: SvgPicture.asset(
-        SubsIcons.appBarLogo,
-      ),
-      actions: [
-        BlocBuilder<AuthBloc, AuthState>(
-          builder: (context, state) {
-            if (state is LoginSuccess) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 16.0),
-                child: state.user.avatar!.isEmpty
-                    ? Image.asset(SubsImages.ujang)
-                    : CachedNetworkImage(
-                        errorWidget: (context, _, __) =>
-                            Image.asset(SubsImages.ujang),
-                        imageUrl: state.user.avatar!,
-                        imageBuilder: (context, imageProvider) => Container(
-                          width: 35.0,
-                          height: 35.0,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                image: imageProvider, fit: BoxFit.fill),
-                          ),
-                        ),
-                      ),
-              );
-            } else {
-              return Image.asset(SubsImages.ujang);
-            }
-          },
-        ),
-      ],
-    );
-  }
-
-  bool _isSelected(int index) {
-    return index == _selectedIndex;
-  }
-
-  Tab _buildTabBar(String label, String iconData, int index) {
-    return Tab(
-      height: 61.0,
-      child: Column(
-        children: [
-          const SizedBox(height: 10.0),
-          SvgPicture.asset(
-            iconData,
-            color: _isSelected(index)
-                ? ColorPalettes.primary
-                : ColorPalettes.dark50,
-          ),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                  color: _isSelected(index)
-                      ? ColorPalettes.primary
-                      : ColorPalettes.dark50,
-                  fontWeight:
-                      _isSelected(index) ? FontWeight.bold : FontWeight.normal,
-                ),
-          ),
-        ],
-      ),
-    );
+  PreferredSizeWidget mainAppbar() {
+    return const PrimaryAppbar();
   }
 }

@@ -9,6 +9,7 @@ import 'package:subscribeme_mobile/repositories/courses_repository.dart';
 import 'package:subscribeme_mobile/routes.dart';
 import 'package:subscribeme_mobile/widgets/circular_loading.dart';
 import 'package:subscribeme_mobile/widgets/list_courses/custom_search_bar.dart';
+import 'package:subscribeme_mobile/widgets/list_courses/search_result_container.dart';
 import 'package:subscribeme_mobile/widgets/secondary_appbar.dart';
 import 'package:subscribeme_mobile/widgets/shimmer/list_course_shimmer.dart';
 import 'package:subscribeme_mobile/widgets/subs_alert_dialog.dart';
@@ -98,37 +99,27 @@ class _AdminViewCoursesState extends State<AdminViewCourses> {
                     );
                   } else if (_searchValue.isNotEmpty) {
                     // User is searching the data
-                    return Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 16.0,
-                            color: ColorPalettes.white,
+                    if (_searchedData!.isEmpty) {
+                      return SearchResultContainer(
+                          body: Expanded(
+                        child: Center(
+                          child: Text(
+                            "Data tidak ditemukan",
+                            style: Theme.of(context).textTheme.headline6,
                           ),
-                          Container(
-                            color: ColorPalettes.white,
-                            width: double.infinity,
-                            child: Text(
-                              'Hasil pencarian...',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2!
-                                  .copyWith(fontWeight: FontWeight.w600),
-                            ),
+                        ),
+                      ));
+                    }
+                    return SearchResultContainer(
+                      body: Expanded(
+                        child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: _searchedData!.length,
+                          itemBuilder: (_, index) => Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: _buildListTile(index, context),
                           ),
-                          Expanded(
-                            child: ListView.builder(
-                              physics: const BouncingScrollPhysics(),
-                              itemCount: _searchedData!.length,
-                              itemBuilder: (_, index) => Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: _buildListTile(index, context),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     );
                   } else if (state is LoadCoursesFailed) {

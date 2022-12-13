@@ -55,35 +55,11 @@ class AuthApi {
   Future<User?> tryAutoLogin() async {
     String? accessToken = await getAccessToken();
     if (accessToken == null || accessToken == "") return null;
-    final response = await RequestHelper.post('$_authPath/autoLogin', {});
+    final response = await RequestHelper.post('$_authPath/autoLogin', null);
     if (response.status == ResponseStatus.success) {
-      // Store token in local storage.
-      await _storageService.writeSecureData(
-          "accessToken", response.data!["data"]["accessToken"]);
-      await _storageService.writeSecureData(
-          "refreshToken", response.data!["data"]["refreshToken"]);
       log(response.data!["data"]["userData"].toString());
       User user = User.fromJson(response.data!["data"]["userData"]);
       return user;
-    } else if (response.status == ResponseStatus.unauthorized) {
-      return await _refreshToken();
-    } else {
-      throw SubsHttpException(response.status, null);
-    }
-  }
-
-  Future<User?> _refreshToken() async {
-    final response = await RequestHelper.refreshToken();
-    if (response.status == ResponseStatus.success) {
-      // Store token in local storage.
-      await _storageService.writeSecureData(
-          "accessToken", response.data!["data"]["accessToken"]);
-      await _storageService.writeSecureData(
-          "refreshToken", response.data!["data"]["refreshToken"]);
-      User user = User.fromJson(response.data!["data"]["userData"]);
-      return user;
-    } else if (response.status == ResponseStatus.unauthorized) {
-      return null;
     } else {
       throw SubsHttpException(response.status, null);
     }

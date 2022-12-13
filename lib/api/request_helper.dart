@@ -106,7 +106,6 @@ class RequestHelper {
     } else if (decodedData["data"].toString().contains('duplicate')) {
       status = ResponseStatus.duplicateData;
     } else if (statusCode == 401) {
-      status = ResponseStatus.unauthorized;
       return await _handleExpiredToken(url, data, method);
     } else if (statusCode == 408) {
       status = ResponseStatus.timeout;
@@ -134,7 +133,7 @@ class RequestHelper {
     );
     // Both token expired.
     if (response.statusCode != 200) {
-      return HttpResponse(status: ResponseStatus.unauthorized, data: null);
+      return HttpResponse(status: ResponseStatus.tokenExpire, data: null);
     }
     final decodedBody = json.decode(response.body);
     final newAccessToken = decodedBody!["data"]["accessToken"];

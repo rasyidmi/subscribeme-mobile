@@ -4,5 +4,6 @@ enum ResponseStatus {
   maintenance,
   timeout,
   unauthorized,
+  tokenExpire,
   duplicateData,
 }

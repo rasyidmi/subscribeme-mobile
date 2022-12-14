@@ -140,6 +140,9 @@ class _AddEventDetailScreenState extends State<AddEventDetailScreen> {
       onTap: () {
         showDatePicker(
           context: context,
+          cancelText: "BATAL",
+          confirmText: "PILIH",
+          helpText: "PILIH TANGGAL",
           // Set the minimum deadline date is D+2 from now
           initialDate: DateTime.now().add(
             const Duration(days: 2),
@@ -180,11 +183,17 @@ class _AddEventDetailScreenState extends State<AddEventDetailScreen> {
     return Theme(
       data: Theme.of(context).copyWith(
         colorScheme: const ColorScheme.light(
-            primary: ColorPalettes.primary // header background color
-            ),
+          primary: ColorPalettes.primary, // header background color
+        ),
+        timePickerTheme: const TimePickerThemeData(
+          entryModeIconColor: ColorPalettes.primary,
+          dialBackgroundColor: Colors.white,
+          hourMinuteColor: Colors.white,
+          dayPeriodBorderSide: BorderSide.none,
+        ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-              primary: ColorPalettes.primary // button text color
+              foregroundColor: ColorPalettes.primary // button text color
               ),
         ),
       ),
@@ -201,6 +210,11 @@ class _AddEventDetailScreenState extends State<AddEventDetailScreen> {
             hour: 0,
             minute: 0,
           ),
+          cancelText: "BATAL",
+          confirmText: "PILIH",
+          helpText: "PILIH WAKTU",
+          hourLabelText: "JAM",
+          minuteLabelText: "MENIT",
           builder: (context, child) {
             return _buildTimeFormTheme(context, child);
           },

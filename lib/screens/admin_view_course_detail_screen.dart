@@ -98,7 +98,7 @@ class _AdminViewCourseDetailState extends State<AdminViewCourseDetail> {
                             final firstClassId = state.listClasses[0].id;
                             selectedFilterId = firstClassId;
                             BlocProvider.of<ClassesBloc>(context)
-                                .add(FetchClassEvents(firstClassId));
+                                .add(FetchClassById(firstClassId));
                             firstInitiate = false;
                           }
                           return _buildFilterButtons(context, state);
@@ -114,7 +114,7 @@ class _AdminViewCourseDetailState extends State<AdminViewCourseDetail> {
               SliverFillRemaining(
                 child: SubsConsumer<ClassesBloc, ClassesState>(
                   builder: (context, classState) {
-                    if (classState is FetchEventsSuccess) {
+                    if (classState is FetchClassSuccess) {
                       return SubsConsumer<EventsBloc, EventsState>(
                         listener: (context, eventState) {
                           if (eventState is DeleteEventSuccess) {
@@ -177,7 +177,7 @@ class _AdminViewCourseDetailState extends State<AdminViewCourseDetail> {
                 },
               );
               BlocProvider.of<ClassesBloc>(context).add(
-                FetchClassEvents(state.listClasses[index].id),
+                FetchClassById(state.listClasses[index].id),
               );
             },
           );
@@ -186,15 +186,15 @@ class _AdminViewCourseDetailState extends State<AdminViewCourseDetail> {
     );
   }
 
-  ListView _buildEventsList(FetchEventsSuccess state, Course course) {
+  ListView _buildEventsList(FetchClassSuccess state, Course course) {
     return ListView.builder(
-      itemCount: state.listEvents.length,
+      itemCount: state.kelas.listEvent!.length,
       itemBuilder: (context, index) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: SubsListTile(
-          title: state.listEvents[index].title,
+          title: state.kelas.listEvent![index].title,
           secondLine: course.title,
-          thirdLine: state.listEvents[index].deadlineTime.displayDeadline,
+          thirdLine: state.kelas.listEvent![index].deadlineTime.displayDeadline,
           actionButtons: [
             SvgPicture.asset(SubsIcons.penciSlash),
             const SizedBox(width: 16.0),
@@ -210,7 +210,7 @@ class _AdminViewCourseDetailState extends State<AdminViewCourseDetail> {
                           return const Center(child: CircularLoading());
                         });
                     BlocProvider.of<EventsBloc>(context)
-                        .add(DeleteEvent(state.listEvents[index].id));
+                        .add(DeleteEvent(state.kelas.listEvent![index].id));
                   },
                   textSpan: [
                     TextSpan(
@@ -218,7 +218,7 @@ class _AdminViewCourseDetailState extends State<AdminViewCourseDetail> {
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
                     TextSpan(
-                      text: '${state.listEvents[index].title} ',
+                      text: '${state.kelas.listEvent![index].title} ',
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
                             fontWeight: FontWeight.bold,
                             color: ColorPalettes.error,

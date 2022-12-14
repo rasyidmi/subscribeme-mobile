@@ -12,19 +12,33 @@ abstract class ClassesState extends BlocState {
 
 class ClassesInit extends ClassesState {}
 
-class FetchEventsLoading extends ClassesState {}
+class FetchClassLoading extends ClassesState {}
 
-class FetchEventsSuccess extends ClassesState {
-  final List<Event> listEvents;
+class FetchClassSuccess extends ClassesState {
+  final Class kelas;
 
-  const FetchEventsSuccess(this.listEvents);
+  const FetchClassSuccess(this.kelas);
 
   @override
-  List<Object?> get props => [listEvents];
+  List<Object?> get props => [kelas];
 }
 
-class FetchEventsFailed extends ClassesState {
-  const FetchEventsFailed({
+class FetchClassFailed extends ClassesState {
+  const FetchClassFailed({
+    ResponseStatus? status,
+    String? message,
+  }) : super(
+          status: status,
+          message: message,
+        );
+}
+
+class SubscribeClassSuccess extends ClassesState {}
+
+class SubscribeClassLoading extends ClassesState {}
+
+class SubscribeClassFailed extends ClassesState {
+  const SubscribeClassFailed({
     ResponseStatus? status,
     String? message,
   }) : super(

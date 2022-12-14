@@ -5,11 +5,19 @@ abstract class ClassesEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class FetchClassEvents extends ClassesEvent {
+class FetchClassById extends ClassesEvent {
   final int id;
 
-  FetchClassEvents(this.id);
+  FetchClassById(this.id);
 
+  @override
+  List<Object?> get props => [id];
+}
+
+class SubscribeClass extends ClassesEvent {
+  final int id;
+
+  SubscribeClass(this.id);
   @override
   List<Object?> get props => [id];
 }

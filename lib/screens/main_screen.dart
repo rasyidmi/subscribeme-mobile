@@ -32,9 +32,7 @@ class _MainScreenState extends State<MainScreen> {
             children: const [
               HomeScreen(),
               ListCoursesScreen(),
-              Text(
-                'Kelas Saya',
-              ),
+              MyClassScreen(),
               ProfileScreen()
             ],
             onPageChanged: (index) {
@@ -45,7 +43,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           bottomNavigationBar: DecoratedBox(
             decoration: BoxDecoration(
-              color: ColorPalettes.white,
+              color: Colors.white,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(15.0),
                 topRight: Radius.circular(15.0),
@@ -53,14 +51,13 @@ class _MainScreenState extends State<MainScreen> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.1),
-                  offset: const Offset(0, -0.5),
-                  blurRadius: 4,
-                  spreadRadius: 0.5,
+                  offset: const Offset(0, -3),
+                  blurRadius: 3,
                 ),
               ],
             ),
             child: BottomNavigationBar(
-              backgroundColor: ColorPalettes.white,
+              backgroundColor: Colors.white,
               currentIndex: _selectedPage,
               onTap: (index) {
                 _pageViewController.animateToPage(

@@ -16,6 +16,13 @@ TextTheme _textTheme = const TextTheme(
     color: ColorPalettes.dark70,
     letterSpacing: 0,
   ),
+  headline5: TextStyle(
+    fontSize: 24,
+    height: 1.4,
+    fontWeight: FontWeight.bold,
+    color: ColorPalettes.dark70,
+    letterSpacing: 0,
+  ),
   // Appbar title
   headline6: TextStyle(
     fontSize: 20,

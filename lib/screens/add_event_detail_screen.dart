@@ -145,9 +145,11 @@ class _AddEventDetailScreenState extends State<AddEventDetailScreen> {
           helpText: "PILIH TANGGAL",
           // Set the minimum deadline date is D+2 from now
           initialDate: DateTime.now().add(
-            const Duration(days: 2),
+            const Duration(days: 1),
           ),
-          firstDate: DateTime.now(),
+          firstDate: DateTime.now().add(
+            const Duration(days: 1),
+          ),
           lastDate: DateTime.now().add(
             const Duration(days: 30 * 6),
           ),

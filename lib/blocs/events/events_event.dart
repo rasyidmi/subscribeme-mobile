@@ -21,4 +21,4 @@ class DeleteEvent extends EventsEvent {
   List<Object?> get props => [id];
 }
 
-class FetchTodayDeadline extends EventsEvent {}
+class FetchHomeData extends EventsEvent {}

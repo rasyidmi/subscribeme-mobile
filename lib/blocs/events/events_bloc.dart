@@ -17,7 +17,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
   EventsBloc(this._eventsRepository) : super(EventsInitial()) {
     on<CreateEvent>(_onCreateEventHandler);
     on<DeleteEvent>(_onDeleteEventHandler);
-    on<FetchTodayDeadline>(_onFetchTodayDeadlineHandler);
+    on<FetchHomeData>(_onFetchHomeDataHandler);
   }
 
   Future<void> _onCreateEventHandler(
@@ -56,21 +56,25 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
     }
   }
 
-  Future<void> _onFetchTodayDeadlineHandler(
-      FetchTodayDeadline event, Emitter<EventsState> emit) async {
-    emit(FetchTodayDeadlineLoading());
+  Future<void> _onFetchHomeDataHandler(
+      FetchHomeData event, Emitter<EventsState> emit) async {
+    emit(FetchHomeDataLoading());
     await Future.delayed(const Duration(milliseconds: 500));
     try {
-      final events = await _eventsRepository.getTodayDeadline();
-      emit(FetchTodayDeadlineSuccess(events));
+      final todayDeadline = await _eventsRepository.getTodayDeadline();
+      final sevenDayDeadline = await _eventsRepository.getSevenDayDeadline();
+      emit(FetchHomeDataSuccess(
+        todayDeadline: todayDeadline,
+        sevenDayDeadline: sevenDayDeadline,
+      ));
     } on SubsHttpException catch (e) {
-      emit(FetchTodayDeadlineFailed(
+      emit(FetchHomeDataFailed(
         status: e.status,
         message: e.message,
       ));
     } catch (f) {
       log('ERROR: ' + f.toString());
-      emit(const FetchTodayDeadlineFailed(status: ResponseStatus.maintenance));
+      emit(const FetchHomeDataFailed(status: ResponseStatus.maintenance));
     }
   }
 }

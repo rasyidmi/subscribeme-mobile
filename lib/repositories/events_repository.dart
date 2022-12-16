@@ -21,4 +21,8 @@ class EventsRepository {
   Future<List<StudentEventModel>> getTodayDeadline() async {
     return _eventsApi.getTodayDeadline();
   }
+
+  Future<List<StudentEventModel>> getSevenDayDeadline() async {
+    return _eventsApi.getSevenDayDeadline();
+  }
 }

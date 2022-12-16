@@ -42,4 +42,17 @@ class EventsApi {
       throw SubsHttpException(response.status, response.data!["data"]);
     }
   }
+
+  Future<List<StudentEventModel>> getSevenDayDeadline() async {
+    final response = await RequestHelper.get('$_eventsPath/seven-day-deadline');
+    if (response.status == ResponseStatus.success) {
+      List<StudentEventModel> studentEvents = [];
+      for (var event in response.data!["data"]) {
+        studentEvents.add(StudentEventModel.fromJson(event));
+      }
+      return studentEvents;
+    } else {
+      throw SubsHttpException(response.status, response.data!["data"]);
+    }
+  }
 }

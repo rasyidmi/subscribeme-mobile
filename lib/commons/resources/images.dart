@@ -6,4 +6,5 @@ class SubsImages {
   static const ujang = '$imagesDir/ujang.png';
   static const salySorry = '$imagesDir/saly_sorry.png';
   static const salyRocket = '$imagesDir/saly_rocket.png';
+  static const salyComputer = '$imagesDir/saly_computer.png';
 }

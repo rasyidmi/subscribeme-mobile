@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:subscribeme_mobile/blocs/auth/auth_bloc.dart';
+import 'package:subscribeme_mobile/commons/constants/role.dart';
 import 'package:subscribeme_mobile/commons/resources/icons.dart';
 import 'package:subscribeme_mobile/commons/resources/images.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
@@ -72,24 +73,25 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 onTap: () {},
               ),
-              ListTile(
-                dense: true,
-                leading: Text(
-                  'Admin',
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle1!
-                      .copyWith(fontWeight: FontWeight.normal),
+              if (state.user.role == Role.admin)
+                ListTile(
+                  dense: true,
+                  leading: Text(
+                    'Admin',
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1!
+                        .copyWith(fontWeight: FontWeight.normal),
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.adminViewCourses);
+                  },
+                  trailing: const Icon(
+                    Icons.arrow_forward_ios,
+                    color: ColorPalettes.dark70,
+                    size: 16.0,
+                  ),
                 ),
-                onTap: () {
-                  Navigator.pushNamed(context, Routes.adminViewCourses);
-                },
-                trailing: const Icon(
-                  Icons.arrow_forward_ios,
-                  color: ColorPalettes.dark70,
-                  size: 16.0,
-                ),
-              ),
               const Spacer(flex: 4),
               SubsRoundedButton(
                 onTap: () {

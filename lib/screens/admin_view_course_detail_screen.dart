@@ -41,12 +41,12 @@ class _AdminViewCourseDetailState extends State<AdminViewCourseDetail> {
 
     return Scaffold(
       appBar: SecondaryAppbar(
-        title: "Daftar Event",
+        title: "Daftar Agenda",
         subTitle: course.title,
         padding: const EdgeInsets.only(top: 8.0),
       ),
       floatingActionButton: SubsFloatingActionButton(
-        label: '+Event Tugas',
+        label: '+Agenda Tugas',
         onTap: () => Navigator.of(context)
             .pushNamed(Routes.addEventDetail, arguments: courseDetail),
       ),

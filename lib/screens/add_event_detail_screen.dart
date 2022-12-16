@@ -274,7 +274,7 @@ class _AddEventDetailScreenState extends State<AddEventDetailScreen> {
         },
         builder: (context, state) {
           return SubsRoundedButton(
-            buttonText: 'Simpan Event',
+            buttonText: 'Simpan Agenda',
             isLoading: isLoading,
             onTap: _isFormFilled
                 ? () {

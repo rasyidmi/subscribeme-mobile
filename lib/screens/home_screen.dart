@@ -134,7 +134,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           if (sevenDayDeadline.isEmpty)
                             Text(
-                              "Horee! Tidak ada deadline hari ini!",
+                              "Horee! Tidak ada deadline 7 hari ke depan!",
                               style: Theme.of(context).textTheme.bodyText1,
                             ),
                           if (sevenDayDeadline.isNotEmpty)

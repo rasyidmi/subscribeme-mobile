@@ -60,11 +60,7 @@ class _MainScreenState extends State<MainScreen> {
               backgroundColor: Colors.white,
               currentIndex: _selectedPage,
               onTap: (index) {
-                _pageViewController.animateToPage(
-                  index,
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.linear,
-                );
+                _pageViewController.jumpToPage(index);
               },
               elevation: 0,
               type: BottomNavigationBarType.fixed,
@@ -79,8 +75,7 @@ class _MainScreenState extends State<MainScreen> {
                 BottomNavigationBarItem(
                     icon: Icon(Icons.home), label: "Beranda"),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.dns),
-                    label: "Mata Kuliah"),
+                    icon: Icon(Icons.dns), label: "Mata Kuliah"),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.book), label: "Kelas Saya"),
                 BottomNavigationBarItem(

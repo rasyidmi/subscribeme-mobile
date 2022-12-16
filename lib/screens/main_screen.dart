@@ -79,7 +79,7 @@ class _MainScreenState extends State<MainScreen> {
                 BottomNavigationBarItem(
                     icon: Icon(Icons.home), label: "Beranda"),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.format_list_bulleted),
+                    icon: Icon(Icons.dns),
                     label: "Mata Kuliah"),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.book), label: "Kelas Saya"),

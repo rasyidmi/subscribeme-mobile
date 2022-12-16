@@ -17,6 +17,16 @@ class RegisterLoading extends AuthState {}
 
 class RegisterSuccess extends AuthState {}
 
+class RegisterFailed extends AuthState {
+  const RegisterFailed({
+    ResponseStatus? status,
+    String? message,
+  }) : super(
+          status: status,
+          message: message,
+        );
+}
+
 // Login
 class LoginLoading extends AuthState {}
 

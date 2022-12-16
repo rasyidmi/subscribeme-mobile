@@ -142,13 +142,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             context,
                             'Akun berhasil dibuat',
                           );
-                        } else if (state is AuthFailed) {
+                        } else if (state is RegisterFailed) {
                           setState(() {
                             _isLoading = false;
                           });
                           SubsFlushbar.showFailed(
                             context,
-                            state.message!,
+                            state.message != null ? state.message! : "",
                           );
                         }
                       },

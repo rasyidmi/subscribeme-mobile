@@ -10,6 +10,7 @@ class ListShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      shrinkWrap: true,
       itemCount: itemCount,
       itemBuilder: ((context, index) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),

@@ -1,4 +1,5 @@
 import 'package:subscribeme_mobile/api/events_api.dart';
+import 'package:subscribeme_mobile/models/student_event.dart';
 
 class EventsRepository {
   final EventsApi _eventsApi;
@@ -15,5 +16,9 @@ class EventsRepository {
   // when server is down the error is not catched.
   Future<bool> deleteEvent(int id) async {
     return _eventsApi.deleteEvent(id);
+  }
+
+  Future<List<StudentEventModel>> getTodayDeadline() async {
+    return _eventsApi.getTodayDeadline();
   }
 }

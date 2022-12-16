@@ -28,7 +28,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await _authRepository.register(event.data);
       emit(RegisterSuccess());
     } on SubsHttpException catch (e) {
-      emit(AuthFailed(
+      emit(RegisterFailed(
         status: e.status,
         message: e.message,
       ));

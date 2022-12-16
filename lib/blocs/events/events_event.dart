@@ -16,7 +16,9 @@ class CreateEvent extends EventsEvent {
 class DeleteEvent extends EventsEvent {
   final int id;
   DeleteEvent(this.id);
-  
+
   @override
   List<Object?> get props => [id];
 }
+
+class FetchTodayDeadline extends EventsEvent {}

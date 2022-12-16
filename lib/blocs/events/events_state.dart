@@ -41,3 +41,25 @@ class DeleteEventFailed extends EventsState {
           message: message,
         );
 }
+
+// Fetch today deadlines.
+class FetchTodayDeadlineSuccess extends EventsState {
+  final List<StudentEventModel> events;
+
+  const FetchTodayDeadlineSuccess(this.events);
+
+  @override
+  List<Object?> get props => [events];
+}
+
+class FetchTodayDeadlineFailed extends EventsState {
+  const FetchTodayDeadlineFailed({
+    ResponseStatus? status,
+    String? message,
+  }) : super(
+          status: status,
+          message: message,
+        );
+}
+class FetchTodayDeadlineLoading extends EventsState {}
+

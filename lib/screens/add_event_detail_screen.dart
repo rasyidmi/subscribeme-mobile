@@ -147,9 +147,7 @@ class _AddEventDetailScreenState extends State<AddEventDetailScreen> {
           initialDate: DateTime.now().add(
             const Duration(days: 2),
           ),
-          firstDate: DateTime.now().add(
-            const Duration(days: 2),
-          ),
+          firstDate: DateTime.now(),
           lastDate: DateTime.now().add(
             const Duration(days: 30 * 6),
           ),

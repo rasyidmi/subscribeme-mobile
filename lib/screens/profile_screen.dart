@@ -95,7 +95,7 @@ class ProfileScreen extends StatelessWidget {
                 onTap: () {
                   context.read<AuthBloc>().add(Logout());
                 },
-                buttonText: 'Keluar di dalem',
+                buttonText: 'Keluar',
                 buttonStyle: Theme.of(context).textButtonTheme.style!.copyWith(
                     backgroundColor: MaterialStateProperty.all(Colors.red)),
               ),

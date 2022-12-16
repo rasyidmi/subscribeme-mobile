@@ -29,11 +29,13 @@ class _MainScreenState extends State<MainScreen> {
           appBar: _selectedPage == 3 ? null : const PrimaryAppbar(),
           body: PageView(
             controller: _pageViewController,
-            children: const [
-              HomeScreen(),
-              ListCoursesScreen(),
-              MyClassScreen(),
-              ProfileScreen()
+            children: [
+              const HomeScreen(),
+              const ListCoursesScreen(),
+              MyClassScreen(
+                pageController: _pageViewController,
+              ),
+              const ProfileScreen()
             ],
             onPageChanged: (index) {
               setState(() {

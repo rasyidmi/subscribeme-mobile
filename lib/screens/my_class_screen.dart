@@ -5,7 +5,11 @@ import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/widgets/subs_rounded_button.dart';
 
 class MyClassScreen extends StatelessWidget {
-  const MyClassScreen({Key? key}) : super(key: key);
+  final PageController pageController;
+  const MyClassScreen({
+    Key? key,
+    required this.pageController,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +40,9 @@ class MyClassScreen extends StatelessWidget {
             const SizedBox(height: 32.0),
             SubsRoundedButton(
               buttonText: "Pilih Kelas",
-              onTap: () {},
+              onTap: () {
+                pageController.jumpToPage(1);
+              },
             ),
           ],
         ),

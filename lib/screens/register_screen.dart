@@ -201,7 +201,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         'name': nameController.text,
         'password': passwordController.text,
         // Role default adalah user biasa
-        'role': 'admin',
+        'role': 'student',
         'confirmPassword': confirmPasswordController.text,
       };
       log(data.toString());

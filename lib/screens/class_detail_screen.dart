@@ -144,6 +144,7 @@ class ClassDetailScreen extends StatelessWidget {
                                 .add(SubscribeClass(classInstance.id));
                           },
                         ),
+                        const SizedBox(height: 8.0),
                       ],
                     ),
                   );

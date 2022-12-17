@@ -43,7 +43,7 @@ class _AddEventDetailScreenState extends State<AddEventDetailScreen> {
         return EventsBloc(repository);
       },
       child: Scaffold(
-        appBar: const SecondaryAppbar(title: 'Tambah Event'),
+        appBar: const SecondaryAppbar(title: 'Tambah Agenda'),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: CustomScrollView(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subscribeme_mobile/blocs/courses/courses_bloc.dart';
+import 'package:subscribeme_mobile/commons/constants/sizes.dart';
+import 'package:subscribeme_mobile/commons/resources/images.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/models/course.dart';
 import 'package:subscribeme_mobile/repositories/courses_repository.dart';
@@ -88,9 +90,28 @@ class _ListCoursesScreenState extends State<ListCoursesScreen> {
                     return SearchResultContainer(
                         body: Expanded(
                       child: Center(
-                        child: Text(
-                          "Data tidak ditemukan",
-                          style: Theme.of(context).textTheme.headline6,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              SubsImages.salySorry,
+                              height: getScreenSize(context).height / 4,
+                            ),
+                            Text(
+                              "Data tidak ditemukan",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(fontWeight: FontWeight.w600),
+                            ),
+                            Text(
+                              "silahkan cari dengan nama lain",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(fontWeight: FontWeight.w600),
+                            ),
+                          ],
                         ),
                       ),
                     ));

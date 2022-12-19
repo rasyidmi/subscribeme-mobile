@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:subscribeme_mobile/commons/resources/images.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 
 class MaintenanceScreen extends StatelessWidget {
@@ -17,7 +19,7 @@ class MaintenanceScreen extends StatelessWidget {
             Image.asset(SubsImages.salyRocket),
             const SizedBox(height: 16.0),
             Text(
-              'Aplikasi sedang dalam tahap perbaikan',
+              LocaleKeys.maintenance_screen_under_maintenance.tr(),
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme
@@ -25,8 +27,8 @@ class MaintenanceScreen extends StatelessWidget {
                   .copyWith(color: ColorPalettes.primary),
             ),
             const SizedBox(height: 16.0),
-            const Text(
-              'Saat ini aplikasi sedang dilakukan pengembangan dan perbaikan dari sistem yang ada. Silahkan kembali dalam beberapa saat lagi.',
+            Text(
+              LocaleKeys.maintenance_screen_under_maintenance_2.tr(),
               textAlign: TextAlign.center,
             ),
           ],

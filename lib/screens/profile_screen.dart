@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,6 +7,7 @@ import 'package:subscribeme_mobile/blocs/auth/auth_bloc.dart';
 import 'package:subscribeme_mobile/commons/constants/role.dart';
 import 'package:subscribeme_mobile/commons/resources/icons.dart';
 import 'package:subscribeme_mobile/commons/resources/images.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/routes.dart';
 import 'package:subscribeme_mobile/widgets/subs_rounded_button.dart';
@@ -60,7 +62,7 @@ class ProfileScreen extends StatelessWidget {
               ListTile(
                 dense: true,
                 leading: Text(
-                  'Profil Saya',
+                  LocaleKeys.profile_screen_my_profile.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .subtitle1!
@@ -77,7 +79,7 @@ class ProfileScreen extends StatelessWidget {
                 ListTile(
                   dense: true,
                   leading: Text(
-                    'Admin',
+                    LocaleKeys.profile_screen_admin.tr(),
                     style: Theme.of(context)
                         .textTheme
                         .subtitle1!
@@ -97,7 +99,7 @@ class ProfileScreen extends StatelessWidget {
                 onTap: () {
                   context.read<AuthBloc>().add(Logout());
                 },
-                buttonText: 'Keluar',
+                buttonText: LocaleKeys.logout.tr(),
                 buttonStyle: Theme.of(context).textButtonTheme.style!.copyWith(
                     backgroundColor: MaterialStateProperty.all(Colors.red)),
               ),

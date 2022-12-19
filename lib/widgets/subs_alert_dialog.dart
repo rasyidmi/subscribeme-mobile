@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:subscribeme_mobile/commons/constants/sizes.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 
 class SubsAlertDialog extends StatelessWidget {
@@ -45,7 +47,7 @@ class SubsAlertDialog extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24.0, vertical: 16.0),
                     child: Text(
-                      'Kembali',
+                      LocaleKeys.back.tr(),
                       textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme
@@ -66,7 +68,7 @@ class SubsAlertDialog extends StatelessWidget {
                           bottomRight: Radius.circular(16.0)),
                     ),
                     child: Text(
-                      'Hapus',
+                      LocaleKeys.delete.tr(),
                       textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme

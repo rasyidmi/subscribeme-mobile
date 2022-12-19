@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subscribeme_mobile/blocs/courses/courses_bloc.dart';
 import 'package:subscribeme_mobile/commons/constants/sizes.dart';
 import 'package:subscribeme_mobile/commons/resources/images.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/models/course.dart';
 import 'package:subscribeme_mobile/repositories/courses_repository.dart';
@@ -40,7 +42,7 @@ class _ListCoursesScreenState extends State<ListCoursesScreen> {
             ColoredBox(
               color: ColorPalettes.white,
               child: SubsSearchBar(
-                hintText: 'cari mata kuliah ...',
+                hintText: LocaleKeys.list_course_screen_search_course.tr(),
                 onChanged: _onSearchChanged,
               ),
             ),
@@ -98,18 +100,18 @@ class _ListCoursesScreenState extends State<ListCoursesScreen> {
                               height: getScreenSize(context).height / 4,
                             ),
                             Text(
-                              "Data tidak ditemukan",
+                              LocaleKeys.data_not_found.tr(),
+                              textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1!
-                                  .copyWith(fontWeight: FontWeight.w600),
+                                  .subtitle1!
+                                  .copyWith(color: ColorPalettes.primary),
                             ),
+                            const SizedBox(height: 8.0),
                             Text(
-                              "silahkan cari dengan nama lain",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(fontWeight: FontWeight.w600),
+                              LocaleKeys.list_course_screen_find_another_course
+                                  .tr(),
+                              textAlign: TextAlign.center,
                             ),
                           ],
                         ),
@@ -143,7 +145,7 @@ class _ListCoursesScreenState extends State<ListCoursesScreen> {
                     ),
                   );
                 } else if (state is LoadCoursesFailed) {
-                  return const Center(child: Text('Load failed'));
+                  return Center(child: Text(LocaleKeys.load_failed.tr()));
                 } else {
                   return const Expanded(
                     child: ListCourseShimmer(),

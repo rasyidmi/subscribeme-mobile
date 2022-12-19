@@ -1,7 +1,9 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:subscribeme_mobile/commons/constants/sizes.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 
 class AddCourseDropdown extends StatelessWidget {
@@ -23,7 +25,7 @@ class AddCourseDropdown extends StatelessWidget {
         iconOnClick: const FaIcon(FontAwesomeIcons.angleUp),
         isExpanded: true,
         hint: Text(
-          '- Pilih Jurusan -',
+          '- ${LocaleKeys.choose_major.tr()} -',
           style: Theme.of(context).textTheme.bodyText2,
         ),
         items: dropdownItem

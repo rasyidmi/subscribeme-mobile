@@ -1,0 +1,107 @@
+{
+  "name": "Nama",
+  "see_all": "Lihat Semua",
+  "back": "Kembali",
+  "delete": "Hapus",
+  "expired_session": "Sesi habis, harap login kembali.",
+  "search_result": "Hasil pencarian...",
+  "choose_major": "Pilih Jurusan",
+  "computer_science": "Ilmu Komputer",
+  "information_system": "Sistem Informasi",
+  "failed_try_again": "Terjadi kesalahan, silahkan coba lagi!",
+  "major": "Jurusan",
+  "home": "Beranda",
+  "course": "Mata Kuliah",
+  "my_class": "Kelas Saya",
+  "profile": "Profil",
+  "logout": "Keluar",
+  "data_not_found": "Data tidak ditemukan",
+  "load_failed": "Load failed",
+  "task_list": "Daftar Tugas",
+  "task": "Tugas",
+  "deadline": "Deadline",
+  "kelas": "Kelas",
+  "cancel": "Batalkan",
+  "cancelled": "Batal",
+  "choose": "Pilih",
+  "save_changes": "Simpan Perubahan",
+  "or": "Atau",
+  "hour": "Jam",
+  "minute": "Menit",
+  "auth_screen": {
+    "register": "Daftar",
+    "email": "Email",
+    "password": "Kata Sandi",
+    "already_have_an_account": "Sudah punya akun?",
+    "forgot_password": "Lupa Kata Sandi?",
+    "dont_have_an_account": "Belum punya akun?",
+    "success_create_account": "Akun berhasil dibuat",
+    "login": "Masuk"
+  },
+  "home_screen": {
+    "today_deadline": "Deadline Hari Ini",
+    "hore_no_deadline": "Horee! Tidak ada deadline hari ini!",
+    "seven_day_deadline": "Deadline 7 Hari ke Depan!",
+    "hore_no_seven_day_deadline": "Horee! Tidak ada deadline 7 hari ke depan!"
+  },
+  "list_course_screen": {
+    "search_course": "Cari mata kuliah...",
+    "find_another_course": "Silahkan coba cari mata kuliah lain!"
+  },
+  "add_course_screen": {
+    "add_course": "Tambah Mata Kuliah",
+    "course_name": "Nama Mata Kuliah",
+    "term": "Semester",
+    "not_zero_term": "Semester tidak boleh 0",
+    "not_exceed_eight_term": "Semester tidak boleh lebih dari 8",
+    "class_total": "Jumlah Kelas",
+    "not_zero_class": "Jumlah kelas tidak boleh 0",
+    "success_create_course": "Mata kuliah berhasil terbuat",
+    "save_course": "Simpan Mata Kuliah"
+  },
+  "profile_screen": {
+    "my_profile": "Profil Saya",
+    "admin": "Admin"
+  },
+  "my_class_screen": {
+    "choose_class": "Pilih Kelas",
+    "choose_class_now": "Pilih kelasmu sekarang dan dapatkan notifikasi tugasnya!",
+    "dont_have_class": "Kamu belum memiliki kelas saat ini"
+  },
+  "maintenance_screen": {
+    "under_maintenance": "Aplikasi sedang dalam tahap perbaikan",
+    "under_maintenance_2": "Saat ini aplikasi sedang dilakukan pengembangan dan perbaikan dari sistem yang ada. Silahkan kembali dalam beberapa saat lagi."
+  },
+  "admin_view_course_detail_screen": {
+    "success_delete": "Tugas berhasil dihapus!",
+    "failed_delete": "Tugas gagal dihapus, tolong coba lagi!",
+    "are_you_sure": "Apakah kamu yakin ingin menghapus tugas",
+    "are_you_sure_2": "dari Mata Kuliah {}?"
+  },
+  "class_detail_screen": {
+    "success_subscribe": "Berhasil subscribe kelas.",
+    "subscribe_class": "Ikuti Kelas Ini",
+    "subscribe_description": "*) Jika mengikuti kelas ini, kamu dapat mengatur dan mendapatkan notifikasi ketika terdapat tugas-tugas yang ada di kelas ini.",
+    "mark_done": "Tandai Sudah Selesai",
+    "remind_me": "Ingatkan Aku Sebelum?"
+  },
+  "add_event_detail_screen": {
+    "add_task": "Tambah Tugas",
+    "task_name": "Nama Tugas",
+    "choose_date": "Pilih Tanggal",
+    "choose_time": "Pilih Waktu",
+    "choose_deadline_date": "Pilih Tanggal Pengumpulan",
+    "choose_deadline_hour": "Pilih Jam Pengumpulan",
+    "success_create_task": "Tugas berhasil terbuat",
+    "save_task": "Simpan Tugas",
+    "add_class": "Tambah Kelas",
+    "deadline_date": "Tanggal Pengumpulan",
+    "deadline_hour": "Jam Pengumpulan"
+  },
+  "admin_view_courses_screen": {
+    "title": "Daftar Mata Kuliah",
+    "success_delete": "Mata Kuliah berhasil dihapus!",
+    "failed_delete": "Mata Kuliah gagal dihapus, tolong coba lagi!",
+    "are_you_sure": "Apakah kamu yakin ingin menghapus Mata Kuliah"
+  }
+}

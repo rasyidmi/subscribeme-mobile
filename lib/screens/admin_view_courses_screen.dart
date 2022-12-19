@@ -1,8 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:subscribeme_mobile/blocs/courses/courses_bloc.dart';
+import 'package:subscribeme_mobile/commons/constants/sizes.dart';
 import 'package:subscribeme_mobile/commons/resources/icons.dart';
+import 'package:subscribeme_mobile/commons/resources/images.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/models/course.dart';
 import 'package:subscribeme_mobile/repositories/courses_repository.dart';
@@ -33,7 +37,8 @@ class _AdminViewCoursesState extends State<AdminViewCourses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const SecondaryAppbar(title: 'Daftar Mata Kuliah'),
+      appBar: SecondaryAppbar(
+          title: LocaleKeys.admin_view_courses_screen_title.tr()),
       body: BlocProvider<CoursesBloc>(
         create: (_) {
           final repository = RepositoryProvider.of<CoursesRepository>(context);
@@ -47,7 +52,7 @@ class _AdminViewCoursesState extends State<AdminViewCourses> {
               ColoredBox(
                 color: ColorPalettes.white,
                 child: SubsSearchBar(
-                  hintText: 'cari mata kuliah ...',
+                  hintText: LocaleKeys.list_course_screen_search_course.tr(),
                   onChanged: _onSearchChanged,
                 ),
               ),
@@ -58,11 +63,15 @@ class _AdminViewCoursesState extends State<AdminViewCourses> {
                         Routes.adminViewCourses,
                         (route) => route.settings.name == Routes.home);
                     SubsFlushbar.showSuccess(
-                        context, 'Mata Kuliah berhasil dihapus!');
+                        context,
+                        LocaleKeys.admin_view_courses_screen_success_delete
+                            .tr());
                   } else if (state is DeleteCourseFailed) {
                     Navigator.of(context).pop();
-                    SubsFlushbar.showFailed(context,
-                        'Mata Kuliah gagal dihapus, tolong coba lagi!');
+                    SubsFlushbar.showFailed(
+                        context,
+                        LocaleKeys.admin_view_courses_screen_failed_delete
+                            .tr());
                   }
                 }),
                 buildWhen: (previous, current) {
@@ -103,9 +112,29 @@ class _AdminViewCoursesState extends State<AdminViewCourses> {
                       return SearchResultContainer(
                           body: Expanded(
                         child: Center(
-                          child: Text(
-                            "Data tidak ditemukan",
-                            style: Theme.of(context).textTheme.headline6,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                SubsImages.salySorry,
+                                height: getScreenSize(context).height / 4,
+                              ),
+                              Text(
+                                LocaleKeys.data_not_found.tr(),
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle1!
+                                    .copyWith(color: ColorPalettes.primary),
+                              ),
+                              const SizedBox(height: 8.0),
+                              Text(
+                                LocaleKeys
+                                    .list_course_screen_find_another_course
+                                    .tr(),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
                           ),
                         ),
                       ));
@@ -123,7 +152,7 @@ class _AdminViewCoursesState extends State<AdminViewCourses> {
                       ),
                     );
                   } else if (state is LoadCoursesFailed) {
-                    return const Center(child: Text('Load failed'));
+                    return Center(child: Text(LocaleKeys.load_failed.tr()));
                   } else {
                     return const Expanded(
                       child: ListCourseShimmer(),
@@ -136,7 +165,7 @@ class _AdminViewCoursesState extends State<AdminViewCourses> {
         ),
       ),
       floatingActionButton: SubsFloatingActionButton(
-        label: '+Mata Kuliah',
+        label: '+${LocaleKeys.course.tr()}',
         onTap: () => Navigator.of(context).pushNamed(Routes.addCourse),
       ),
     );
@@ -146,7 +175,7 @@ class _AdminViewCoursesState extends State<AdminViewCourses> {
     return SubsListTile(
       title: _searchedData![index].title,
       secondLine: _searchedData![index].major,
-      thirdLine: 'Semester ${_searchedData![index].term}',
+      thirdLine: '${LocaleKeys.add_course_screen_term.tr()} ${_searchedData![index].term}',
       onTap: () => _navigateToCourseDetail(index),
       isActive: true,
       actionButtons: [
@@ -168,7 +197,7 @@ class _AdminViewCoursesState extends State<AdminViewCourses> {
               },
               textSpan: [
                 TextSpan(
-                  text: 'Apakah Kamu Yakin Ingin Menghapus Mata Kuliah ',
+                  text: '${LocaleKeys.admin_view_courses_screen_are_you_sure.tr()} ',
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
                 TextSpan(

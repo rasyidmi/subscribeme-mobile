@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +18,7 @@ void main() async {
   await dotenv.load(fileName: ".env");
 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await Firebase.initializeApp();
@@ -26,7 +28,14 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarColor: ColorPalettes.white));
 
-  runApp(const MyApp());
+  runApp(
+    EasyLocalization(
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en'),
+      supportedLocales: const [Locale('en'), Locale('in')],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -45,6 +54,9 @@ class MyApp extends StatelessWidget {
           child: MaterialApp(
             title: 'SubscribeMe',
             theme: appTheme,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
             onGenerateRoute: (settings) {
               return MaterialPageRoute(
                 settings: settings,

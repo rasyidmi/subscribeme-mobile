@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:subscribeme_mobile/blocs/auth/auth_bloc.dart';
 import 'package:subscribeme_mobile/commons/constants/response_status.dart';
 import 'package:subscribeme_mobile/commons/resources/icons.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/routes.dart';
 import 'package:subscribeme_mobile/widgets/circular_loading.dart';
@@ -69,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           SvgPicture.asset(SubsIcons.appBarLogo),
                           const SizedBox(height: 24.0),
                           SubsTextField(
-                            label: 'Email',
+                            label: LocaleKeys.auth_screen_email.tr(),
                             keyboardType: TextInputType.emailAddress,
                             controller: emailController,
                             onChanged: (_) {
@@ -79,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           SubsTextField(
-                            label: 'Kata Sandi',
+                            label: LocaleKeys.auth_screen_password.tr(),
                             obscureText: !isPasswordVisible,
                             controller: passwordController,
                             onChanged: (_) {
@@ -105,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(
                             width: double.infinity,
                             child: Text(
-                              'Lupa kata sandi?',
+                              LocaleKeys.auth_screen_forgot_password.tr(),
                               textAlign: TextAlign.end,
                               style: Theme.of(context)
                                   .textTheme
@@ -115,17 +117,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           const SizedBox(height: 16.0),
                           SubsRoundedButton(
-                            buttonText: 'Masuk',
+                            buttonText: LocaleKeys.auth_screen_login.tr(),
                             onTap: _isFormFilled ? _login : null,
                           ),
-                          const SizedBox(height: 8.0),
+                          const SizedBox(height: 24.0),
                           RichText(
                             text: TextSpan(
-                              text: 'Belum punya akun? ',
+                              text: '${LocaleKeys.auth_screen_dont_have_an_account.tr()} ',
                               style: Theme.of(context).textTheme.bodyText2,
                               children: [
                                 TextSpan(
-                                  text: ' Daftar',
+                                  text: LocaleKeys.auth_screen_register.tr(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText2!

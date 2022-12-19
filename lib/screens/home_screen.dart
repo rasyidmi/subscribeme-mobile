@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subscribeme_mobile/blocs/events/events_bloc.dart';
@@ -5,6 +6,7 @@ import 'package:subscribeme_mobile/commons/constants/sizes.dart';
 import 'package:subscribeme_mobile/commons/extensions/date_time_extension.dart';
 import 'package:subscribeme_mobile/commons/extensions/string_extension.dart';
 import 'package:subscribeme_mobile/commons/resources/images.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/repositories/events_repository.dart';
 import 'package:subscribeme_mobile/widgets/shimmer/list_shimmer.dart';
@@ -59,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Deadline Hari Ini',
+                                    LocaleKeys.home_screen_today_deadline.tr(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .subtitle1!
@@ -82,7 +84,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           if (todayDeadline.isEmpty)
                             Text(
-                              "Horee! Tidak ada deadline hari ini!",
+                              LocaleKeys.home_screen_hore_no_deadline.tr(),
                               style: Theme.of(context).textTheme.bodyText1,
                             ),
                           if (todayDeadline.isNotEmpty)
@@ -110,7 +112,7 @@ class HomeScreen extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                'Deadline 7 Hari ke Depan!',
+                                LocaleKeys.home_screen_seven_day_deadline.tr(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1!
@@ -118,7 +120,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                               const Spacer(),
                               Text(
-                                "Lihat Semua",
+                                LocaleKeys.see_all.tr(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1!
@@ -134,7 +136,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           if (sevenDayDeadline.isEmpty)
                             Text(
-                              "Horee! Tidak ada deadline 7 hari ke depan!",
+                              LocaleKeys.home_screen_hore_no_seven_day_deadline.tr(),
                               style: Theme.of(context).textTheme.bodyText1,
                             ),
                           if (sevenDayDeadline.isNotEmpty)

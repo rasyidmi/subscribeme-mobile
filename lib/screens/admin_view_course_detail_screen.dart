@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +9,7 @@ import 'package:subscribeme_mobile/commons/arguments/course_detail.dart';
 import 'package:subscribeme_mobile/commons/constants/sizes.dart';
 import 'package:subscribeme_mobile/commons/extensions/date_time_extension.dart';
 import 'package:subscribeme_mobile/commons/resources/icons.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/models/course.dart';
 import 'package:subscribeme_mobile/repositories/classes_repository.dart';
@@ -41,12 +43,12 @@ class _AdminViewCourseDetailState extends State<AdminViewCourseDetail> {
 
     return Scaffold(
       appBar: SecondaryAppbar(
-        title: "Daftar Agenda",
+        title: LocaleKeys.task_list.tr(),
         subTitle: course.title,
         padding: const EdgeInsets.only(top: 8.0),
       ),
       floatingActionButton: SubsFloatingActionButton(
-        label: '+Agenda Tugas',
+        label: '+${LocaleKeys.task.tr()}',
         onTap: () => Navigator.of(context)
             .pushNamed(Routes.addEventDetail, arguments: courseDetail),
       ),
@@ -126,11 +128,17 @@ class _AdminViewCourseDetailState extends State<AdminViewCourseDetail> {
                               arguments: course,
                             );
                             SubsFlushbar.showSuccess(
-                                context, 'Event berhasil dihapus!');
+                                context,
+                                LocaleKeys
+                                    .admin_view_course_detail_screen_success_delete
+                                    .tr());
                           } else if (eventState is DeleteEventFailed) {
                             Navigator.of(context).pop();
-                            SubsFlushbar.showFailed(context,
-                                'Event gagal dihapus, tolong coba lagi!');
+                            SubsFlushbar.showFailed(
+                                context,
+                                LocaleKeys
+                                    .admin_view_course_detail_screen_failed_delete
+                                    .tr());
                           }
                         },
                         builder: (context, eventState) {
@@ -214,7 +222,8 @@ class _AdminViewCourseDetailState extends State<AdminViewCourseDetail> {
                   },
                   textSpan: [
                     TextSpan(
-                      text: 'Apakah Kamu Yakin Ingin Menghapus Event ',
+                      text:
+                          '${LocaleKeys.admin_view_course_detail_screen_are_you_sure.tr()} ',
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
                     TextSpan(
@@ -225,7 +234,9 @@ class _AdminViewCourseDetailState extends State<AdminViewCourseDetail> {
                           ),
                     ),
                     TextSpan(
-                      text: 'dari Mata Kuliah ${course.title}?',
+                      text: LocaleKeys
+                          .admin_view_course_detail_screen_are_you_sure_2
+                          .tr(args: [course.title]),
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
                   ],

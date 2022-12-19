@@ -28,6 +28,7 @@ dependencies:
   shimmer: ^2.0.0
   syncfusion_flutter_datepicker: ^20.1.56
   flutter_secure_storage: ^6.0.0 # For storing jwt in local storage
+  easy_localization: ^3.0.1
   
 
 
@@ -55,5 +56,6 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/translations/
     - .env
 

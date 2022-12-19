@@ -25,11 +25,7 @@ class SubsRoundedButton extends StatelessWidget {
     return TextButton(
       onPressed: !isLoading ? onTap : null,
       style: buttonStyle ??
-          Theme.of(context).textButtonTheme.style!.copyWith(
-                minimumSize: MaterialStateProperty.all(
-                  Size(minWidth, 44.0),
-                ),
-              ),
+          Theme.of(context).textButtonTheme.style!,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

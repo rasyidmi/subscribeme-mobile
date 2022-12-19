@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 
 class SearchResultContainer extends StatelessWidget {
@@ -22,7 +24,7 @@ class SearchResultContainer extends StatelessWidget {
             color: ColorPalettes.white,
             width: double.infinity,
             child: Text(
-              'Hasil pencarian...',
+              LocaleKeys.search_result.tr(),
               style: Theme.of(context)
                   .textTheme
                   .bodyText2!

@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import "package:flutter/material.dart";
 import 'package:subscribeme_mobile/commons/constants/sizes.dart';
 import 'package:subscribeme_mobile/commons/resources/images.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/widgets/subs_rounded_button.dart';
 
@@ -25,7 +27,7 @@ class MyClassScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16.0),
             Text(
-              'Kamu belum memiliki kelas saat ini',
+              LocaleKeys.my_class_screen_dont_have_class.tr(),
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme
@@ -33,13 +35,13 @@ class MyClassScreen extends StatelessWidget {
                   .copyWith(color: ColorPalettes.primary),
             ),
             const SizedBox(height: 16.0),
-            const Text(
-              'Pilih kelasmu sekarang dan dapatkan notifikasi tugasnya!',
+            Text(
+              LocaleKeys.my_class_screen_choose_class_now.tr(),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 32.0),
             SubsRoundedButton(
-              buttonText: "Pilih Kelas",
+              buttonText: LocaleKeys.my_class_screen_choose_class.tr(),
               onTap: () {
                 pageController.jumpToPage(1);
               },

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +7,7 @@ import 'package:subscribeme_mobile/commons/arguments/course_detail.dart';
 import 'package:subscribeme_mobile/commons/constants/sizes.dart';
 import 'package:subscribeme_mobile/commons/extensions/date_time_extension.dart';
 import 'package:subscribeme_mobile/commons/extensions/string_extension.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/models/course.dart';
 import 'package:subscribeme_mobile/repositories/events_repository.dart';
@@ -43,7 +45,8 @@ class _AddEventDetailScreenState extends State<AddEventDetailScreen> {
         return EventsBloc(repository);
       },
       child: Scaffold(
-        appBar: const SecondaryAppbar(title: 'Tambah Agenda'),
+        appBar: SecondaryAppbar(
+            title: LocaleKeys.add_event_detail_screen_add_task.tr()),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: CustomScrollView(
@@ -54,7 +57,7 @@ class _AddEventDetailScreenState extends State<AddEventDetailScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SubsTextField(
-                      label: 'Nama Tugas',
+                      label: LocaleKeys.add_event_detail_screen_task_name.tr(),
                       hintText: 'Sprint Retrospective',
                       autocorrect: false,
                       keyboardType: TextInputType.name,
@@ -67,16 +70,16 @@ class _AddEventDetailScreenState extends State<AddEventDetailScreen> {
                       },
                     ),
                     SubsTextField(
-                      label: 'Mata Kuliah',
+                      label: LocaleKeys.course.tr(),
                       enabled: false,
                       hintText: courseDetail.courseTitle,
                       // controller: courseNameController,
                     ),
-                    ..._buildFormSpacing('Tambah Kelas'),
+                    ..._buildFormSpacing(LocaleKeys.add_event_detail_screen_add_class.tr()),
                     _buildClassesButton(context, courseDetail),
-                    ..._buildFormSpacing('Tanggal Pengumpulan'),
+                    ..._buildFormSpacing(LocaleKeys.add_event_detail_screen_deadline_date.tr()),
                     _buildDatePicker(context),
-                    ..._buildFormSpacing('Jam Pengumpulan'),
+                    ..._buildFormSpacing(LocaleKeys.add_event_detail_screen_deadline_hour.tr()),
                     _buildTimePicker(context),
                     const Spacer(),
                     _buildButton(courseDetail),
@@ -140,9 +143,10 @@ class _AddEventDetailScreenState extends State<AddEventDetailScreen> {
       onTap: () {
         showDatePicker(
           context: context,
-          cancelText: "BATAL",
-          confirmText: "PILIH",
-          helpText: "PILIH TANGGAL",
+          cancelText: LocaleKeys.cancelled.tr().toUpperCase(),
+          confirmText: LocaleKeys.choose.tr().toUpperCase(),
+          helpText:
+              LocaleKeys.add_event_detail_screen_choose_date.tr().toUpperCase(),
           // Set the minimum deadline date is D+2 from now
           initialDate: DateTime.now().add(
             const Duration(days: 1),
@@ -169,7 +173,7 @@ class _AddEventDetailScreenState extends State<AddEventDetailScreen> {
       icon: Icons.calendar_today,
       text: Text(
         selectedDay == null
-            ? 'Pilih Tanggal Pengumpulan'
+            ? LocaleKeys.add_event_detail_screen_choose_deadline_date.tr()
             : selectedDay!.toDayMonthYearFormat,
         style: Theme.of(context).textTheme.bodyText2!.copyWith(
             color: selectedDay == null
@@ -210,11 +214,11 @@ class _AddEventDetailScreenState extends State<AddEventDetailScreen> {
             hour: 0,
             minute: 0,
           ),
-          cancelText: "BATAL",
-          confirmText: "PILIH",
-          helpText: "PILIH WAKTU",
-          hourLabelText: "JAM",
-          minuteLabelText: "MENIT",
+          cancelText: LocaleKeys.cancelled.tr().toUpperCase(),
+          confirmText: LocaleKeys.choose.tr().toUpperCase(),
+          helpText: LocaleKeys.add_event_detail_screen_choose_time.tr().toUpperCase(),
+          hourLabelText: LocaleKeys.hour.tr().toUpperCase(),
+          minuteLabelText: LocaleKeys.minute.tr().toUpperCase(),
           builder: (context, child) {
             return _buildTimeFormTheme(context, child);
           },
@@ -231,8 +235,8 @@ class _AddEventDetailScreenState extends State<AddEventDetailScreen> {
       icon: Icons.alarm,
       text: Text(
         selectedTime == null
-            ? 'Pilih Jam Pengumpulan (WIB)'
-            : selectedTime!.to24HourFormat + ' WIB',
+            ? LocaleKeys.add_event_detail_screen_choose_deadline_hour.tr()
+            : selectedTime!.to24HourFormat,
         style: Theme.of(context).textTheme.bodyText2!.copyWith(
             color: selectedTime == null
                 ? Colors.black.withOpacity(0.3)
@@ -262,7 +266,7 @@ class _AddEventDetailScreenState extends State<AddEventDetailScreen> {
             );
             SubsFlushbar.showSuccess(
               context,
-              'Event berhasil terbuat',
+              LocaleKeys.add_event_detail_screen_success_create_task.tr(),
             );
           } else if (state is CreateEventFailed) {
             setState(() {
@@ -270,13 +274,13 @@ class _AddEventDetailScreenState extends State<AddEventDetailScreen> {
             });
             SubsFlushbar.showFailed(
               context,
-              'Terjadi kesalahan, silahkan coba lagi!',
+              LocaleKeys.failed_try_again.tr(),
             );
           }
         },
         builder: (context, state) {
           return SubsRoundedButton(
-            buttonText: 'Simpan Agenda',
+            buttonText: LocaleKeys.add_event_detail_screen_save_task.tr(),
             isLoading: isLoading,
             onTap: _isFormFilled
                 ? () {
@@ -305,12 +309,11 @@ class _AddEventDetailScreenState extends State<AddEventDetailScreen> {
 
   String get _converDeadlineDate {
     return selectedDay!
-            .add(Duration(
-              hours: selectedTime!.hour,
-              minutes: selectedTime!.minute,
-            ))
-            .toIso8601String() +
-        '+07:00';
+        .add(Duration(
+          hours: selectedTime!.hour,
+          minutes: selectedTime!.minute,
+        )).toUtc()
+        .toIso8601String();
   }
 
   bool get _isFormFilled {

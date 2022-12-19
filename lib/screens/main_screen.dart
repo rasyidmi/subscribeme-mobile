@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/screens/screens.dart';
 import 'package:subscribeme_mobile/widgets/primary_appbar.dart';
@@ -73,15 +75,17 @@ class _MainScreenState extends State<MainScreen> {
               unselectedItemColor: ColorPalettes.dark70,
               unselectedLabelStyle:
                   const TextStyle(color: ColorPalettes.dark70),
-              items: const [
+              items: [
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.home), label: "Beranda"),
+                    icon: const Icon(Icons.home), label: LocaleKeys.home.tr()),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.dns), label: "Mata Kuliah"),
+                    icon: const Icon(Icons.dns), label: LocaleKeys.course.tr()),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.book), label: "Kelas Saya"),
+                    icon: const Icon(Icons.book),
+                    label: LocaleKeys.my_class.tr()),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.account_circle), label: "Profil"),
+                    icon: const Icon(Icons.account_circle),
+                    label: LocaleKeys.profile.tr()),
               ],
             ),
           ),

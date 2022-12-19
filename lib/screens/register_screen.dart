@@ -1,10 +1,12 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subscribeme_mobile/blocs/auth/auth_bloc.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/routes.dart';
 import 'package:subscribeme_mobile/widgets/secondary_appbar.dart';
@@ -29,7 +31,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Column(
                   children: [
                     SubsTextField(
-                      label: 'Email',
+                      label: LocaleKeys.auth_screen_email.tr(),
                       hintText: 'bob.ganteng@gmail.com',
                       keyboardType: TextInputType.emailAddress,
                       controller: emailController,
@@ -60,7 +61,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                     ),
                     SubsTextField(
-                      label: 'Nama',
+                      label: LocaleKeys.name.tr(),
                       hintText: 'Bob Andriqa',
                       controller: nameController,
                       inputFormatters: [LengthLimitingTextInputFormatter(35)],
@@ -71,7 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                     ),
                     SubsTextField(
-                      label: 'Kata Sandi',
+                      label: LocaleKeys.auth_screen_password.tr(),
                       obscureText: !isPasswordVisible,
                       controller: passwordController,
                       validatorFunction: (value) {
@@ -99,38 +100,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                     ),
-                    SubsTextField(
-                      label: 'Konfirmasi Kata Sandi',
-                      obscureText: !isConfirmPasswordVisible,
-                      controller: confirmPasswordController,
-                      validatorFunction: (value) {
-                        if (value != passwordController.text) {
-                          return '*Kata sandi yang telah dimasukkan berbeda';
-                        } else if (value!.length < 8) {
-                          return '*Panjang kata sandi harus lebih dari 8';
-                        }
-                        return null;
-                      },
-                      onChanged: (_) {
-                        // To update the state of the save button when
-                        // user change input
-                        setState(() {});
-                      },
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            isConfirmPasswordVisible =
-                                !isConfirmPasswordVisible;
-                          });
-                        },
-                        child: Icon(
-                          Icons.remove_red_eye,
-                          color: isConfirmPasswordVisible
-                              ? ColorPalettes.primary
-                              : ColorPalettes.disabledButton,
-                        ),
-                      ),
-                    ),
                     const SizedBox(height: 24.0),
                     // const Spacer(),
                     SubsConsumer<AuthBloc, AuthState>(
@@ -140,7 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               Routes.login, (route) => false);
                           SubsFlushbar.showSuccess(
                             context,
-                            'Akun berhasil dibuat',
+                            LocaleKeys.auth_screen_success_create_account.tr(),
                           );
                         } else if (state is RegisterFailed) {
                           setState(() {
@@ -155,20 +124,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       builder: (context, state) {
                         return SubsRoundedButton(
                           isLoading: _isLoading,
-                          buttonText: 'Daftar',
+                          buttonText: LocaleKeys.auth_screen_register.tr(),
                           onTap: _isFormFilled ? _register : null,
                         );
                       },
                     ),
-                    const SizedBox(height: 8.0),
+                    const SizedBox(height: 24.0),
                     SafeArea(
                       child: RichText(
                         text: TextSpan(
-                          text: 'Sudah punya akun? ',
+                          text: '${LocaleKeys.auth_screen_already_have_an_account.tr()} ',
                           style: Theme.of(context).textTheme.bodyText2,
                           children: [
                             TextSpan(
-                              text: ' Masuk',
+                              text: LocaleKeys.auth_screen_login.tr(),
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2!
@@ -202,7 +171,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         'password': passwordController.text,
         // Role default adalah user biasa
         'role': 'student',
-        'confirmPassword': confirmPasswordController.text,
       };
       log(data.toString());
       BlocProvider.of<AuthBloc>(context).add(Register(data));
@@ -212,7 +180,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool get _isFormFilled {
     return emailController.text.isNotEmpty &&
         nameController.text.isNotEmpty &&
-        passwordController.text.isNotEmpty &&
-        confirmPasswordController.text.isNotEmpty;
+        passwordController.text.isNotEmpty;
   }
 }

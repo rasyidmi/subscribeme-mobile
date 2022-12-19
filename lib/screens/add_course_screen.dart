@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subscribeme_mobile/blocs/courses/courses_bloc.dart';
 import 'package:subscribeme_mobile/commons/extensions/int_extension.dart';
 import 'package:subscribeme_mobile/commons/extensions/string_extension.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/repositories/courses_repository.dart';
 import 'package:subscribeme_mobile/routes.dart';
 import 'package:subscribeme_mobile/widgets/admin_menu/course/course_dropdown.dart';
@@ -30,8 +32,8 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
   bool isLoading = false;
 
   List<String> items = [
-    'Ilmu Komputer',
-    'Sistem Informasi',
+    LocaleKeys.computer_science.tr(),
+    LocaleKeys.information_system.tr(),
   ];
 
   @override
@@ -50,7 +52,8 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
         return CoursesBloc(repository);
       },
       child: Scaffold(
-        appBar: const SecondaryAppbar(title: 'Tambah Mata Kuliah'),
+        appBar: SecondaryAppbar(
+            title: LocaleKeys.add_course_screen_add_course.tr()),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: CustomScrollView(
@@ -73,7 +76,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SubsTextField(
-            label: 'Nama Mata Kuliah',
+            label: LocaleKeys.add_course_screen_course_name.tr(),
             hintText: 'Aljabar Linear',
             autocorrect: false,
             keyboardType: TextInputType.name,
@@ -86,7 +89,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
             },
           ),
           SubsTextField(
-            label: 'Semester',
+            label: LocaleKeys.add_course_screen_term.tr(),
             hintText: '4',
             keyboardType: TextInputType.number,
             inputFormatters: [LengthLimitingTextInputFormatter(1)],
@@ -98,15 +101,15 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
             },
             validatorFunction: (value) {
               if (value == '0') {
-                return 'Semester tidak boleh 0';
+                return LocaleKeys.add_course_screen_not_zero_term.tr();
               } else if (int.parse(value!) > 8) {
-                return 'Semester tidak boleh lebih dari 8';
+                return LocaleKeys.add_course_screen_not_exceed_eight_term.tr();
               }
               return null;
             },
           ),
           const SizedBox(height: 24.0),
-          const Text('Jurusan'),
+          Text(LocaleKeys.major.tr()),
           const SizedBox(height: 8.0),
           AddCourseDropdown(
             value: dropDownValue,
@@ -118,7 +121,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
             },
           ),
           SubsTextField(
-              label: 'Jumlah Kelas',
+              label: LocaleKeys.add_course_screen_class_total.tr(),
               hintText: '4',
               keyboardType: TextInputType.number,
               inputFormatters: [LengthLimitingTextInputFormatter(1)],
@@ -130,7 +133,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
               },
               validatorFunction: (value) {
                 if (value == '0') {
-                  return 'Jumlah kelas tidak boleh 0';
+                  return LocaleKeys.add_course_screen_not_zero_class.tr();
                 }
                 return null;
               }),
@@ -148,7 +151,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                       (route) => route.settings.name == Routes.home);
                   SubsFlushbar.showSuccess(
                     context,
-                    'Mata kuliah berhasil terbuat',
+                    LocaleKeys.add_course_screen_success_create_course.tr(),
                   );
                 } else if (state is CreateCourseFailed) {
                   setState(() {
@@ -156,13 +159,13 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                   });
                   SubsFlushbar.showFailed(
                     context,
-                    'Terjadi kesalahan, silahkan coba lagi!',
+                    LocaleKeys.failed_try_again.tr(),
                   );
                 }
               },
               builder: (context, state) => SubsRoundedButton(
                 isLoading: isLoading,
-                buttonText: 'Simpan Mata Kuliah',
+                buttonText: LocaleKeys.add_course_screen_save_course.tr(),
                 onTap: _isFormsFilled ? () => _addCourse(context) : null,
               ),
             ),

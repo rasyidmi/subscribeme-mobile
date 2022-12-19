@@ -1,0 +1,107 @@
+{
+  "name": "Name",
+  "see_all": "See All",
+  "back": "Back",
+  "delete": "Delete",
+  "expired_session": "Expired session, please login again.",
+  "search_result": "Search result...",
+  "choose_major": "Choose Major",
+  "computer_science": "Computer Science",
+  "information_system": "Information System",
+  "failed_try_again": "Failed, please try again!",
+  "major": "Major",
+  "home": "Home",
+  "course": "Course",
+  "my_class": "My Class",
+  "profile": "Profile",
+  "logout": "Logout",
+  "data_not_found": "Data not found",
+  "load_failed": "Load failed",
+  "task_list": "Task List",
+  "task": "Task",
+  "deadline": "Deadline",
+  "kelas": "Class",
+  "cancel": "Cancel",
+  "cancelled": "Cancel",
+  "choose": "Choose",
+  "save_changes": "Save Changes",
+  "or": "Or",
+  "hour": "Hour",
+  "minute": "Minute",
+  "auth_screen": {
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "already_have_an_account": "Already have an account?",
+    "forgot_password": "Forgot Password?",
+    "dont_have_an_account": "Don't have an account?",
+    "success_create_account": "Account created",
+    "login": "Login"
+  },
+  "home_screen": {
+    "today_deadline": "Today Deadline",
+    "hore_no_deadline": "Hooray! No deadline for today!",
+    "seven_day_deadline": "Deadline 7 Days Ahead!",
+    "hore_no_seven_day_deadline": "Hooray! No deadline 7 days ahead!"
+  },
+  "list_course_screen": {
+    "search_course": "Find courses...",
+    "find_another_course": "Please find another course!"
+  },
+  "add_course_screen": {
+    "add_course": "Add Course",
+    "course_name": "Course Name",
+    "term": "Term",
+    "not_zero_term": "Term can't be 0",
+    "not_exceed_eight_term": "Term can't exceed 8",
+    "class_total": "Number of Classes",
+    "not_zero_class": "Class total can't be 0",
+    "success_create_course": "Course created successfully",
+    "save_course": "Save Course"
+  },
+  "profile_screen": {
+    "my_profile": "My Profile",
+    "admin": "Admin"
+  },
+  "my_class_screen": {
+    "choose_class": "Choose Class",
+    "choose_class_now": "Choose your class now and get the task notifications!",
+    "dont_have_class": "You don't have any class for now"
+  },
+  "maintenance_screen": {
+    "under_maintenance": "Application is under maintenance",
+    "under_maintenance_2": "Currently the application is being developed and improved from the existing system. Please come back in a few moments."
+  },
+  "admin_view_course_detail_screen": {
+    "success_delete": "Task deleted!",
+    "failed_delete": "Task failed to delete, please try again!",
+    "are_you_sure": "Are you sure you want to delete the task",
+    "are_you_sure_2": "from {} Course?"
+  },
+  "class_detail_screen": {
+    "success_subscribe": "Successfully subscribed the class.",
+    "subscribe_class": "Subscribe This Class",
+    "subscribe_description": "*) If you subscribe this class, you can manage and get notifications when there are assignments in this class.",
+    "mark_done": "Mark as Done",
+    "remind_me": "Remind Me Before?"
+  },
+  "add_event_detail_screen": {
+    "add_task": "Add Task",
+    "task_name": "Task Name",
+    "choose_date": "Choose Date",
+    "choose_time": "Choose Time",
+    "choose_deadline_date": "Choose Deadline Date",
+    "choose_deadline_hour": "Choose Deadline Hour",
+    "success_create_task": "Task created",
+    "save_task": "Save Task",
+    "add_class": "Add Class",
+    "deadline_date": "Deadline Date",
+    "deadline_hour": "Deadline Hour"
+  },
+  "admin_view_courses_screen": {
+    "title": "List of Courses",
+    "success_delete": "Course deleted!",
+    "failed_delete": "Course failed to delete, please try again!",
+    "are_you_sure": "Are you sure want to delete"
+  }
+}

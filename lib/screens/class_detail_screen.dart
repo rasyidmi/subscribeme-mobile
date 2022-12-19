@@ -1,8 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subscribeme_mobile/blocs/classes/classes_bloc.dart';
+import 'package:subscribeme_mobile/commons/constants/sizes.dart';
 import 'package:subscribeme_mobile/commons/extensions/date_time_extension.dart';
 import 'package:subscribeme_mobile/commons/extensions/string_extension.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/models/class.dart';
 import 'package:subscribeme_mobile/repositories/classes_repository.dart';
@@ -57,7 +60,7 @@ class ClassDetailScreen extends StatelessWidget {
                     },
                   );
                   SubsFlushbar.showSuccess(
-                      context, "Berhasil subscribe kelas.");
+                      context, LocaleKeys.class_detail_screen_success_subscribe.tr());
                 }
               },
               builder: (context, state) {
@@ -109,7 +112,7 @@ class ClassDetailScreen extends StatelessWidget {
               builder: (context, state) {
                 if (state is FetchClassSuccess && !state.kelas.isSubscribe!) {
                   return Container(
-                    height: 120,
+                    height: getScreenSize(context).height / 6,
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
@@ -127,13 +130,16 @@ class ClassDetailScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         const SizedBox(height: 8.0),
-                        const Text(
-                          '''*) Jika mengikuti kelas ini, kamu dapat mengatur dan mendapatkan notifikasi ketika terdapat tugas-tugas yang ada di kelas ini.''',
+                        Text(
+                          LocaleKeys.class_detail_screen_subscribe_description
+                              .tr(),
                           textAlign: TextAlign.center,
                         ),
                         const Spacer(),
                         SubsRoundedButton(
-                          buttonText: 'Ikuti Kelas Ini',
+                          buttonText: LocaleKeys
+                              .class_detail_screen_subscribe_class
+                              .tr(),
                           onTap: () {
                             showDialog(
                                 context: context,
@@ -181,13 +187,13 @@ class ClassDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              'Deadline: ${state.kelas.listEvent![index].deadlineTime.toDayMonthYearFormat}',
+              '${LocaleKeys.deadline.tr()}: ${state.kelas.listEvent![index].deadlineTime.toDayMonthYearFormat}',
               style: Theme.of(context).textTheme.bodyText2!.copyWith(
                   color: ColorPalettes.lightRed, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
             Text(
-              'Kelas: $courseName - ${classInstance.title.getLastCharacter}',
+              '${LocaleKeys.kelas.tr()}: $courseName - ${classInstance.title.getLastCharacter}',
             ),
             const SizedBox(height: 20),
             _buildBellTile(context),
@@ -207,7 +213,7 @@ class ClassDetailScreen extends StatelessWidget {
                     }),
                 const SizedBox(width: 16),
                 Text(
-                  "Tandai Sudah Selesai",
+                  LocaleKeys.class_detail_screen_mark_done.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2!
@@ -228,7 +234,7 @@ class ClassDetailScreen extends StatelessWidget {
       children: [
         Expanded(
           child: SubsSecondaryButton(
-            buttonText: "Batalkan",
+            buttonText: LocaleKeys.cancel.tr(),
             onTap: () {
               Navigator.pop(context);
             },
@@ -237,7 +243,7 @@ class ClassDetailScreen extends StatelessWidget {
         const SizedBox(width: 12),
         Expanded(
           child: SubsRoundedButton(
-            buttonText: "Simpan Perubahan",
+            buttonText: LocaleKeys.save_changes.tr(),
             onTap: () {},
           ),
         ),
@@ -247,12 +253,12 @@ class ClassDetailScreen extends StatelessWidget {
 
   Row _buildDivider() {
     return Row(
-      children: const [
-        _SmallDivider(),
-        SizedBox(width: 12),
-        Text("atau"),
-        SizedBox(width: 12),
-        _SmallDivider(),
+      children: [
+        const _SmallDivider(),
+        const SizedBox(width: 12),
+        Text(LocaleKeys.or.tr().toLowerCase()),
+        const SizedBox(width: 12),
+        const _SmallDivider(),
       ],
     );
   }
@@ -284,7 +290,7 @@ class ClassDetailScreen extends StatelessWidget {
         const Icon(Icons.notifications),
         const SizedBox(width: 16),
         Text(
-          "Ingatkan Aku Sebelum?",
+          LocaleKeys.class_detail_screen_remind_me.tr(),
           style: Theme.of(context)
               .textTheme
               .bodyText2!

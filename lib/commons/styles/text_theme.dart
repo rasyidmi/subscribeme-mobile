@@ -3,14 +3,14 @@ part of 'themes.dart';
 TextTheme _textTheme = const TextTheme(
   // Default
   bodyText2: TextStyle(
-    fontSize: 12,
+    fontSize: 14,
     height: 1.4,
     fontWeight: FontWeight.normal,
     color: ColorPalettes.dark70,
     letterSpacing: 0,
   ),
   bodyText1: TextStyle(
-    fontSize: 14,
+    fontSize: 16,
     height: 1.4,
     fontWeight: FontWeight.normal,
     color: ColorPalettes.dark70,
@@ -33,7 +33,7 @@ TextTheme _textTheme = const TextTheme(
   ),
   // For ListTile title
   subtitle1: TextStyle(
-    fontSize: 16,
+    fontSize: 18,
     height: 1.4,
     fontWeight: FontWeight.bold,
     color: ColorPalettes.dark70,
@@ -49,7 +49,7 @@ TextTheme _textTheme = const TextTheme(
   ),
   // Button
   button: TextStyle(
-    fontSize: 12,
+    fontSize: 14,
     height: 1.4,
     fontWeight: FontWeight.bold,
     color: ColorPalettes.white,

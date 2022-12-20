@@ -35,8 +35,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const SecondaryAppbar(
-        title: 'Daftar',
+      appBar:  SecondaryAppbar(
+        title: LocaleKeys.auth_screen_register.tr(),
         centerTitle: true,
       ),
       body: Padding(

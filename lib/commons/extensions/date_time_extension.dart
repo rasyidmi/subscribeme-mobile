@@ -1,5 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 
 extension DateTimeExtension on DateTime {
   String get displayDeadline {
@@ -7,11 +8,11 @@ extension DateTimeExtension on DateTime {
     if (difference == 0) {
       final hourMinuteFormat =
           DateFormat('HH.mm').format(add(const Duration(hours: 7)));
-      return 'Hari ini - $hourMinuteFormat';
+      return '${LocaleKeys.today.tr()} - $hourMinuteFormat';
     } else {
       final customFormat =
           DateFormat('HH.mm (d MMMM y)').format(add(const Duration(hours: 7)));
-      return '$difference Hari Lagi - $customFormat';
+      return '$difference ${LocaleKeys.more_days.tr()} - $customFormat';
     }
   }
 

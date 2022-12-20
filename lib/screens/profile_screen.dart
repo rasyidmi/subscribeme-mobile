@@ -35,7 +35,7 @@ class ProfileScreen extends StatelessWidget {
               const Spacer(flex: 1),
               SvgPicture.asset(SubsIcons.appBarLogo),
               const Spacer(flex: 1),
-              if (state.user.avatar!.isEmpty) Image.asset(SubsImages.ujang),
+              if (state.user.avatar!.isEmpty) Image.asset(SubsImages.studentLarge),
               if (state.user.avatar!.isNotEmpty)
                 CachedNetworkImage(
                   errorWidget: (context, _, __) =>

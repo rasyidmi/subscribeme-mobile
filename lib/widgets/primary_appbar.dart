@@ -22,7 +22,7 @@ class PrimaryAppbar extends StatelessWidget implements PreferredSizeWidget {
               return Padding(
                 padding: const EdgeInsets.only(right: 16.0),
                 child: state.user.avatar!.isEmpty
-                    ? Image.asset(SubsImages.ujang)
+                    ? Image.asset(SubsImages.student)
                     : CachedNetworkImage(
                         errorWidget: (context, _, __) =>
                             Image.asset(SubsImages.ujang),

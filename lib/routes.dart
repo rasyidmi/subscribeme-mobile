@@ -5,6 +5,7 @@ class Routes {
   static const maintenance = '/maintenance';
   static const login = '/login';
   static const register = '/register';
+  static const setting = '/setting';
   static const courseDetail = '/course-detail';
   static const classDetail = '/class-detail';
 

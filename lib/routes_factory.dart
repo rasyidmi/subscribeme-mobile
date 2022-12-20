@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:subscribeme_mobile/routes.dart';
 import 'package:subscribeme_mobile/screens/screens.dart';
+import 'package:subscribeme_mobile/screens/settings_screen.dart';
 
 Widget getScreenByName(String name) {
   switch (name) {
@@ -22,6 +23,8 @@ Widget getScreenByName(String name) {
       return const AdminViewCourseDetail();
     case Routes.addEventDetail:
       return const AddEventDetailScreen();
+    case Routes.setting:
+      return const SettingsScreen();
     default:
       return const LoginScreen();
   }

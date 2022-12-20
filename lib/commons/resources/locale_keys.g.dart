@@ -97,5 +97,9 @@ abstract class  LocaleKeys {
   static const admin_view_courses_screen_failed_delete = 'admin_view_courses_screen.failed_delete';
   static const admin_view_courses_screen_are_you_sure = 'admin_view_courses_screen.are_you_sure';
   static const admin_view_courses_screen = 'admin_view_courses_screen';
+  static const settings_screen_language = 'settings_screen.language';
+  static const settings_screen_bahasa = 'settings_screen.bahasa';
+  static const settings_screen_english = 'settings_screen.english';
+  static const settings_screen = 'settings_screen';
 
 }

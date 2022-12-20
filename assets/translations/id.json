@@ -103,5 +103,10 @@
     "success_delete": "Mata Kuliah berhasil dihapus!",
     "failed_delete": "Mata Kuliah gagal dihapus, tolong coba lagi!",
     "are_you_sure": "Apakah kamu yakin ingin menghapus Mata Kuliah"
+  },
+  "settings_screen": {
+    "language": "Pengaturan Bahasa",
+    "bahasa": "Bahasa Indonesia",
+    "english": "English"
   }
 }

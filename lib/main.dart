@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:subscribeme_mobile/blocs/auth/auth_bloc.dart';
+import 'package:subscribeme_mobile/blocs/locale/locale_bloc.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/commons/styles/themes.dart';
 import 'package:subscribeme_mobile/repositories/auth_repository.dart';
@@ -45,11 +46,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: repositoryProviders,
-      child: BlocProvider<AuthBloc>(
-        create: (context) {
-          final repository = RepositoryProvider.of<AuthRepository>(context);
-          return AuthBloc(repository);
-        },
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<AuthBloc>(
+            create: (context) {
+              final repository = RepositoryProvider.of<AuthRepository>(context);
+              return AuthBloc(repository);
+            },
+          ),
+          BlocProvider<LocaleBloc>(
+            create: (context) {
+              return LocaleBloc();
+            },
+          ),
+        ],
         child: DismissKeyboard(
           child: MaterialApp(
             title: 'SubscribeMe',

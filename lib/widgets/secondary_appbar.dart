@@ -6,12 +6,14 @@ class SecondaryAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String? subTitle;
   final bool centerTitle;
   final EdgeInsetsGeometry padding;
+  final VoidCallback? onPressed;
   const SecondaryAppbar({
     Key? key,
     required this.title,
     this.subTitle,
     this.padding = const EdgeInsets.only(top: 16.0),
     this.centerTitle = false,
+    this.onPressed,
   }) : super(key: key);
 
   @override
@@ -34,9 +36,9 @@ class SecondaryAppbar extends StatelessWidget implements PreferredSizeWidget {
               child: IconButton(
                 padding: EdgeInsets.zero,
                 iconSize: 16.0,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+                onPressed: onPressed ?? () {
+                        Navigator.of(context).pop();
+                      },
                 icon: const Icon(Icons.arrow_back_ios_outlined),
               ),
             ),

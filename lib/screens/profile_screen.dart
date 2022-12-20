@@ -59,10 +59,17 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 8.0),
               Text(state.user.email),
               const SizedBox(height: 32.0),
+              ProfileListTile(text: LocaleKeys.profile_screen_my_profile.tr()),
+              if (state.user.role == Role.admin)
+                ProfileListTile(
+                    text: LocaleKeys.profile_screen_admin.tr(),
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.adminViewCourses);
+                    }),
               ListTile(
                 dense: true,
                 leading: Text(
-                  LocaleKeys.profile_screen_my_profile.tr(),
+                  LocaleKeys.settings_screen_language.tr(),
                   style: Theme.of(context)
                       .textTheme
                       .subtitle1!
@@ -73,27 +80,10 @@ class ProfileScreen extends StatelessWidget {
                   color: ColorPalettes.dark70,
                   size: 16.0,
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.setting);
+                },
               ),
-              if (state.user.role == Role.admin)
-                ListTile(
-                  dense: true,
-                  leading: Text(
-                    LocaleKeys.profile_screen_admin.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(fontWeight: FontWeight.normal),
-                  ),
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.adminViewCourses);
-                  },
-                  trailing: const Icon(
-                    Icons.arrow_forward_ios,
-                    color: ColorPalettes.dark70,
-                    size: 16.0,
-                  ),
-                ),
               const Spacer(flex: 4),
               SubsRoundedButton(
                 onTap: () {
@@ -110,5 +100,35 @@ class ProfileScreen extends StatelessWidget {
         return Container();
       }
     });
+  }
+}
+
+class ProfileListTile extends StatelessWidget {
+  final String text;
+  final VoidCallback? onTap;
+  const ProfileListTile({
+    Key? key,
+    required this.text,
+    this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      dense: true,
+      leading: Text(
+        text,
+        style: Theme.of(context)
+            .textTheme
+            .subtitle1!
+            .copyWith(fontWeight: FontWeight.normal),
+      ),
+      trailing: const Icon(
+        Icons.arrow_forward_ios,
+        color: ColorPalettes.dark70,
+        size: 16.0,
+      ),
+      onTap: onTap,
+    );
   }
 }

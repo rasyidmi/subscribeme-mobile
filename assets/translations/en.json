@@ -103,5 +103,10 @@
     "success_delete": "Course deleted!",
     "failed_delete": "Course failed to delete, please try again!",
     "are_you_sure": "Are you sure want to delete"
+  },
+  "settings_screen": {
+    "language": "Language Settings",
+    "bahasa": "Bahasa Indonesia",
+    "english": "English"
   }
 }

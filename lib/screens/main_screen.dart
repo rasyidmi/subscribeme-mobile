@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:subscribeme_mobile/blocs/locale/locale_bloc.dart';
 import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/screens/screens.dart';
@@ -60,33 +62,43 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ],
             ),
-            child: BottomNavigationBar(
-              backgroundColor: Colors.white,
-              currentIndex: _selectedPage,
-              onTap: (index) {
-                _pageViewController.jumpToPage(index);
+            child: BlocListener<LocaleBloc, LocaleState>(
+              listener: (context, state) {
+                if (state is NewLocaleSet) {
+                  setState(() {});
+                }
               },
-              elevation: 0,
-              type: BottomNavigationBarType.fixed,
-              showUnselectedLabels: true,
-              selectedItemColor: ColorPalettes.primary,
-              selectedLabelStyle: const TextStyle(color: ColorPalettes.primary),
-              selectedFontSize: 12,
-              unselectedItemColor: ColorPalettes.dark70,
-              unselectedLabelStyle:
-                  const TextStyle(color: ColorPalettes.dark70),
-              items: [
-                BottomNavigationBarItem(
-                    icon: const Icon(Icons.home), label: LocaleKeys.home.tr()),
-                BottomNavigationBarItem(
-                    icon: const Icon(Icons.dns), label: LocaleKeys.course.tr()),
-                BottomNavigationBarItem(
-                    icon: const Icon(Icons.book),
-                    label: LocaleKeys.my_class.tr()),
-                BottomNavigationBarItem(
-                    icon: const Icon(Icons.account_circle),
-                    label: LocaleKeys.profile.tr()),
-              ],
+              child: BottomNavigationBar(
+                backgroundColor: Colors.white,
+                currentIndex: _selectedPage,
+                onTap: (index) {
+                  _pageViewController.jumpToPage(index);
+                },
+                elevation: 0,
+                type: BottomNavigationBarType.fixed,
+                showUnselectedLabels: true,
+                selectedItemColor: ColorPalettes.primary,
+                selectedLabelStyle:
+                    const TextStyle(color: ColorPalettes.primary),
+                selectedFontSize: 12,
+                unselectedItemColor: ColorPalettes.dark70,
+                unselectedLabelStyle:
+                    const TextStyle(color: ColorPalettes.dark70),
+                items: [
+                  BottomNavigationBarItem(
+                      icon: const Icon(Icons.home),
+                      label: LocaleKeys.home.tr()),
+                  BottomNavigationBarItem(
+                      icon: const Icon(Icons.dns),
+                      label: LocaleKeys.course.tr()),
+                  BottomNavigationBarItem(
+                      icon: const Icon(Icons.book),
+                      label: LocaleKeys.my_class.tr()),
+                  BottomNavigationBarItem(
+                      icon: const Icon(Icons.account_circle),
+                      label: LocaleKeys.profile.tr()),
+                ],
+              ),
             ),
           ),
         ),

@@ -28,6 +28,8 @@
   "or": "Atau",
   "hour": "Jam",
   "minute": "Menit",
+  "today": "Hari ini",
+  "more_days": "Hari Lagi",
   "auth_screen": {
     "register": "Daftar",
     "email": "Email",

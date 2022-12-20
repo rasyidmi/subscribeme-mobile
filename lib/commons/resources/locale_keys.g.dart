@@ -32,6 +32,8 @@ abstract class  LocaleKeys {
   static const or = 'or';
   static const hour = 'hour';
   static const minute = 'minute';
+  static const today = 'today';
+  static const more_days = 'more_days';
   static const auth_screen_register = 'auth_screen.register';
   static const auth_screen_email = 'auth_screen.email';
   static const auth_screen_password = 'auth_screen.password';

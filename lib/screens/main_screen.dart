@@ -36,7 +36,7 @@ class _MainScreenState extends State<MainScreen> {
             children: [
               const HomeScreen(),
               const ListCoursesScreen(),
-              MyClassScreen(
+              AttendanceScreen(
                 pageController: _pageViewController,
               ),
               const ProfileScreen()
@@ -93,7 +93,7 @@ class _MainScreenState extends State<MainScreen> {
                       label: LocaleKeys.course.tr()),
                   BottomNavigationBarItem(
                       icon: const Icon(Icons.book),
-                      label: LocaleKeys.my_class.tr()),
+                      label: LocaleKeys.attendance.tr()),
                   BottomNavigationBarItem(
                       icon: const Icon(Icons.account_circle),
                       label: LocaleKeys.profile.tr()),

@@ -4,6 +4,7 @@ class Routes {
   static const home = '/home';
   static const maintenance = '/maintenance';
   static const login = '/login';
+  static const loginConfirmation = '/login-confirmation';
   static const register = '/register';
   static const setting = '/setting';
   static const courseDetail = '/course-detail';
@@ -15,4 +16,6 @@ class Routes {
   static const adminCourseDetail = '$adminMenu/view-detail-course';
   
   static const addEventDetail = '$addEvent/detail';
+
+  static const ssoWebView = '/sso-web-view';
 }

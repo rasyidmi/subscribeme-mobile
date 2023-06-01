@@ -1,10 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:subscribeme_mobile/blocs/auth/auth_bloc.dart';
 import 'package:subscribeme_mobile/commons/constants/role.dart';
+import 'package:subscribeme_mobile/commons/constants/sizes.dart';
 import 'package:subscribeme_mobile/commons/resources/icons.dart';
 import 'package:subscribeme_mobile/commons/resources/images.dart';
 import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
@@ -31,68 +33,60 @@ class ProfileScreen extends StatelessWidget {
             bottom: 12.0,
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 17),
+              Center(child: SvgPicture.asset(SubsIcons.appBarLogo)),
               const Spacer(flex: 1),
-              SvgPicture.asset(SubsIcons.appBarLogo),
-              const Spacer(flex: 1),
-              if (state.user.avatar!.isEmpty) Image.asset(SubsImages.studentLarge),
-              if (state.user.avatar!.isNotEmpty)
-                CachedNetworkImage(
-                  errorWidget: (context, _, __) =>
-                      Image.asset(SubsImages.ujang),
-                  imageUrl: state.user.avatar!,
-                  imageBuilder: (context, imageProvider) => UnconstrainedBox(
-                    child: Container(
-                      width: 120.0,
-                      height: 120.0,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.fill),
-                      ),
-                    ),
-                  ),
+              Center(
+                child: Image.asset(
+                  SubsImages.studentLarge,
+                  height: getScreenSize(context).height / 5,
                 ),
-              const SizedBox(height: 24.0),
-              Text(state.user.name,
-                  style: Theme.of(context).textTheme.subtitle1),
-              const SizedBox(height: 8.0),
-              Text(state.user.email),
-              const SizedBox(height: 32.0),
-              ProfileListTile(text: LocaleKeys.profile_screen_my_profile.tr()),
-              if (state.user.role == Role.admin)
-                ProfileListTile(
-                    text: LocaleKeys.profile_screen_admin.tr(),
-                    onTap: () {
-                      Navigator.pushNamed(context, Routes.adminViewCourses);
-                    }),
-              ListTile(
-                dense: true,
-                leading: Text(
-                  LocaleKeys.settings_screen_language.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle1!
-                      .copyWith(fontWeight: FontWeight.normal),
-                ),
-                trailing: const Icon(
-                  Icons.arrow_forward_ios,
-                  color: ColorPalettes.dark70,
-                  size: 16.0,
-                ),
-                onTap: () {
-                  Navigator.pushNamed(context, Routes.setting);
-                },
               ),
-              const Spacer(flex: 4),
+              const SizedBox(height: 24.0),
+              Text(LocaleKeys.profile_screen_full_name.tr()),
+              Text(
+                state.user.name,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1!
+                    .copyWith(fontSize: 16),
+              ),
+              const SizedBox(height: 22.0),
+              Text(LocaleKeys.profile_screen_npm.tr()),
+              Text(
+                state.user.npm,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1!
+                    .copyWith(fontSize: 16),
+              ),
+              const SizedBox(height: 22.0),
+              Text(LocaleKeys.profile_screen_email.tr()),
+              Text(
+                '${state.user.username}@ui.ac.id',
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1!
+                    .copyWith(fontSize: 16),
+              ),
+              const SizedBox(height: 34.0),
               SubsRoundedButton(
                 onTap: () {
+                  log("message");
                   context.read<AuthBloc>().add(Logout());
                 },
+                textStyle: Theme.of(context)
+                    .textTheme
+                    .button!
+                    .copyWith(color: ColorPalettes.alertButtonText),
                 buttonText: LocaleKeys.logout.tr(),
                 buttonStyle: Theme.of(context).textButtonTheme.style!.copyWith(
-                    backgroundColor: MaterialStateProperty.all(Colors.red)),
+                    backgroundColor:
+                        MaterialStateProperty.all(ColorPalettes.alertButton)),
               ),
+              const Spacer(flex: 4),
             ],
           ),
         );

@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:subscribeme_mobile/blocs/bloc_state.dart';
 import 'package:subscribeme_mobile/commons/arguments/http_exception.dart';
@@ -33,7 +33,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
         message: e.message,
       ));
     } catch (f) {
-      log('ERROR: ' + f.toString());
+      log('ERROR: $f');
       emit(const CreateEventFailed(status: ResponseStatus.maintenance));
     }
   }
@@ -51,7 +51,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
         message: e.message,
       ));
     } catch (f) {
-      log('ERROR: ' + f.toString());
+      log('ERROR: $f');
       emit(const DeleteEventFailed(status: ResponseStatus.maintenance));
     }
   }
@@ -61,11 +61,11 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
     emit(FetchHomeDataLoading());
     await Future.delayed(const Duration(milliseconds: 500));
     try {
-      final todayDeadline = await _eventsRepository.getTodayDeadline();
-      final sevenDayDeadline = await _eventsRepository.getSevenDayDeadline();
-      emit(FetchHomeDataSuccess(
-        todayDeadline: todayDeadline,
-        sevenDayDeadline: sevenDayDeadline,
+      // final todayDeadline = await _eventsRepository.getTodayDeadline();
+      // final sevenDayDeadline = await _eventsRepository.getSevenDayDeadline();
+      emit(const FetchHomeDataSuccess(
+        todayDeadline: [],
+        sevenDayDeadline: [],
       ));
     } on SubsHttpException catch (e) {
       emit(FetchHomeDataFailed(
@@ -73,7 +73,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
         message: e.message,
       ));
     } catch (f) {
-      log('ERROR: ' + f.toString());
+      log('ERROR: $f');
       emit(const FetchHomeDataFailed(status: ResponseStatus.maintenance));
     }
   }

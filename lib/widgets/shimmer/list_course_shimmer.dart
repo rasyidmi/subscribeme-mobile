@@ -25,8 +25,8 @@ class ListCourseShimmer extends StatelessWidget {
     return const [
       SizedBox(height: 16.0),
       UnconstrainedBox(
-        child: BoxShimmer(size: 24),
         alignment: Alignment.centerLeft,
+        child: BoxShimmer(size: 24),
       ),
       SizedBox(height: 16.0),
       RectangleShimmer(

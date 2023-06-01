@@ -2,31 +2,31 @@ import 'package:subscribeme_mobile/commons/constants/role.dart';
 
 class User {
   User({
-    required this.id,
+    required this.npm,
     required this.name,
-    required this.email,
+    required this.username,
     required this.role,
-    this.avatar,
+    this.isExist,
   });
 
-  String? id;
+  String npm;
   String name;
-  String email;
+  String username;
   Role role;
-  String? avatar;
+  bool? isExist;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-      id: json['id'],
-      name: json["name"],
-      email: json["email"],
-      role: json["role"] == 'admin' ? Role.admin : Role.user,
-      avatar: json["avatar"]);
+        npm: json["npm"],
+        name: json["nama"],
+        username: json["username"],
+        role: json["role"] == 'dosen' ? Role.lecturer : Role.student,
+        isExist: json["is_user_exist"],
+      );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
+        "npm": name,
         "name": name,
-        "email": email,
-        "role": role == Role.admin ? 'admin' : 'user',
-        "avatar": avatar,
+        "username": username,
+        "role": role == Role.lecturer ? 'dosen' : 'mahasiswa',
       };
 }

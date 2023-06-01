@@ -36,6 +36,8 @@ class SubsConsumer<C extends BlocBase<S>, S extends BlocState>
     } else if (status == ResponseStatus.maintenance) {
       Navigator.pushNamedAndRemoveUntil(
           context, Routes.maintenance, (route) => false);
+    } else if (status == ResponseStatus.autoLoginFailed) {
+      log('Auto login failed.');
     } else if (status == ResponseStatus.tokenExpire) {
       Navigator.pushNamedAndRemoveUntil(
           context, Routes.login, (route) => false);

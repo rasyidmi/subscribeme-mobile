@@ -15,25 +15,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
 
   AuthBloc(this._authRepository) : super(AuthInit()) {
-    on<Register>(_onRegisterHandler);
+    on<CreateUser>(_onCreateUserHandler);
     on<Login>(_onLogin);
     on<Logout>(_onLogout);
     on<AutoLogin>(_onAutoLogin);
   }
 
-  Future<void> _onRegisterHandler(
-      Register event, Emitter<AuthState> emit) async {
-    emit(RegisterLoading());
+  Future<void> _onCreateUserHandler(
+      CreateUser event, Emitter<AuthState> emit) async {
+    emit(CreateUserLoading());
     try {
-      await _authRepository.register(event.data);
-      emit(RegisterSuccess());
+      await _authRepository.creteUser(event.fcmToken);
+      emit(CreateUserSuccess());
     } on SubsHttpException catch (e) {
-      emit(RegisterFailed(
+      emit(CreateUserFailed(
         status: e.status,
         message: e.message,
       ));
     } catch (f) {
-      log('ERROR: ' + f.toString());
+      log('ERROR: $f');
       emit(const AuthFailed(status: ResponseStatus.maintenance));
     }
   }
@@ -41,7 +41,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _onLogin(Login event, Emitter<AuthState> emit) async {
     emit(LoginLoading());
     try {
-      final user = await _authRepository.signIn(event.data);
+      final user = await _authRepository.login(event.ticket);
       emit(LoginSuccess(user));
     } on SubsHttpException catch (e) {
       emit(AuthFailed(
@@ -49,7 +49,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         message: e.message,
       ));
     } catch (f) {
-      log('ERROR: ' + f.toString());
+      log('ERROR: $f');
       emit(const AuthFailed(status: ResponseStatus.maintenance));
     }
   }
@@ -69,7 +69,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         message: e.message,
       ));
     } catch (f) {
-      log('ERROR: ' + f.toString());
+      log('ERROR: $f');
       emit(const AuthFailed(status: ResponseStatus.maintenance));
     }
   }

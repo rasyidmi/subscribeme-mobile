@@ -32,7 +32,7 @@ class ClassesBloc extends Bloc<ClassesEvent, ClassesState> {
         message: e.message,
       ));
     } catch (f) {
-      log('ERROR: ' + f.toString());
+      log('ERROR: $f');
       emit(const FetchClassFailed(status: ResponseStatus.maintenance));
     }
   }

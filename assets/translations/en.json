@@ -12,7 +12,7 @@
   "major": "Major",
   "home": "Home",
   "course": "Course",
-  "my_class": "My Class",
+  "attendance": "Attendance",
   "profile": "Profile",
   "logout": "Logout",
   "data_not_found": "Data not found",
@@ -63,7 +63,10 @@
   },
   "profile_screen": {
     "my_profile": "My Profile",
-    "admin": "Admin"
+    "admin": "Admin",
+    "full_name": "Full Name",
+    "npm": "NPM",
+    "email": "Email Address"
   },
   "my_class_screen": {
     "choose_class": "Choose Class",

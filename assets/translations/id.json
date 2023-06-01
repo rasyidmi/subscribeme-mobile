@@ -12,7 +12,7 @@
   "major": "Jurusan",
   "home": "Beranda",
   "course": "Mata Kuliah",
-  "my_class": "Kelas Saya",
+  "attendance": "Absensi",
   "profile": "Profil",
   "logout": "Keluar",
   "data_not_found": "Data tidak ditemukan",
@@ -63,7 +63,10 @@
   },
   "profile_screen": {
     "my_profile": "Profil Saya",
-    "admin": "Admin"
+    "admin": "Admin",
+    "full_name": "Nama Lengkap",
+    "npm": "NPM",
+    "email": "Alamat Email"
   },
   "my_class_screen": {
     "choose_class": "Pilih Kelas",

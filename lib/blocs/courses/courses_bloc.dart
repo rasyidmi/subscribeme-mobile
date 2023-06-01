@@ -39,7 +39,7 @@ class CoursesBloc extends Bloc<CoursesEvent, CoursesState> {
         ),
       );
     } catch (f) {
-      log('ERROR: ' + f.toString());
+      log('ERROR: $f');
       emit(const LoadCoursesFailed(status: ResponseStatus.maintenance));
     }
   }
@@ -57,7 +57,7 @@ class CoursesBloc extends Bloc<CoursesEvent, CoursesState> {
         message: e.message,
       ));
     } catch (f) {
-      log('ERROR: ' + f.toString());
+      log('ERROR: $f');
       emit(const CreateCourseFailed(status: ResponseStatus.maintenance));
     }
   }
@@ -74,7 +74,7 @@ class CoursesBloc extends Bloc<CoursesEvent, CoursesState> {
         message: e.message,
       ));
     } catch (f) {
-      log('ERROR: ' + f.toString());
+      log('ERROR: $f');
       emit(const LoadClassesFailed(status: ResponseStatus.maintenance));
     }
   }
@@ -92,7 +92,7 @@ class CoursesBloc extends Bloc<CoursesEvent, CoursesState> {
         message: e.message,
       ));
     } catch (f) {
-      log('ERROR: ' + f.toString());
+      log('ERROR: $f');
       emit(const DeleteCourseFailed(status: ResponseStatus.maintenance));
     }
   }

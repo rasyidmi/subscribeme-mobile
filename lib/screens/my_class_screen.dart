@@ -6,9 +6,9 @@ import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/widgets/subs_rounded_button.dart';
 
-class MyClassScreen extends StatelessWidget {
+class AttendanceScreen extends StatelessWidget {
   final PageController pageController;
-  const MyClassScreen({
+  const AttendanceScreen({
     Key? key,
     required this.pageController,
   }) : super(key: key);

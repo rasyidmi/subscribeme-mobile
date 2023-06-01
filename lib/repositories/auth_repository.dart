@@ -6,12 +6,12 @@ class AuthRepository {
 
   AuthRepository(this._authApi);
 
-  Future<bool> register(Map<String, dynamic> body) async {
-    return _authApi.register(body);
+  Future<bool> creteUser(String fcmToken) async {
+    return _authApi.createUser(fcmToken);
   }
 
-  Future<User> signIn(Map<String, dynamic> data) async {
-    return _authApi.signIn(data);
+  Future<User> login(String ticket) async {
+    return _authApi.login(ticket);
   }
 
   Future<User?> doAutoLogin() async {

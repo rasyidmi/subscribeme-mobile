@@ -17,9 +17,9 @@ class SubsFloatingActionButton extends StatelessWidget {
       height: 44.0,
       child: FloatingActionButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-        child: Text(label),
         onPressed: onTap,
         backgroundColor: ColorPalettes.primary,
+        child: Text(label),
       ),
     );
   }

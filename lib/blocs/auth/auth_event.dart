@@ -5,20 +5,20 @@ abstract class AuthEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class Register extends AuthEvent {
-  final Map<String, dynamic> data;
+class CreateUser extends AuthEvent {
+  final String fcmToken;
 
-  Register(this.data);
+  CreateUser(this.fcmToken);
   @override
-  List<Object?> get props => [data];
+  List<Object?> get props => [fcmToken];
 }
 
 class Login extends AuthEvent {
-  final Map<String, dynamic> data;
+  final String ticket;
 
-  Login(this.data);
+  Login(this.ticket);
   @override
-  List<Object?> get props => [data];
+  List<Object?> get props => [ticket];
 }
 
 class AutoLogin extends AuthEvent {}

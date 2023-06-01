@@ -14,6 +14,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:subscribeme_mobile/service_locator/repository_providers.dart';
 import 'package:subscribeme_mobile/service_locator/service_locator.dart';
 import 'package:subscribeme_mobile/widgets/dismiss_keyboard.dart';
+import 'service_locator/navigation_service.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -23,6 +24,7 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await Firebase.initializeApp();
+
   setupLocator();
 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -32,7 +34,7 @@ void main() async {
   runApp(
     EasyLocalization(
       path: 'assets/translations',
-      fallbackLocale: const Locale('en'),
+      fallbackLocale: const Locale('in'),
       supportedLocales: const [Locale('en'), Locale('in')],
       child: const MyApp(),
     ),
@@ -67,6 +69,7 @@ class MyApp extends StatelessWidget {
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
+            navigatorKey: locator<NavigationService>().navigatorKey,
             onGenerateRoute: (settings) {
               return MaterialPageRoute(
                 settings: settings,

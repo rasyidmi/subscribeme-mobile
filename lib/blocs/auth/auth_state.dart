@@ -12,13 +12,13 @@ abstract class AuthState extends BlocState {
 
 class AuthInit extends AuthState {}
 
-// Register
-class RegisterLoading extends AuthState {}
+// Create user.
+class CreateUserSuccess extends AuthState {}
 
-class RegisterSuccess extends AuthState {}
+class CreateUserLoading extends AuthState {}
 
-class RegisterFailed extends AuthState {
-  const RegisterFailed({
+class CreateUserFailed extends AuthState {
+  const CreateUserFailed({
     ResponseStatus? status,
     String? message,
   }) : super(

@@ -5,5 +5,6 @@ enum ResponseStatus {
   timeout,
   unauthorized,
   tokenExpire,
+  autoLoginFailed,
   duplicateData,
 }

@@ -36,7 +36,7 @@ class _MainScreenState extends State<MainScreen> {
             children: [
               const HomeScreen(),
               const ListCoursesScreen(),
-              AttendanceScreen(
+              MyClassScreen(
                 pageController: _pageViewController,
               ),
               const ProfileScreen()

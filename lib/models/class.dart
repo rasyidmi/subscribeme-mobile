@@ -1,26 +1,43 @@
-import 'package:subscribeme_mobile/models/event.dart';
+import 'package:subscribeme_mobile/models/class_schedule.dart';
 
 class Class {
-  final String title;
-  final int id;
-  final bool? isSubscribe;
-  List<Event>? listEvent;
+  final String name;
+  final String courseCode;
+  final String courseName;
+  final List<dynamic> lectureName;
+  final int credit;
+  final List<ClassSchedule> schedule;
 
   Class({
-    required this.title,
-    required this.id,
-    this.isSubscribe,
-    this.listEvent,
+    required this.name,
+    required this.courseCode,
+    required this.courseName,
+    required this.lectureName,
+    required this.credit,
+    required this.schedule,
   });
 
   factory Class.fromJson(Map<String, dynamic> json) => Class(
-        id: json['ID'],
-        title: json["Title"],
-        isSubscribe: json["IsSubscribe"] ,
+        name: json["class_name"],
+        courseCode: json["course"]["course_code"],
+        courseName: json["course"]["course_name"],
+        lectureName: json["lectures"],
+        credit: json["course"]["total_sks"],
+        schedule: Class.convertSchedule(json["class_schedule"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
+        "name": name,
+        "course_code": courseCode,
+        "lecture_name": lectureName,
+        "credit": credit
       };
+
+  static List<ClassSchedule> convertSchedule(List<dynamic> json) {
+    List<ClassSchedule> schedule = [];
+    for (var i = 0; i < json.length; i++) {
+      schedule.add(ClassSchedule.fromJson(json[i]));
+    }
+    return schedule;
+  }
 }

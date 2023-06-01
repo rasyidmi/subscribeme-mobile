@@ -11,7 +11,7 @@ TextButtonThemeData _buttonTheme = TextButtonThemeData(
       },
     ),
     minimumSize: MaterialStateProperty.all(
-      const Size(double.infinity, 44.0),
+      const Size(double.infinity, 40.0),
     ),
     shape: MaterialStateProperty.all<OutlinedBorder>(RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(8.0),

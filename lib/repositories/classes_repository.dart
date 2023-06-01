@@ -6,8 +6,12 @@ class ClassesRepository {
 
   ClassesRepository(this._classesApi);
 
-  Future<Class> getClassById(int id) async {
-    return _classesApi.getClassById(id);
+  // Future<Class> getClassById(int id) async {
+  //   return _classesApi.getClassById(id);
+  // }
+
+  Future<List<Class>> getUserClass() async {
+    return _classesApi.getUserClass();
   }
 
   Future<void> subscribeClass(int id) async {

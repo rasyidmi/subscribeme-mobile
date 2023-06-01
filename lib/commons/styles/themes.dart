@@ -13,6 +13,7 @@ ThemeData appTheme = ThemeData(
   appBarTheme: _appBarTheme,
   tabBarTheme: _tabBarTheme,
   textTheme: _textTheme,
+  fontFamily: "Poppins",
   textButtonTheme: _buttonTheme,
 );
 

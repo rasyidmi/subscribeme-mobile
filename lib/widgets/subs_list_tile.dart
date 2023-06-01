@@ -38,49 +38,51 @@ class SubsListTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            const SizedBox(width: 16.0),
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 12.0),
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                        fontWeight: titleWeight,
-                        color: !isActive ? ColorPalettes.gray : null,
-                      ),
-                ),
-                const SizedBox(height: 2.0),
-                if (!secondLine.isNull) ...[
-                  Text(secondLine!,
-                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          color: !isActive ? ColorPalettes.gray : null)),
-                  const SizedBox(height: 2.0),
-                ],
-                const SizedBox(height: 2.0),
-                if (!thirdLine.isNull) ...[
-                  Text(thirdLine!,
-                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          color: !isActive ? ColorPalettes.gray : null)),
-                  const SizedBox(height: 2.0),
-                ],
-                if (!fourthLine.isNull) ...[
+            const SizedBox(width: 20.0),
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 8.0),
                   Text(
-                    fourthLine!,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2!
-                        .copyWith(color: !isActive ? ColorPalettes.gray : null),
+                    title,
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          fontWeight: titleWeight,
+                          color: !isActive ? ColorPalettes.gray : null,
+                        ),
                   ),
                   const SizedBox(height: 2.0),
+                  if (!secondLine.isNull) ...[
+                    Text(secondLine!,
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            color: !isActive ? ColorPalettes.gray : null)),
+                    const SizedBox(height: 2.0),
+                  ],
+                  const SizedBox(height: 2.0),
+                  if (!thirdLine.isNull) ...[
+                    Text(thirdLine!,
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            color: !isActive ? ColorPalettes.gray : null)),
+                    const SizedBox(height: 2.0),
+                  ],
+                  if (!fourthLine.isNull) ...[
+                    Text(
+                      fourthLine!,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(color: !isActive ? ColorPalettes.gray : null),
+                    ),
+                    const SizedBox(height: 2.0),
+                  ],
+                  const SizedBox(height: 8.0),
                 ],
-                const SizedBox(height: 12.0),
-              ],
+              ),
             ),
-            const Spacer(),
+            // const Spacer(),
             if (actionButtons != null) ...actionButtons!,
-            const SizedBox(width: 16.0),
+            const SizedBox(width: 20.0),
           ],
         ),
       ),

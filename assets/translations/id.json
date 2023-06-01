@@ -50,6 +50,10 @@
     "search_course": "Cari mata kuliah...",
     "find_another_course": "Silahkan coba cari mata kuliah lain!"
   },
+  "list_class_screen": {
+    "search_class": "Cari kelas...",
+    "info": "Kelas yang dipilih berdasarkan SIAK-NG"
+  },
   "add_course_screen": {
     "add_course": "Tambah Mata Kuliah",
     "course_name": "Nama Mata Kuliah",
@@ -84,11 +88,18 @@
     "are_you_sure_2": "dari Mata Kuliah {}?"
   },
   "class_detail_screen": {
-    "success_subscribe": "Berhasil subscribe kelas.",
-    "subscribe_class": "Ikuti Kelas Ini",
-    "subscribe_description": "*) Jika mengikuti kelas ini, kamu dapat mengatur dan mendapatkan notifikasi ketika terdapat tugas-tugas yang ada di kelas ini.",
-    "mark_done": "Tandai Sudah Selesai",
-    "remind_me": "Ingatkan Aku Sebelum?"
+    "course_detail": "Detail Mata Kuliah",
+    "course_code": "Kode Mata Kuliah",
+    "curriculum_code": "Kode Kurikulum",
+    "lecturer": "Dosen Pengajar",
+    "credit": "SKS",
+    "class_schedule": "Jadwal Kelas",
+    "attendance_history": "Riwayat Absensi",
+    "present": "Hadir",
+    "not_present": "Tidak Hadir",
+    "attend_class": "Absen Kelas Ini",
+    "attendance_available": "Absensi tersedia",
+    "attendance_not_available": "Absensi selanjutnya belum tersedia."
   },
   "add_event_detail_screen": {
     "add_task": "Tambah Tugas",

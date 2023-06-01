@@ -46,3 +46,24 @@ class SubscribeClassFailed extends ClassesState {
           message: message,
         );
 }
+
+class FetchUserClassLoading extends ClassesState {}
+
+class FetchUserClassSuccess extends ClassesState {
+  final List<Class> classes;
+
+  const FetchUserClassSuccess(this.classes);
+
+  @override
+  List<Object?> get props => [classes];
+}
+
+class FetchUserClassFailed extends ClassesState {
+  const FetchUserClassFailed({
+    ResponseStatus? status,
+    String? message,
+  }) : super(
+          status: status,
+          message: message,
+        );
+}

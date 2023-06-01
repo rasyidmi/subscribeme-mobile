@@ -10,7 +10,6 @@ import 'package:subscribeme_mobile/services/secure_storage.dart';
 
 class AuthApi {
   final LocalStorageService _storageService = LocalStorageService();
-  final _authPath = '/user';
 
   Future<User> login(String ticket) async {
     Map<String, String> body = {
@@ -79,6 +78,7 @@ class AuthApi {
     if (token == null || token == "") return null;
     // Check token expired data.
     if (!JwtDecoder.isExpired(token)) {
+      log('Token pengguna: $token');
       final decodedJwt = JwtDecoder.decode(token);
       final user = User.fromJson(decodedJwt);
       return user;

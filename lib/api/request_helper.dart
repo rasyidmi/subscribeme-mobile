@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:subscribeme_mobile/api/api_constants.dart';
 import 'package:subscribeme_mobile/api/auth_api.dart';
+import 'package:subscribeme_mobile/commons/arguments/http_exception.dart';
 import 'package:subscribeme_mobile/commons/constants/response_status.dart';
 import 'package:subscribeme_mobile/service_locator/service_locator.dart';
 
@@ -11,6 +13,10 @@ class RequestHelper {
 
   static Future<HttpResponse> get(String path) async {
     final token = await locator<AuthApi>().getToken();
+    // Check token is expired or not.
+    if (RequestHelper._isTokenExpired(token!)) {
+      throw SubsHttpException(ResponseStatus.unauthorized, null);
+    }
     final urlPath = '$apiPath$path';
 
     final response = await http.get(
@@ -109,6 +115,10 @@ class RequestHelper {
     }
 
     return HttpResponse(status: status, data: decodedData);
+  }
+
+  static bool _isTokenExpired(String token) {
+    return JwtDecoder.isExpired(token);
   }
 
   // static Future<HttpResponse> _handleExpiredToken(

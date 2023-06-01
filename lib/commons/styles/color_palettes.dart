@@ -16,6 +16,7 @@ class ColorPalettes {
   static const Color alertButtonText = Color(0xFFFF1212);
   static const Color disabledForm = Color(0xFFF2F2F2);
   static const Color textLink = Color(0xFF1E8AE5);
+  static const Color lightBlue = Color(0xFFDAEBFF);
 
   static const Color secondary = Color(0xFFFFFCF5);
   static const Color cloud = Color(0xFFF7F8FF);

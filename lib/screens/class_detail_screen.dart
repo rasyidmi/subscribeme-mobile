@@ -1,349 +1,263 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:subscribeme_mobile/blocs/classes/classes_bloc.dart';
-import 'package:subscribeme_mobile/commons/constants/sizes.dart';
-import 'package:subscribeme_mobile/commons/extensions/date_time_extension.dart';
-import 'package:subscribeme_mobile/commons/extensions/string_extension.dart';
 import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/models/class.dart';
-import 'package:subscribeme_mobile/repositories/classes_repository.dart';
-import 'package:subscribeme_mobile/routes.dart';
-import 'package:subscribeme_mobile/widgets/circular_loading.dart';
-import 'package:subscribeme_mobile/widgets/class_detail/rectangle_button.dart';
 import 'package:subscribeme_mobile/widgets/secondary_appbar.dart';
-import 'package:subscribeme_mobile/widgets/shimmer/list_shimmer.dart';
-import 'package:subscribeme_mobile/widgets/subs_bottomsheet.dart';
-import 'package:subscribeme_mobile/widgets/subs_consumer.dart';
-import 'package:subscribeme_mobile/widgets/subs_flushbar.dart';
-import 'package:subscribeme_mobile/widgets/subs_list_tile.dart';
 import 'package:subscribeme_mobile/widgets/subs_rounded_button.dart';
-import 'package:subscribeme_mobile/widgets/subs_secondary_button.dart';
 
 class ClassDetailScreen extends StatelessWidget {
   const ClassDetailScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final classData =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    final classInstance = classData["class_data"] as Class;
-    final courseName = classData["course_name"] as String;
-    bool isChecked = false;
+    final classData = ModalRoute.of(context)!.settings.arguments as Class;
+    final bottomPadding = MediaQuery.of(context).padding.bottom;
 
-    return BlocProvider<ClassesBloc>(
-      create: (_) {
-        final repository = RepositoryProvider.of<ClassesRepository>(context);
-        return ClassesBloc(repository)
-          ..add(FetchClassById(classData['class_data'].id));
-      },
-      child: ColoredBox(
-        color: Colors.white,
-        child: SafeArea(
-          child: Scaffold(
-            appBar: SecondaryAppbar(
-              title: classInstance.title,
-              subTitle: courseName,
-              padding: const EdgeInsets.only(top: 8.0),
-            ),
-            body: SubsConsumer<ClassesBloc, ClassesState>(
-              listener: (context, state) {
-                if (state is SubscribeClassSuccess) {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    Routes.classDetail,
-                    (route) => route.settings.name == Routes.courseDetail,
-                    arguments: {
-                      'class_data': classInstance,
-                      'course_name': courseName,
-                    },
-                  );
-                  SubsFlushbar.showSuccess(
-                      context, LocaleKeys.class_detail_screen_success_subscribe.tr());
-                }
-              },
-              builder: (context, state) {
-                if (state is FetchClassSuccess) {
-                  return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const SizedBox(height: 16.0),
-                          Expanded(
-                            child: ListView.builder(
-                              itemCount: state.kelas.listEvent!.length,
-                              itemBuilder: (context, index) => Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: SubsListTile(
-                                  title: state.kelas.listEvent![index].title,
-                                  secondLine: state.kelas.listEvent![index]
-                                      .deadlineTime.displayDeadline,
-                                  isActive: state.kelas.isSubscribe!,
-                                  onTap: state.kelas.isSubscribe!
-                                      ? () {
-                                          _showBottomSheet(
-                                            context,
-                                            state,
-                                            index,
-                                            courseName,
-                                            classInstance,
-                                            isChecked,
-                                          );
-                                        }
-                                      : null,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ));
-                } else {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ListShimmer(itemHeight: 64.0),
-                  );
-                }
-              },
-            ),
-            bottomNavigationBar: BlocBuilder<ClassesBloc, ClassesState>(
-              builder: (context, state) {
-                if (state is FetchClassSuccess && !state.kelas.isSubscribe!) {
-                  return Container(
-                    height: getScreenSize(context).height / 6,
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(15.0),
-                          topRight: Radius.circular(15.0)),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          offset: const Offset(0, -4),
-                          blurRadius: 4,
-                          color: Colors.black.withOpacity(0.1),
-                        )
-                      ],
+    return Scaffold(
+      appBar: SecondaryAppbar(
+        title: 'Kelas ${classData.name[classData.name.length - 1]}',
+        subTitle: classData.courseName,
+        padding: const EdgeInsets.only(top: 8.0),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 30),
+                    Text(
+                      LocaleKeys.class_detail_screen_course_detail.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(fontWeight: FontWeight.w600),
                     ),
-                    child: Column(
+                    const SizedBox(height: 12),
+                    Row(
                       children: [
-                        const SizedBox(height: 8.0),
-                        Text(
-                          LocaleKeys.class_detail_screen_subscribe_description
-                              .tr(),
-                          textAlign: TextAlign.center,
-                        ),
+                        Text(LocaleKeys.class_detail_screen_course_code.tr()),
                         const Spacer(),
-                        SubsRoundedButton(
-                          buttonText: LocaleKeys
-                              .class_detail_screen_subscribe_class
-                              .tr(),
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (_) {
-                                  return const Center(child: CircularLoading());
-                                });
-                            BlocProvider.of<ClassesBloc>(context)
-                                .add(SubscribeClass(classInstance.id));
-                          },
-                        ),
-                        const SizedBox(height: 8.0),
+                        Text(classData.courseCode),
                       ],
                     ),
-                  );
-                } else {
-                  return const SizedBox();
-                }
-              },
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Text(LocaleKeys.class_detail_screen_curriculum_code
+                            .tr()),
+                        const Spacer(),
+                        Text("08.00.12.01-2020"),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(LocaleKeys.class_detail_screen_lecturer.tr()),
+                        const Spacer(),
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            convertLectureName(classData.lectureName),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Text(LocaleKeys.class_detail_screen_credit.tr()),
+                        const Spacer(),
+                        Text(classData.credit.toString()),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    const Divider(
+                      height: 0,
+                      thickness: 2,
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      LocaleKeys.class_detail_screen_class_schedule.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(height: 6),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: classData.schedule.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: ColorPalettes.whiteGray),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(8))),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
+                          margin: const EdgeInsets.symmetric(vertical: 6),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.calendar_today_outlined),
+                              const SizedBox(width: 8),
+                              Text(
+                                  '${classData.schedule[index].day}, ${classData.schedule[index].startTime.substring(0, 5)} - ${classData.schedule[index].endTime.substring(0, 5)}'),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 26),
+                    const Divider(
+                      height: 0,
+                      thickness: 2,
+                    ),
+                    const SizedBox(height: 22),
+                    Text(
+                      LocaleKeys.class_detail_screen_attendance_history.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(height: 6),
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: ColorPalettes.whiteGray),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(8))),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
+                          margin: const EdgeInsets.symmetric(vertical: 6),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.check_circle,
+                                color: ColorPalettes.success,
+                              ),
+                              const SizedBox(width: 8),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  IntrinsicHeight(
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          LocaleKeys.class_detail_screen_present
+                                              .tr(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2!
+                                              .copyWith(
+                                                fontWeight: FontWeight.w600,
+                                                color: ColorPalettes.success,
+                                              ),
+                                        ),
+                                        const VerticalDivider(
+                                          color: Colors.black,
+                                          endIndent: 2,
+                                          indent: 2,
+                                        ),
+                                        Text(
+                                          "Jumat, 28 Desember 2023",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Text(
+                                    "Jam Absensi: 08.12",
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 6),
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  PersistentBottomSheetController<dynamic> _showBottomSheet(
-      BuildContext context,
-      FetchClassSuccess state,
-      int index,
-      String courseName,
-      Class classInstance,
-      bool isChecked) {
-    return showBottomSheet(
-      context: context,
-      builder: (context) => StatefulBuilder(
-        builder: (context, setState) {
-          return SubsBottomsheet(content: [
-            const Spacer(),
-            Text(
-              state.kelas.listEvent![index].title,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline5!
-                  .copyWith(color: ColorPalettes.primary),
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    offset: const Offset(0, -1),
+                    blurRadius: 24,
+                    spreadRadius: 0.5,
+                    color: Colors.black.withOpacity(0.15),
+                  ),
+                ]),
+            padding: EdgeInsets.only(
+              bottom: bottomPadding,
+              top: 16,
+              right: 24,
+              left: 24,
             ),
-            const SizedBox(height: 10),
-            Text(
-              '${LocaleKeys.deadline.tr()}: ${state.kelas.listEvent![index].deadlineTime.toDayMonthYearFormat}',
-              style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                  color: ColorPalettes.lightRed, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${LocaleKeys.kelas.tr()}: $courseName - ${classInstance.title.getLastCharacter}',
-            ),
-            const SizedBox(height: 20),
-            _buildBellTile(context),
-            const SizedBox(height: 20),
-            _buildNotificationPicker(),
-            const SizedBox(height: 20),
-            _buildDivider(),
-            const SizedBox(height: 24),
-            Row(
+            child: Column(
               children: [
-                _CheckBox(
-                    value: isChecked,
-                    onChanged: (value) {
-                      setState(() {
-                        isChecked = value!;
-                      });
-                    }),
-                const SizedBox(width: 16),
-                Text(
-                  LocaleKeys.class_detail_screen_mark_done.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2!
-                      .copyWith(fontWeight: FontWeight.bold),
-                )
+                SubsRoundedButton(
+                  buttonText: LocaleKeys.class_detail_screen_attend_class.tr(),
+                  onTap: () {},
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.check_circle,
+                      color: ColorPalettes.success,
+                      size: 16,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      LocaleKeys.class_detail_screen_attendance_available.tr(),
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
+                  ],
+                ),
               ],
             ),
-            const Spacer(flex: 2),
-            _buildBottomsheetButtons(context),
-          ]);
-        },
+          ),
+        ],
       ),
     );
   }
 
-  Row _buildBottomsheetButtons(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: SubsSecondaryButton(
-            buttonText: LocaleKeys.cancel.tr(),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: SubsRoundedButton(
-            buttonText: LocaleKeys.save_changes.tr(),
-            onTap: () {},
-          ),
-        ),
-      ],
-    );
-  }
+  String convertLectureName(List<dynamic> lectures) {
+    String convertedString = lectures[0]["name"];
+    if (lectures.length > 1) {
+      for (var i = 1; i < lectures.length; i++) {
+        convertedString += ' & ${lectures[i]["name"]}';
+      }
+    }
 
-  Row _buildDivider() {
-    return Row(
-      children: [
-        const _SmallDivider(),
-        const SizedBox(width: 12),
-        Text(LocaleKeys.or.tr().toLowerCase()),
-        const SizedBox(width: 12),
-        const _SmallDivider(),
-      ],
-    );
-  }
-
-  Row _buildNotificationPicker() {
-    return Row(
-      children: const [
-        RectangleButton(
-          backgroundColor: ColorPalettes.secondary,
-          icon: Icon(Icons.remove),
-        ),
-        Spacer(),
-        Text("1 Hari - Sebelum Deadline"),
-        Spacer(),
-        RectangleButton(
-          backgroundColor: ColorPalettes.primary,
-          icon: Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Row _buildBellTile(BuildContext context) {
-    return Row(
-      children: [
-        const Icon(Icons.notifications),
-        const SizedBox(width: 16),
-        Text(
-          LocaleKeys.class_detail_screen_remind_me.tr(),
-          style: Theme.of(context)
-              .textTheme
-              .bodyText2!
-              .copyWith(fontWeight: FontWeight.bold),
-        ),
-      ],
-    );
-  }
-}
-
-class _SmallDivider extends StatelessWidget {
-  const _SmallDivider({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        height: 2,
-        decoration: const BoxDecoration(
-          color: ColorPalettes.whiteGray,
-          borderRadius: BorderRadius.all(
-            Radius.circular(5),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _CheckBox extends StatelessWidget {
-  final bool? value;
-  final void Function(bool?) onChanged;
-  const _CheckBox({
-    Key? key,
-    required this.onChanged,
-    this.value,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 20,
-      width: 20,
-      child: Theme(
-        data: ThemeData(
-          unselectedWidgetColor: Colors.black,
-        ),
-        child: Checkbox(
-          value: value,
-          activeColor: ColorPalettes.primary,
-          onChanged: onChanged,
-        ),
-      ),
-    );
+    return convertedString;
   }
 }

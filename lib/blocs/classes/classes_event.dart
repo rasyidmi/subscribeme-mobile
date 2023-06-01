@@ -21,3 +21,5 @@ class SubscribeClass extends ClassesEvent {
   @override
   List<Object?> get props => [id];
 }
+
+class FetchUserClass extends ClassesEvent {}

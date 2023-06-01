@@ -50,6 +50,10 @@
     "search_course": "Find courses...",
     "find_another_course": "Please find another course!"
   },
+  "list_class_screen": {
+    "search_class": "Find classes...",
+    "info": "Choosen classes from SIAK-NG"
+  },
   "add_course_screen": {
     "add_course": "Add Course",
     "course_name": "Course Name",
@@ -84,11 +88,18 @@
     "are_you_sure_2": "from {} Course?"
   },
   "class_detail_screen": {
-    "success_subscribe": "Successfully subscribed the class.",
-    "subscribe_class": "Subscribe This Class",
-    "subscribe_description": "*) If you subscribe this class, you can manage and get notifications when there are assignments in this class.",
-    "mark_done": "Mark as Done",
-    "remind_me": "Remind Me Before?"
+    "course_detail": "Course Detail",
+    "course_code": "Course Code",
+    "curriculum_code": "Curriculum Code",
+    "lecturer": "Lecturer",
+    "credit": "Credit",
+    "class_schedule": "Class Schedule",
+    "attendance_history": "Attendance History",
+    "present": "Present",
+    "not_present": "Not Present",
+    "attend_class": "Attend Class",
+    "attendance_available": "Attendance available",
+    "attendance_not_available": "Attendance not available"
   },
   "add_event_detail_screen": {
     "add_task": "Add Task",

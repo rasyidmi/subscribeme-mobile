@@ -15,18 +15,18 @@ Widget getScreenByName(String name) {
       return const LoginConfirmationScreen();
     case Routes.maintenance:
       return const MaintenanceScreen();
-    case Routes.courseDetail:
-      return const CourseDetailScreen();
+    // case Routes.courseDetail:
+    //   return const CourseDetailScreen();
     case Routes.classDetail:
       return const ClassDetailScreen();
     case Routes.addCourse:
       return const AddCourseScreen();
     case Routes.adminViewCourses:
       return const AdminViewCourses();
-    case Routes.adminCourseDetail:
-      return const AdminViewCourseDetail();
-    case Routes.addEventDetail:
-      return const AddEventDetailScreen();
+    // case Routes.adminCourseDetail:
+    //   return const AdminViewCourseDetail();
+    // case Routes.addEventDetail:
+    //   return const AddEventDetailScreen();
     case Routes.setting:
       return const SettingsScreen();
     case Routes.ssoWebView:

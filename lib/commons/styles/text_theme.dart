@@ -49,7 +49,7 @@ TextTheme _textTheme = const TextTheme(
   ),
   // Button
   button: TextStyle(
-    fontSize: 14,
+    fontSize: 12,
     height: 1.4,
     fontWeight: FontWeight.bold,
     color: ColorPalettes.white,

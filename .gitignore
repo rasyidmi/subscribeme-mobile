@@ -49,3 +49,6 @@ app.*.map.json
 
 # env
 .env
+
+# Fonts assets
+assets/fonts/

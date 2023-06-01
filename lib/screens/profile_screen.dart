@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:subscribeme_mobile/blocs/auth/auth_bloc.dart';
-import 'package:subscribeme_mobile/commons/constants/role.dart';
 import 'package:subscribeme_mobile/commons/constants/sizes.dart';
 import 'package:subscribeme_mobile/commons/resources/icons.dart';
 import 'package:subscribeme_mobile/commons/resources/images.dart';
@@ -46,6 +45,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24.0),
               Text(LocaleKeys.profile_screen_full_name.tr()),
+              const SizedBox(height: 6.0),
               Text(
                 state.user.name,
                 style: Theme.of(context)
@@ -55,6 +55,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 22.0),
               Text(LocaleKeys.profile_screen_npm.tr()),
+              const SizedBox(height: 6.0),
               Text(
                 state.user.npm,
                 style: Theme.of(context)
@@ -64,6 +65,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 22.0),
               Text(LocaleKeys.profile_screen_email.tr()),
+              const SizedBox(height: 6.0),
               Text(
                 '${state.user.username}@ui.ac.id',
                 style: Theme.of(context)

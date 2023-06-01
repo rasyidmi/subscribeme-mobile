@@ -7,8 +7,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:subscribeme_mobile/blocs/auth/auth_bloc.dart';
 import 'package:subscribeme_mobile/commons/constants/response_status.dart';
 import 'package:subscribeme_mobile/routes.dart';
-import 'package:subscribeme_mobile/service_locator/navigation_service.dart';
-import 'package:subscribeme_mobile/service_locator/service_locator.dart';
 import 'package:subscribeme_mobile/widgets/subs_consumer.dart';
 
 class WrapperScreen extends StatefulWidget {

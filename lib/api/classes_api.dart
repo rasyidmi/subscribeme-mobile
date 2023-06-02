@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:subscribeme_mobile/api/request_helper.dart';
 import 'package:subscribeme_mobile/commons/arguments/http_exception.dart';
 import 'package:subscribeme_mobile/commons/constants/response_status.dart';
@@ -36,6 +35,8 @@ class ClassesApi {
     }
     return classes;
   }
+  
+  
 
   Future<void> subscribeClass(int id) async {
     final response =

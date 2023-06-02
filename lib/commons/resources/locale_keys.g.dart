@@ -1,5 +1,7 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
+// ignore_for_file: constant_identifier_names
+
 abstract class  LocaleKeys {
   static const name = 'name';
   static const see_all = 'see_all';
@@ -92,6 +94,7 @@ abstract class  LocaleKeys {
   static const class_detail_screen_attend_class = 'class_detail_screen.attend_class';
   static const class_detail_screen_attendance_available = 'class_detail_screen.attendance_available';
   static const class_detail_screen_attendance_not_available = 'class_detail_screen.attendance_not_available';
+  static const class_detail_screen_attendance_hour = 'class_detail_screen.attendance_hour';
   static const class_detail_screen = 'class_detail_screen';
   static const add_event_detail_screen_add_task = 'add_event_detail_screen.add_task';
   static const add_event_detail_screen_task_name = 'add_event_detail_screen.task_name';

@@ -1,6 +1,7 @@
 import 'package:subscribeme_mobile/models/class_schedule.dart';
 
 class Class {
+  final String classCode;
   final String name;
   final String courseCode;
   final String courseName;
@@ -9,6 +10,7 @@ class Class {
   final List<ClassSchedule> schedule;
 
   Class({
+    required this.classCode,
     required this.name,
     required this.courseCode,
     required this.courseName,
@@ -18,6 +20,7 @@ class Class {
   });
 
   factory Class.fromJson(Map<String, dynamic> json) => Class(
+        classCode: json["class_code"],
         name: json["class_name"],
         courseCode: json["course"]["course_code"],
         courseName: json["course"]["course_name"],
@@ -27,6 +30,7 @@ class Class {
       );
 
   Map<String, dynamic> toJson() => {
+        "class_code": classCode,
         "name": name,
         "course_code": courseCode,
         "lecture_name": lectureName,

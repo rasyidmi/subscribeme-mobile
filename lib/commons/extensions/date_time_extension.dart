@@ -19,6 +19,10 @@ extension DateTimeExtension on DateTime {
   String get toDayMonthYearFormat {
     return DateFormat('d MMMM y').format(this);
   }
+
+  String get displayHourMinute {
+    return DateFormat('HH.mm').format(this);
+  }
 }
 
 extension TimeOfDayExtension on TimeOfDay {

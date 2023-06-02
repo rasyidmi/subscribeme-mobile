@@ -99,7 +99,8 @@
     "not_present": "Not Present",
     "attend_class": "Attend Class",
     "attendance_available": "Attendance available",
-    "attendance_not_available": "Attendance not available"
+    "attendance_not_available": "Attendance not available",
+    "attendance_hour": "Attendance Hour"
   },
   "add_event_detail_screen": {
     "add_task": "Add Task",

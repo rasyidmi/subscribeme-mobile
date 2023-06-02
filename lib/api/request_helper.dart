@@ -15,7 +15,7 @@ class RequestHelper {
     final token = await locator<AuthApi>().getToken();
     // Check token is expired or not.
     if (RequestHelper._isTokenExpired(token!)) {
-      throw SubsHttpException(ResponseStatus.unauthorized, null);
+      throw SubsHttpException(ResponseStatus.tokenExpire, null);
     }
     final urlPath = '$apiPath$path';
 
@@ -80,6 +80,30 @@ class RequestHelper {
     final urlPath = '$apiPath$path';
 
     final response = await http.post(
+      Uri.parse(urlPath),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+      body: json.encoder.convert(body),
+    );
+
+    final decodedBody = json.decode(response.body);
+
+    return _responseHandler(response.statusCode, decodedBody, "POST", urlPath);
+  }
+
+  static Future<HttpResponse> put(
+      String path, Map<String, dynamic>? body) async {
+    final token = await locator<AuthApi>().getToken();
+    final urlPath = '$apiPath$path';
+    
+    // Check token is expired or not.
+    if (RequestHelper._isTokenExpired(token!)) {
+      throw SubsHttpException(ResponseStatus.tokenExpire, null);
+    }
+
+    final response = await http.put(
       Uri.parse(urlPath),
       headers: {
         'Content-Type': 'application/json',

@@ -50,29 +50,6 @@ class AuthApi {
     }
   }
 
-  // Future<User> signIn(Map<String, dynamic> data) async {
-  //   Map<String, String> signInData = {
-  //     "email": data['email'],
-  //     "password": data['password']
-  //   };
-  //   final response = await RequestHelper.postWithoutToken(
-  //     '$_authPath/login',
-  //     signInData,
-  //   );
-  //   if (response.status == ResponseStatus.success) {
-  //     // Store token in local storage.
-  //     await _storageService.writeSecureData(
-  //         "accessToken", response.data!["data"]["accessToken"]);
-  //     await _storageService.writeSecureData(
-  //         "refreshToken", response.data!["data"]["refreshToken"]);
-  //     log(response.data!["data"]["userData"].toString());
-  //     User user = User.fromJson(response.data!["data"]["userData"]);
-  //     return user;
-  //   } else {
-  //     throw SubsHttpException(response.status, response.data!["data"]);
-  //   }
-  // }
-
   Future<User?> tryAutoLogin() async {
     String? token = await getToken();
     if (token == null || token == "") return null;

@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subscribeme_mobile/api/api.dart';
+import 'package:subscribeme_mobile/repositories/attendance_repository.dart';
 import 'package:subscribeme_mobile/repositories/repositories.dart';
 import 'package:subscribeme_mobile/service_locator/service_locator.dart';
 
@@ -14,5 +15,9 @@ final repositoryProviders = [
     create: (context) => ClassesRepository(locator<ClassesApi>()),
   ),
   RepositoryProvider<EventsRepository>(
-      create: (context) => EventsRepository(locator<EventsApi>()))
+    create: (context) => EventsRepository(locator<EventsApi>()),
+  ),
+  RepositoryProvider<AttendanceRepository>(
+    create: (context) => AttendanceRepository(locator<AttendanceApi>()),
+  ),
 ];

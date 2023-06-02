@@ -62,6 +62,10 @@
 		</array>
 		<!-- End of Google Sign-in Section -->
 		<key>CADisableMinimumFrameDurationOnPhone</key>
+		<!-- Geolocator -->
+		<key>NSLocationWhenInUseUsageDescription</key>
+			<string>This app needs access to location when open.</string>
+		<!-- End of Geolocator -->
 	<true/>
 </dict>
 </plist>

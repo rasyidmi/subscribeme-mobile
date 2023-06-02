@@ -99,7 +99,8 @@
     "not_present": "Tidak Hadir",
     "attend_class": "Absen Kelas Ini",
     "attendance_available": "Absensi tersedia",
-    "attendance_not_available": "Absensi selanjutnya belum tersedia."
+    "attendance_not_available": "Absensi selanjutnya belum tersedia.",
+    "attendance_hour": "Jam Absensi"
   },
   "add_event_detail_screen": {
     "add_task": "Tambah Tugas",

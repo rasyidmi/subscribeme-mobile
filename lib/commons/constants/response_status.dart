@@ -7,4 +7,5 @@ enum ResponseStatus {
   tokenExpire,
   autoLoginFailed,
   duplicateData,
+  locationServiceDisabled,
 }

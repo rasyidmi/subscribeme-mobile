@@ -10,6 +10,7 @@ import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/routes.dart';
 import 'package:subscribeme_mobile/service_locator/navigation_service.dart';
 import 'package:subscribeme_mobile/service_locator/service_locator.dart';
+import 'package:subscribeme_mobile/widgets/bottom_button_container.dart';
 import 'package:subscribeme_mobile/widgets/subs_consumer.dart';
 import 'package:subscribeme_mobile/widgets/subs_rounded_button.dart';
 import 'package:subscribeme_mobile/widgets/subs_secondary_button.dart';
@@ -19,8 +20,6 @@ class LoginConfirmationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bottomPadding = MediaQuery.of(context).padding.bottom;
-
     return Scaffold(
       backgroundColor: ColorPalettes.primary,
       body: SubsConsumer<AuthBloc, AuthState>(
@@ -71,17 +70,9 @@ class LoginConfirmationScreen extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              Container(
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
-                    )),
-                padding: EdgeInsets.only(bottom: bottomPadding, top: 16),
+              BottomContainer(
                 child: Row(
                   children: [
-                    const SizedBox(width: 24),
                     Expanded(
                       child: SubsSecondaryButton(
                         buttonText: "Tidak",
@@ -98,7 +89,6 @@ class LoginConfirmationScreen extends StatelessWidget {
                         onTap: createUser,
                       ),
                     ),
-                    const SizedBox(width: 24),
                   ],
                 ),
               ),

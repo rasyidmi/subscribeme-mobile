@@ -41,7 +41,7 @@ class _WrapperScreenState extends State<WrapperScreen> {
           log("Auto login success");
           FlutterNativeSplash.remove();
           Navigator.of(context)
-              .pushNamedAndRemoveUntil(Routes.home, (route) => false);
+              .pushNamedAndRemoveUntil(Routes.main, (route) => false);
         } else if (state is AuthFailed &&
             state.status == ResponseStatus.unauthorized) {
           log("Auto login failed");

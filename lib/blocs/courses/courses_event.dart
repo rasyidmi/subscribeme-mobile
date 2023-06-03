@@ -5,28 +5,14 @@ abstract class CoursesEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class CreateCourse extends CoursesEvent {
-  final Map<String, dynamic> data;
+class FetchUserCourses extends CoursesEvent {}
 
-  CreateCourse(this.data);
+class FetchSubscribedCourses extends CoursesEvent {}
+
+class SubscribeCourse extends CoursesEvent {
+  final Course course;
+
+  SubscribeCourse(this.course);
   @override
-  List<Object?> get props => [data];
-}
-
-class FetchCourses extends CoursesEvent {}
-
-class FetchCourseClasses extends CoursesEvent {
-  final int id;
-
-  FetchCourseClasses(this.id);
-  @override
-  List<Object?> get props => [id];
-}
-
-class DeleteCourse extends CoursesEvent {
-  final int id;
-
-  DeleteCourse(this.id);
-  @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [course];
 }

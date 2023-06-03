@@ -1,29 +1,21 @@
 import 'package:subscribeme_mobile/api/courses_api.dart';
-import 'package:subscribeme_mobile/models/class.dart';
 import 'package:subscribeme_mobile/models/course.dart';
+import 'package:subscribeme_mobile/models/course_scele.dart';
 
 class CoursesRepository {
   final CoursesApi _coursesApi;
 
   CoursesRepository(this._coursesApi);
 
-  Future<List<Course>> getAllCourses() async {
-    return _coursesApi.getAllCourses();
+  Future<List<Course>> getUserCourses() async {
+    return _coursesApi.getUserCourses();
   }
 
-  // Actually no need to return bool, but somehow if the return value is void
-  // when server is down the error is not catched.
-  Future<bool> createCourse(Map<String, dynamic>? body) async {
-    return _coursesApi.createCourse(body);
+  Future<List<CourseScele>> getSubscribedCourse() async {
+    return _coursesApi.getSubscribedCourse();
   }
 
-  Future<List<Class>> getCourseClasses(int id) async {
-    return _coursesApi.getCourseClasses(id);
-  }
-
-  // Actually no need to return bool, but somehow if the return value is void
-  // when server is down the error is not catched.
-  Future<bool> deleteCourse(int id) async {
-     return _coursesApi.deleteCourse(id);
+  Future<bool> subscribeCourse(Course course) async {
+    return _coursesApi.subscribeCourse(course);
   }
 }

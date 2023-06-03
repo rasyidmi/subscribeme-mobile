@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
             if (state.user.isExist!) {
               // If user already exist in DB, navigate to home.
               Navigator.of(context)
-                  .pushNamedAndRemoveUntil(Routes.home, (route) => false);
+                  .pushNamedAndRemoveUntil(Routes.main, (route) => false);
             } else {
               // Navigate to login confirmation.
               Navigator.of(context).pushNamedAndRemoveUntil(

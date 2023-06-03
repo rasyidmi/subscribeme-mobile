@@ -12,20 +12,18 @@ abstract class CoursesState extends BlocState {
 
 class CoursesInit extends CoursesState {}
 
-//Get courses
-class LoadCoursesSuccess extends CoursesState {
-  final List<Course> listCourses;
-
-  const LoadCoursesSuccess(this.listCourses);
+class FetchUserCoursesSuccess extends CoursesState {
+  final List<Course> courses;
+  const FetchUserCoursesSuccess(this.courses);
 
   @override
-  List<Object?> get props => [listCourses];
+  List<Object?> get props => [courses];
 }
 
-class LoadCoursesLoading extends CoursesState {}
+class FetchUserCoursesLoading extends CoursesState {}
 
-class LoadCoursesFailed extends CoursesState {
-  const LoadCoursesFailed({
+class FetchUserCoursesFailed extends CoursesState {
+  const FetchUserCoursesFailed({
     ResponseStatus? status,
     String? message,
   }) : super(
@@ -34,35 +32,18 @@ class LoadCoursesFailed extends CoursesState {
         );
 }
 
-// Create courses
-class CreateCourseSuccess extends CoursesState {}
-
-class CreateCourseFailed extends CoursesState {
-  const CreateCourseFailed({
-    ResponseStatus? status,
-    String? message,
-  }) : super(
-          status: status,
-          message: message,
-        );
-}
-
-class CreateCourseLoading extends CoursesState {}
-
-// Get course's classes
-class ClassesLoading extends CoursesState {}
-
-class ClassesLoaded extends CoursesState {
-  final List<Class> listClasses;
-
-  const ClassesLoaded(this.listClasses);
+class FetchSubscribedCoursesSuccess extends CoursesState {
+  final List<CourseScele> courses;
+  const FetchSubscribedCoursesSuccess(this.courses);
 
   @override
-  List<Object?> get props => [listClasses];
+  List<Object?> get props => [courses];
 }
 
-class LoadClassesFailed extends CoursesState {
-  const LoadClassesFailed({
+class FetchSubscribedCoursesLoading extends CoursesState {}
+
+class FetchSubscribedCoursesFailed extends CoursesState {
+  const FetchSubscribedCoursesFailed({
     ResponseStatus? status,
     String? message,
   }) : super(
@@ -71,13 +52,12 @@ class LoadClassesFailed extends CoursesState {
         );
 }
 
-// Delete course
-class DeleteCourseLoading extends CoursesState {}
+class SubscribeCourseSuccess extends CoursesState {}
 
-class DeleteCourseSuccess extends CoursesState {}
+class SubscribeCourseLoading extends CoursesState {}
 
-class DeleteCourseFailed extends CoursesState {
-  const DeleteCourseFailed({
+class SubscribeCourseFailed extends CoursesState {
+  const SubscribeCourseFailed({
     ResponseStatus? status,
     String? message,
   }) : super(

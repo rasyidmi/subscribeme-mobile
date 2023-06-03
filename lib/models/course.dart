@@ -1,27 +1,23 @@
 class Course {
   final int id;
-  final String title;
-  final String major;
-  final int term;
+  final String name;
+  bool isSubscribe;
 
   Course({
-    required this.title,
+    required this.name,
     required this.id,
-    required this.major,
-    required this.term,
+    this.isSubscribe = false,
   });
 
   factory Course.fromJson(Map<String, dynamic> json) => Course(
-        id: json['ID'],
-        title: json["Title"],
-        major: json['Major'],
-        term: json['Term']
+        id: json['id'],
+        name: json["name"],
+        isSubscribe: json["is_subscribed"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "title": title,
-        "major": major,
-        "term": term,
+        "name": name,
+        "is_subscribed": isSubscribe,
       };
 }

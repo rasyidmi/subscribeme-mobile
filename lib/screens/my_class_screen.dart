@@ -39,12 +39,9 @@ class _MyClassScreenState extends State<MyClassScreen> {
         child: Column(
           children: [
             const SizedBox(height: 38),
-            ColoredBox(
-              color: ColorPalettes.white,
-              child: SubsSearchBar(
-                hintText: LocaleKeys.list_class_screen_search_class.tr(),
-                onChanged: _onSearchChanged,
-              ),
+            SubsSearchBar(
+              hintText: LocaleKeys.list_class_screen_search_class.tr(),
+              onChanged: _onSearchChanged,
             ),
             const SizedBox(height: 21),
             Container(

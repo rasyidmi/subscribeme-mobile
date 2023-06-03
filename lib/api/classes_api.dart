@@ -6,24 +6,6 @@ import 'package:subscribeme_mobile/models/class.dart';
 class ClassesApi {
   final _classesPath = '/siakng/class';
 
-  // Future<Class> getClassById(int id) async {
-  //   final response = await RequestHelper.get('$_classesPath/$id');
-
-  //   if (response.status == ResponseStatus.success) {
-  //     Class kelas = Class.fromJson(response.data!["data"]);
-  //     List<Event> listEvents = [];
-  //     for (var event in response.data!["data"]["Events"]) {
-  //       listEvents.add(Event.fromJson(event));
-  //     }
-  //     // Sort event ascending by deadline time
-  //     listEvents.sort();
-  //     kelas.listEvent = listEvents;
-  //     return kelas;
-  //   } else {
-  //     throw SubsHttpException(response.status, response.data!["data"]);
-  //   }
-  // }
-
   Future<List<Class>> getUserClass() async {
     final response = await RequestHelper.get('$_classesPath/npm');
     List<Class> classes = [];
@@ -35,8 +17,6 @@ class ClassesApi {
     }
     return classes;
   }
-  
-  
 
   Future<void> subscribeClass(int id) async {
     final response =

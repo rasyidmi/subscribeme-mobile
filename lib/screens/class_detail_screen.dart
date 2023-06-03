@@ -10,6 +10,7 @@ import 'package:subscribeme_mobile/models/class.dart';
 import 'package:subscribeme_mobile/repositories/attendance_repository.dart';
 import 'package:subscribeme_mobile/routes.dart';
 import 'package:subscribeme_mobile/widgets/bottom_button_container.dart';
+import 'package:subscribeme_mobile/widgets/circular_loading.dart';
 import 'package:subscribeme_mobile/widgets/secondary_appbar.dart';
 import 'package:subscribeme_mobile/widgets/shimmer/list_shimmer.dart';
 import 'package:subscribeme_mobile/widgets/subs_consumer.dart';
@@ -46,21 +47,19 @@ class ClassDetailScreen extends StatelessWidget {
                   return WillPopScope(
                     onWillPop: () => Future.value(false),
                     child: const Center(
-                      child: CircularProgressIndicator(
-                        color: ColorPalettes.primary,
-                      ),
+                      child: CircularLoading(),
                     ),
                   );
                 },
               );
             } else if (state is RecordAttendanceSuccess) {
               Navigator.of(context).pushNamedAndRemoveUntil(Routes.classDetail,
-                  (route) => route.settings.name == Routes.home,
+                  (route) => route.settings.name == Routes.main,
                   arguments: classData);
               SubsFlushbar.showSuccess(context, "Absensi berhasil dilakukan");
             } else if (state is RecordAttendanceFailed) {
               Navigator.of(context).pushNamedAndRemoveUntil(Routes.classDetail,
-                  (route) => route.settings.name == Routes.home,
+                  (route) => route.settings.name == Routes.main,
                   arguments: classData);
               SubsFlushbar.showFailed(context, "Absensi gagal dilakukan");
             }

@@ -1,78 +1,283 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:subscribeme_mobile/blocs/courses/courses_bloc.dart';
-// import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
-// import 'package:subscribeme_mobile/models/course.dart';
-// import 'package:subscribeme_mobile/repositories/courses_repository.dart';
-// import 'package:subscribeme_mobile/routes.dart';
-// import 'package:subscribeme_mobile/widgets/circular_loading.dart';
-// import 'package:subscribeme_mobile/widgets/secondary_appbar.dart';
-// import 'package:subscribeme_mobile/widgets/subs_consumer.dart';
-// import 'package:subscribeme_mobile/widgets/subs_list_tile.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
+import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
+import 'package:subscribeme_mobile/widgets/list_courses/custom_search_bar.dart';
+import 'package:subscribeme_mobile/widgets/subs_bottomsheet.dart';
+import 'package:subscribeme_mobile/widgets/subs_list_tile.dart';
+import 'package:subscribeme_mobile/widgets/subs_rounded_button.dart';
+import 'package:subscribeme_mobile/widgets/subs_secondary_button.dart';
 
-// class CourseDetailScreen extends StatelessWidget {
-//   const CourseDetailScreen({Key? key}) : super(key: key);
+class CourseDetailScreen extends StatefulWidget {
+  const CourseDetailScreen({Key? key}) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final course = ModalRoute.of(context)!.settings.arguments as Course;
+  @override
+  State<CourseDetailScreen> createState() => _CourseDetailScreenState();
+}
 
-//     return Scaffold(
-//       appBar: SecondaryAppbar(
-//         title: course.title,
-//         padding: EdgeInsets.zero,
-//       ),
-//       body: BlocProvider<CoursesBloc>(
-//         create: (_) {
-//           final repository = RepositoryProvider.of<CoursesRepository>(context);
-//           return CoursesBloc(repository)..add(FetchCourseClasses(course.id));
-//         },
-//         child: SubsConsumer<CoursesBloc, CoursesState>(
-//           builder: (context, state) {
-//             if (state is ClassesLoaded) {
-//               return Padding(
-//                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-//                 child: Column(
-//                   children: [
-//                     const SizedBox(height: 16.0),
-//                     Expanded(
-//                       child: ListView.builder(
-//                         itemCount: state.listClasses.length,
-//                         itemBuilder: (context, index) => Padding(
-//                           padding: const EdgeInsets.symmetric(vertical: 8.0),
-//                           child: SubsListTile(
-//                             title: state.listClasses[index].title,
-//                             titleWeight: FontWeight.normal,
-//                             isActive: true,
-//                             onTap: () {
-//                               Navigator.of(context).pushNamed(
-//                                 Routes.classDetail,
-//                                 arguments: {
-//                                   'class_data': state.listClasses[index],
-//                                   'course_name': course.title,
-//                                 },
-//                               );
-//                             },
-//                             actionButtons: const [
-//                               Icon(
-//                                 Icons.arrow_forward_ios,
-//                                 color: ColorPalettes.dark50,
-//                                 size: 14.0,
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               );
-//             } else {
-//               return const Center(child: CircularLoading());
-//             }
-//           },
-//         ),
-//       ),
-//     );
-//   }
-// }
+class _CourseDetailScreenState extends State<CourseDetailScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 24),
+            const CustomAppBar(),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 40),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        LocaleKeys.course_detail_screen_course_task.tr(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: SubsSearchBar(
+                        hintText: LocaleKeys
+                            .course_detail_screen_search_course_task
+                            .tr(),
+                      ),
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.fromLTRB(
+                              16, index == 0 ? 18 : 6, 16, 6),
+                          child: SubsListTile(
+                            title: "Sprint Retro",
+                            onTap: () => showModalBottomSheet(
+                              context: context,
+                              backgroundColor: Colors.transparent,
+                              builder: (context) => SubsBottomsheet(
+                                content: [
+                                  const Spacer(),
+                                  Text(
+                                    "Sprint Retro",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline5!
+                                        .copyWith(color: ColorPalettes.primary),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    "Deadline : 24 Maret 2022",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2!
+                                        .copyWith(
+                                            color: ColorPalettes.lightRed,
+                                            fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                      "Arsitektur Pemrograman dan Aplikasi Perusahaan",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle2),
+                                  const SizedBox(height: 20),
+                                  // BELL
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.notifications,
+                                        size: 20,
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Text(
+                                        LocaleKeys
+                                            .course_detail_screen_remind_me
+                                            .tr(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2!
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 12),
+                                  // DATE PICKER
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      border: Border.all(
+                                          color: ColorPalettes.whiteGray),
+                                    ),
+                                    padding: const EdgeInsets.all(12),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          LocaleKeys
+                                              .course_detail_screen_choose_reminder_date
+                                              .tr(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2!
+                                              .copyWith(
+                                                  color: ColorPalettes.gray),
+                                        ),
+                                        const Spacer(),
+                                        const Icon(
+                                          Icons.date_range,
+                                          color: ColorPalettes.primary,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  // DIVIDER
+                                  _buildDivider(),
+                                  const SizedBox(height: 8),
+                                  // CHECKBOX
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        height: 24,
+                                        width: 24,
+                                        child: Checkbox(
+                                          value: false,
+                                          onChanged: (_) {},
+                                        ),
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Text(
+                                        LocaleKeys
+                                            .course_detail_screen_mark_as_done
+                                            .tr(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
+                                  const Spacer(),
+                                  // BUTTONS
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: SubsSecondaryButton(
+                                          buttonText: LocaleKeys.cancel.tr(),
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Expanded(
+                                        child: SubsRoundedButton(
+                                          buttonText:
+                                              LocaleKeys.save_changes.tr(),
+                                          onTap: () {},
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                            isActive: true,
+                            secondLine: "1 Hari Lagi - 23.55 (24 Maret 2022)",
+                            fontSize: 12,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Row _buildDivider() {
+    return Row(
+      children: [
+        const _SmallDivider(),
+        const SizedBox(width: 12),
+        Text(
+          LocaleKeys.or.tr().toLowerCase(),
+          style: Theme.of(context).textTheme.subtitle2,
+        ),
+        const SizedBox(width: 12),
+        const _SmallDivider(),
+      ],
+    );
+  }
+}
+
+class CustomAppBar extends StatelessWidget {
+  const CustomAppBar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const SizedBox(width: 16.0),
+        Container(
+          height: 36,
+          width: 36,
+          decoration: BoxDecoration(
+            border: Border.all(color: ColorPalettes.whiteGray),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          child: IconButton(
+            padding: EdgeInsets.zero,
+            iconSize: 16.0,
+            onPressed: () => Navigator.of(context).pop(),
+            icon: const Icon(Icons.arrow_back_ios_outlined),
+          ),
+        ),
+        const SizedBox(width: 16.0),
+        Expanded(
+          child: Text(
+            "Aristektur Pemrograman dan Aplikasi Perusahaan",
+            style: Theme.of(context)
+                .textTheme
+                .headline6!
+                .copyWith(color: ColorPalettes.primary),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class _SmallDivider extends StatelessWidget {
+  const _SmallDivider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        height: 2,
+        decoration: const BoxDecoration(
+          color: ColorPalettes.whiteGray,
+          borderRadius: BorderRadius.all(
+            Radius.circular(5),
+          ),
+        ),
+      ),
+    );
+  }
+}

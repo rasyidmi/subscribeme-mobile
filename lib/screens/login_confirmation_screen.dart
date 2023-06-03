@@ -27,7 +27,7 @@ class LoginConfirmationScreen extends StatelessWidget {
           if (state is CreateUserSuccess) {
             // If creating user is success in BE, navigate to home screen.
             Navigator.of(context)
-                .pushNamedAndRemoveUntil(Routes.home, (route) => false);
+                .pushNamedAndRemoveUntil(Routes.main, (route) => false);
           }
         },
         builder: (context, state) {
@@ -78,7 +78,7 @@ class LoginConfirmationScreen extends StatelessWidget {
                         buttonText: "Tidak",
                         onTap: () {
                           Navigator.of(context).pushNamedAndRemoveUntil(
-                              Routes.home, (route) => false);
+                              Routes.main, (route) => false);
                         },
                       ),
                     ),

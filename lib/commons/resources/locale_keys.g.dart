@@ -50,7 +50,16 @@ abstract class  LocaleKeys {
   static const home_screen = 'home_screen';
   static const list_course_screen_search_course = 'list_course_screen.search_course';
   static const list_course_screen_find_another_course = 'list_course_screen.find_another_course';
+  static const list_course_screen_choose_course = 'list_course_screen.choose_course';
+  static const list_course_screen_please_choose_course = 'list_course_screen.please_choose_course';
+  static const list_course_screen_choosen_course = 'list_course_screen.choosen_course';
   static const list_course_screen = 'list_course_screen';
+  static const course_detail_screen_course_task = 'course_detail_screen.course_task';
+  static const course_detail_screen_search_course_task = 'course_detail_screen.search_course_task';
+  static const course_detail_screen_remind_me = 'course_detail_screen.remind_me';
+  static const course_detail_screen_choose_reminder_date = 'course_detail_screen.choose_reminder_date';
+  static const course_detail_screen_mark_as_done = 'course_detail_screen.mark_as_done';
+  static const course_detail_screen = 'course_detail_screen';
   static const list_class_screen_search_class = 'list_class_screen.search_class';
   static const list_class_screen_info = 'list_class_screen.info';
   static const list_class_screen = 'list_class_screen';

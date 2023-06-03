@@ -48,7 +48,17 @@
   },
   "list_course_screen": {
     "search_course": "Find courses...",
-    "find_another_course": "Please find another course!"
+    "find_another_course": "Silahkan coba cari mata kuliah lain!",
+    "choose_course": "Pilih Matkul",
+    "please_choose_course": "Pilih mata kuliah yang hanya kamu ambil pada semester ini.",
+    "choosen_course": "Mata Kuliah Terpilih"
+  },
+  "course_detail_screen": {
+    "course_task": "Tugas Kelas Ini",
+    "search_course_task": "cari tugas di kelas ini...",
+    "remind_me": "Ingatkan Aku Pada?",
+    "choose_reminder_date": "Pilih Tanggal Pengingat",
+    "mark_as_done": "Tandai Sudah Selesai"
   },
   "list_class_screen": {
     "search_class": "Find classes...",

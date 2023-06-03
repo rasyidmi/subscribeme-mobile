@@ -11,6 +11,7 @@ class SubsListTile extends StatelessWidget {
   final List<Widget>? actionButtons;
   final VoidCallback? onTap;
   final bool isActive;
+  final double? fontSize;
 
   const SubsListTile({
     Key? key,
@@ -22,6 +23,7 @@ class SubsListTile extends StatelessWidget {
     this.onTap,
     this.isActive = false,
     this.titleWeight = FontWeight.bold,
+    this.fontSize,
   })  : assert(onTap != null && isActive || onTap == null && !isActive),
         super(key: key);
 
@@ -49,6 +51,7 @@ class SubsListTile extends StatelessWidget {
                     title,
                     style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontWeight: titleWeight,
+                          fontSize: fontSize,
                           color: !isActive ? ColorPalettes.gray : null,
                         ),
                   ),
@@ -56,23 +59,27 @@ class SubsListTile extends StatelessWidget {
                   if (!secondLine.isNull) ...[
                     Text(secondLine!,
                         style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                            color: !isActive ? ColorPalettes.gray : null)),
+                              color: !isActive ? ColorPalettes.gray : null,
+                              fontSize: fontSize,
+                            )),
                     const SizedBox(height: 2.0),
                   ],
                   const SizedBox(height: 2.0),
                   if (!thirdLine.isNull) ...[
                     Text(thirdLine!,
                         style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                            color: !isActive ? ColorPalettes.gray : null)),
+                              color: !isActive ? ColorPalettes.gray : null,
+                              fontSize: fontSize,
+                            )),
                     const SizedBox(height: 2.0),
                   ],
                   if (!fourthLine.isNull) ...[
                     Text(
                       fourthLine!,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2!
-                          .copyWith(color: !isActive ? ColorPalettes.gray : null),
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            color: !isActive ? ColorPalettes.gray : null,
+                            fontSize: fontSize,
+                          ),
                     ),
                     const SizedBox(height: 2.0),
                   ],

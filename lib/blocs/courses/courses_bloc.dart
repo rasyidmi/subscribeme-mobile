@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subscribeme_mobile/blocs/bloc_state.dart';
 import 'package:subscribeme_mobile/commons/arguments/http_exception.dart';
 import 'package:subscribeme_mobile/commons/constants/response_status.dart';
-import 'package:subscribeme_mobile/models/class.dart';
 import 'package:subscribeme_mobile/models/course.dart';
+import 'package:subscribeme_mobile/models/course_scele.dart';
 import 'package:subscribeme_mobile/repositories/courses_repository.dart';
 
 part 'courses_event.dart';
@@ -17,83 +17,70 @@ class CoursesBloc extends Bloc<CoursesEvent, CoursesState> {
   final CoursesRepository _coursesRepository;
 
   CoursesBloc(this._coursesRepository) : super(CoursesInit()) {
-    on<FetchCourses>(_onFetchCourses);
-    on<FetchCourseClasses>(_onFetchCourseClasses);
-    on<CreateCourse>(_onCreateCourse);
-    on<DeleteCourse>(_onDeleteCourseHandler);
+    on<FetchUserCourses>(_onFetchUserCourses);
+    on<SubscribeCourse>(_onSubscribeCourse);
+    on<FetchSubscribedCourses>(_onFetchSubscribedCoursesHandler);
   }
 
-  Future<void> _onFetchCourses(
-      FetchCourses event, Emitter<CoursesState> emit) async {
-    emit(LoadCoursesLoading());
-    await Future.delayed(const Duration(milliseconds: 500), () {});
-
+  Future<void> _onFetchUserCourses(
+      FetchUserCourses event, Emitter<CoursesState> emit) async {
+    emit(FetchUserCoursesLoading());
     try {
-      final listCourses = await _coursesRepository.getAllCourses();
-      emit(LoadCoursesSuccess(listCourses));
+      final listCourses = await _coursesRepository.getUserCourses();
+      emit(FetchUserCoursesSuccess(listCourses));
     } on SubsHttpException catch (e) {
       emit(
-        LoadCoursesFailed(
+        FetchUserCoursesFailed(
           status: e.status,
           message: e.message,
         ),
       );
     } catch (f) {
       log('ERROR: $f');
-      emit(const LoadCoursesFailed(status: ResponseStatus.maintenance));
+      emit(const FetchUserCoursesFailed(status: ResponseStatus.maintenance));
     }
   }
 
-  Future<void> _onCreateCourse(
-      CreateCourse event, Emitter<CoursesState> emit) async {
-    emit(CreateCourseLoading());
-    await Future.delayed(const Duration(milliseconds: 500));
+  Future<void> _onSubscribeCourse(
+      SubscribeCourse event, Emitter<CoursesState> emit) async {
+    emit(SubscribeCourseLoading());
     try {
-      await _coursesRepository.createCourse(event.data);
-      emit(CreateCourseSuccess());
+      final isSuccess = await _coursesRepository.subscribeCourse(event.course);
+      if (isSuccess) {
+        emit(SubscribeCourseSuccess());
+      } else {
+        emit(const SubscribeCourseFailed(status: ResponseStatus.failed));
+      }
     } on SubsHttpException catch (e) {
-      emit(CreateCourseFailed(
-        status: e.status,
-        message: e.message,
-      ));
+      emit(
+        SubscribeCourseFailed(
+          status: e.status,
+          message: e.message,
+        ),
+      );
     } catch (f) {
       log('ERROR: $f');
-      emit(const CreateCourseFailed(status: ResponseStatus.maintenance));
+      emit(const SubscribeCourseFailed(status: ResponseStatus.maintenance));
     }
   }
 
-  Future<void> _onFetchCourseClasses(
-      FetchCourseClasses event, Emitter<CoursesState> emit) async {
-    emit(ClassesLoading());
+  Future<void> _onFetchSubscribedCoursesHandler(
+      FetchSubscribedCourses event, Emitter<CoursesState> emit) async {
+    emit(FetchUserCoursesLoading());
     try {
-      final listClasses = await _coursesRepository.getCourseClasses(event.id);
-      emit(ClassesLoaded(listClasses));
+      final listCourses = await _coursesRepository.getSubscribedCourse();
+      emit(FetchSubscribedCoursesSuccess(listCourses));
     } on SubsHttpException catch (e) {
-      emit(LoadClassesFailed(
-        status: e.status,
-        message: e.message,
-      ));
+      emit(
+        FetchUserCoursesFailed(
+          status: e.status,
+          message: e.message,
+        ),
+      );
     } catch (f) {
       log('ERROR: $f');
-      emit(const LoadClassesFailed(status: ResponseStatus.maintenance));
-    }
-  }
-
-  Future<void> _onDeleteCourseHandler(
-      DeleteCourse event, Emitter<CoursesState> emit) async {
-    emit(DeleteCourseLoading());
-    await Future.delayed(const Duration(milliseconds: 500));
-    try {
-      await _coursesRepository.deleteCourse(event.id);
-      emit(DeleteCourseSuccess());
-    } on SubsHttpException catch (e) {
-      emit(DeleteCourseFailed(
-        status: e.status,
-        message: e.message,
-      ));
-    } catch (f) {
-      log('ERROR: $f');
-      emit(const DeleteCourseFailed(status: ResponseStatus.maintenance));
+      emit(const FetchSubscribedCoursesFailed(
+          status: ResponseStatus.maintenance));
     }
   }
 }

@@ -17,15 +17,15 @@ class SubsSearchBar extends StatelessWidget {
       style: Theme.of(context).textTheme.bodyText2!.copyWith(
             color: ColorPalettes.dark50,
             fontWeight: FontWeight.normal,
+            fontSize: 12,
           ),
       decoration: InputDecoration(
         hintText: hintText,
-        contentPadding: const EdgeInsets.only(
-          right: 16,
-        ),
+        contentPadding: const EdgeInsets.only(right: 16),
         hintStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
               color: ColorPalettes.whiteGray,
               fontWeight: FontWeight.normal,
+              fontSize: 12,
             ),
         prefixIcon: const Icon(Icons.search, color: ColorPalettes.dark50),
         filled: true,

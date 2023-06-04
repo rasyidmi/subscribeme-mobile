@@ -24,10 +24,6 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  // void _tryAutoLogin() {
-  //   context.read<AuthBloc>().add(AutoLogin());
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,6 +79,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         },
                       ),
+                      SubsRoundedButton(
+                        buttonText: "Dosen",
+                        onTap: () => Navigator.of(context)
+                            .pushNamed(
+                                Routes.lectureClassDetail),
+                      )
                     ],
                   ),
           );
@@ -90,12 +92,4 @@ class _LoginScreenState extends State<LoginScreen> {
       )),
     );
   }
-
-  // void _login() {
-  //   final Map<String, dynamic> data = {
-  //     'email': emailController.text,
-  //     'password': passwordController.text,
-  //   };
-  //   BlocProvider.of<AuthBloc>(context).add(Login(data));
-  // }
 }

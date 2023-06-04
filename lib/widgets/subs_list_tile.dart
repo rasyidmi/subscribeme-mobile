@@ -6,7 +6,9 @@ class SubsListTile extends StatelessWidget {
   final String title;
   final FontWeight? titleWeight;
   final String? secondLine;
+  final TextStyle? secondLineStyle;
   final String? thirdLine;
+  final TextStyle? thirdLineStyle;
   final String? fourthLine;
   final List<Widget>? actionButtons;
   final VoidCallback? onTap;
@@ -17,7 +19,9 @@ class SubsListTile extends StatelessWidget {
     Key? key,
     required this.title,
     this.secondLine,
+    this.secondLineStyle,
     this.thirdLine,
+    this.thirdLineStyle,
     this.fourthLine,
     this.actionButtons,
     this.onTap,
@@ -58,19 +62,21 @@ class SubsListTile extends StatelessWidget {
                   const SizedBox(height: 2.0),
                   if (!secondLine.isNull) ...[
                     Text(secondLine!,
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                              color: !isActive ? ColorPalettes.gray : null,
-                              fontSize: fontSize,
-                            )),
+                        style: secondLineStyle ??
+                            Theme.of(context).textTheme.bodyText2!.copyWith(
+                                  color: !isActive ? ColorPalettes.gray : null,
+                                  fontSize: fontSize,
+                                )),
                     const SizedBox(height: 2.0),
                   ],
                   const SizedBox(height: 2.0),
                   if (!thirdLine.isNull) ...[
                     Text(thirdLine!,
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                              color: !isActive ? ColorPalettes.gray : null,
-                              fontSize: fontSize,
-                            )),
+                        style: thirdLineStyle ??
+                            Theme.of(context).textTheme.bodyText2!.copyWith(
+                                  color: !isActive ? ColorPalettes.gray : null,
+                                  fontSize: fontSize,
+                                )),
                     const SizedBox(height: 2.0),
                   ],
                   if (!fourthLine.isNull) ...[

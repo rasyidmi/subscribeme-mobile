@@ -45,20 +45,22 @@ class SecondaryAppbar extends StatelessWidget implements PreferredSizeWidget {
             if (!centerTitle) const SizedBox(width: 16.0),
             if (centerTitle) const Spacer(),
             // Title
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title),
-                if (subTitle != null) const SizedBox(height: 4.0),
-                if (subTitle != null)
-                  Text(
-                    subTitle!,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2!
-                        .copyWith(fontWeight: FontWeight.normal),
-                  ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title),
+                  if (subTitle != null) const SizedBox(height: 4.0),
+                  if (subTitle != null)
+                    Text(
+                      subTitle!,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(fontWeight: FontWeight.normal),
+                    ),
+                ],
+              ),
             ),
             if (centerTitle) const Spacer(),
             if (centerTitle) const SizedBox(width: 52.0)

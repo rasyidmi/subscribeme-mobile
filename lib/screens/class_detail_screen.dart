@@ -11,6 +11,7 @@ import 'package:subscribeme_mobile/repositories/attendance_repository.dart';
 import 'package:subscribeme_mobile/routes.dart';
 import 'package:subscribeme_mobile/widgets/bottom_button_container.dart';
 import 'package:subscribeme_mobile/widgets/circular_loading.dart';
+import 'package:subscribeme_mobile/widgets/class_info_container.dart';
 import 'package:subscribeme_mobile/widgets/secondary_appbar.dart';
 import 'package:subscribeme_mobile/widgets/shimmer/list_shimmer.dart';
 import 'package:subscribeme_mobile/widgets/subs_consumer.dart';
@@ -77,46 +78,10 @@ class ClassDetailScreen extends StatelessWidget {
                           children: [
                             const SizedBox(height: 30),
                             // CLASS DETAIL INFO
-                            Text(
-                              LocaleKeys.class_detail_screen_course_detail.tr(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2!
-                                  .copyWith(fontWeight: FontWeight.w600),
-                            ),
-                            const SizedBox(height: 12),
-                            ClassDetailInfoContainer(
-                              info: LocaleKeys.class_detail_screen_course_code
-                                  .tr(),
-                              data: classData.courseCode,
-                            ),
-                            const SizedBox(height: 8),
-                            ClassDetailInfoContainer(
-                              info: LocaleKeys
-                                  .class_detail_screen_curriculum_code
-                                  .tr(),
-                              data: "08.00.12.01-2020",
-                            ),
-                            const SizedBox(height: 8),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(LocaleKeys.class_detail_screen_lecturer
-                                    .tr()),
-                                const Spacer(),
-                                Expanded(
-                                  flex: 2,
-                                  child: Text(
-                                    convertLectureName(classData.lectureName),
-                                    textAlign: TextAlign.end,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            ClassDetailInfoContainer(
-                              info: LocaleKeys.class_detail_screen_credit.tr(),
-                              data: classData.credit.toString(),
+                            ClassInfoContainer(
+                              courseCode: classData.courseCode,
+                              lectureName: classData.lectureName,
+                              credit: classData.credit,
                             ),
                             const SizedBox(height: 20),
                             const Divider(
@@ -230,17 +195,6 @@ class ClassDetailScreen extends StatelessWidget {
       ),
     );
   }
-
-  String convertLectureName(List<dynamic> lectures) {
-    String convertedString = lectures[0]["name"];
-    if (lectures.length > 1) {
-      for (var i = 1; i < lectures.length; i++) {
-        convertedString += ' & ${lectures[i]["name"]}';
-      }
-    }
-
-    return convertedString;
-  }
 }
 
 class BottomText extends StatelessWidget {
@@ -285,27 +239,6 @@ class OutlinedContainer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       margin: const EdgeInsets.symmetric(vertical: 6),
       child: child,
-    );
-  }
-}
-
-class ClassDetailInfoContainer extends StatelessWidget {
-  final String data;
-  final String info;
-  const ClassDetailInfoContainer({
-    Key? key,
-    required this.data,
-    required this.info,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(info),
-        const Spacer(),
-        Text(data),
-      ],
     );
   }
 }

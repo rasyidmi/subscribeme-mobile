@@ -16,3 +16,11 @@ class SubscribeCourse extends CoursesEvent {
   @override
   List<Object?> get props => [course];
 }
+
+class FetchCourseEvents extends CoursesEvent {
+  final String courseId;
+
+  FetchCourseEvents(this.courseId);
+  @override
+  List<Object?> get props => [courseId];
+}

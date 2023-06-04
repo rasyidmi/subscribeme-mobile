@@ -65,3 +65,23 @@ class SubscribeCourseFailed extends CoursesState {
           message: message,
         );
 }
+
+class FetchCourseEventsSuccess extends CoursesState {
+  final List<Event> events;
+
+  const FetchCourseEventsSuccess(this.events);
+  @override
+  List<Object?> get props => [events];
+}
+
+class FetchCourseEventsLoading extends CoursesState {}
+
+class FetchCourseEventsFailed extends CoursesState {
+  const FetchCourseEventsFailed({
+    ResponseStatus? status,
+    String? message,
+  }) : super(
+          status: status,
+          message: message,
+        );
+}

@@ -85,11 +85,11 @@ class _ListCoursesScreenState extends State<ListCoursesScreen> {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 6.0),
                           child: SubsListTile(
-                            title:
-                                state.courses[index].name,
+                            title: state.courses[index].name,
                             titleWeight: FontWeight.normal,
-                            onTap: () => Navigator.of(context)
-                                .pushNamed(Routes.courseDetail),
+                            onTap: () => Navigator.of(context).pushNamed(
+                                Routes.courseDetail,
+                                arguments: state.courses[index]),
                             isActive: true,
                             actionButtons: const [
                               Icon(

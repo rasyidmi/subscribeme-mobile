@@ -9,15 +9,19 @@ extension DateTimeExtension on DateTime {
       final hourMinuteFormat =
           DateFormat('HH.mm').format(add(const Duration(hours: 7)));
       return '${LocaleKeys.today.tr()} - $hourMinuteFormat';
-    } else {
+    } else if (difference > 0) {
       final customFormat =
           DateFormat('HH.mm (d MMMM y)').format(add(const Duration(hours: 7)));
       return '$difference ${LocaleKeys.more_days.tr()} - $customFormat';
+    } else {
+      final customFormat =
+          DateFormat('HH.mm (d MMMM y)').format(add(const Duration(hours: 7)));
+      return 'Sudah lewat - $customFormat';
     }
   }
 
   String get toDayMonthYearFormat {
-    return DateFormat('d MMMM y').format(this);
+    return DateFormat('d MMMM y').format(add(const Duration(hours: 7)));
   }
 
   String get displayHourMinute {

@@ -1,6 +1,7 @@
 import 'package:subscribeme_mobile/api/courses_api.dart';
 import 'package:subscribeme_mobile/models/course.dart';
 import 'package:subscribeme_mobile/models/course_scele.dart';
+import 'package:subscribeme_mobile/models/event.dart';
 
 class CoursesRepository {
   final CoursesApi _coursesApi;
@@ -17,5 +18,9 @@ class CoursesRepository {
 
   Future<bool> subscribeCourse(Course course) async {
     return _coursesApi.subscribeCourse(course);
+  }
+
+  Future<List<Event>> getCourseEvents(String courseId) async {
+    return _coursesApi.getCourseEvents(courseId);
   }
 }

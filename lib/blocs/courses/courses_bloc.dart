@@ -8,6 +8,7 @@ import 'package:subscribeme_mobile/commons/arguments/http_exception.dart';
 import 'package:subscribeme_mobile/commons/constants/response_status.dart';
 import 'package:subscribeme_mobile/models/course.dart';
 import 'package:subscribeme_mobile/models/course_scele.dart';
+import 'package:subscribeme_mobile/models/event.dart';
 import 'package:subscribeme_mobile/repositories/courses_repository.dart';
 
 part 'courses_event.dart';
@@ -20,6 +21,7 @@ class CoursesBloc extends Bloc<CoursesEvent, CoursesState> {
     on<FetchUserCourses>(_onFetchUserCourses);
     on<SubscribeCourse>(_onSubscribeCourse);
     on<FetchSubscribedCourses>(_onFetchSubscribedCoursesHandler);
+    on<FetchCourseEvents>(_onFetchCourseEvents);
   }
 
   Future<void> _onFetchUserCourses(
@@ -70,6 +72,26 @@ class CoursesBloc extends Bloc<CoursesEvent, CoursesState> {
     try {
       final listCourses = await _coursesRepository.getSubscribedCourse();
       emit(FetchSubscribedCoursesSuccess(listCourses));
+    } on SubsHttpException catch (e) {
+      emit(
+        FetchUserCoursesFailed(
+          status: e.status,
+          message: e.message,
+        ),
+      );
+    } catch (f) {
+      log('ERROR: $f');
+      emit(const FetchSubscribedCoursesFailed(
+          status: ResponseStatus.maintenance));
+    }
+  }
+
+  Future<void> _onFetchCourseEvents(
+      FetchCourseEvents event, Emitter<CoursesState> emit) async {
+    emit(FetchCourseEventsLoading());
+    try {
+      final events = await _coursesRepository.getCourseEvents(event.courseId);
+      emit(FetchCourseEventsSuccess(events));
     } on SubsHttpException catch (e) {
       emit(
         FetchUserCoursesFailed(

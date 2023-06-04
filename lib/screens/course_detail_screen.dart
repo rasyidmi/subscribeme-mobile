@@ -7,7 +7,6 @@ import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/models/course_scele.dart';
 import 'package:subscribeme_mobile/repositories/courses_repository.dart';
-import 'package:subscribeme_mobile/widgets/circular_loading.dart';
 import 'package:subscribeme_mobile/widgets/list_courses/custom_search_bar.dart';
 import 'package:subscribeme_mobile/widgets/shimmer/list_shimmer.dart';
 import 'package:subscribeme_mobile/widgets/subs_bottomsheet.dart';

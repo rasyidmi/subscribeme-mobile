@@ -23,8 +23,8 @@ class MyClassScreen extends StatefulWidget {
 }
 
 class _MyClassScreenState extends State<MyClassScreen> {
-  List<Class> _listClasses = [];
-  List<Class>? _searchedData = [];
+  List<Class>? _listClasses;
+  List<Class>? _searchedData;
   bool _firstLoad = true;
 
   @override
@@ -64,7 +64,7 @@ class _MyClassScreenState extends State<MyClassScreen> {
               builder: (context, state) {
                 if (state is FetchUserClassSuccess) {
                   _listClasses = state.classes;
-                  if (_searchedData!.isEmpty && _firstLoad) {
+                  if ( _firstLoad) {
                     _searchedData = _listClasses;
                     _firstLoad = false;
                   }
@@ -109,7 +109,7 @@ class _MyClassScreenState extends State<MyClassScreen> {
 
   void _onSearchChanged(String value) {
     _searchedData = [];
-    for (var data in _listClasses) {
+    for (var data in _listClasses!) {
       if (data.courseName.toLowerCase().contains((value.toLowerCase()))) {
         _searchedData!.add(data);
       }

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subscribeme_mobile/blocs/courses/courses_bloc.dart';
 import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
+import 'package:subscribeme_mobile/models/course_scele.dart';
 import 'package:subscribeme_mobile/repositories/courses_repository.dart';
 import 'package:subscribeme_mobile/routes.dart';
 import 'package:subscribeme_mobile/widgets/list_courses/custom_search_bar.dart';
@@ -19,6 +20,11 @@ class ListCoursesScreen extends StatefulWidget {
 }
 
 class _ListCoursesScreenState extends State<ListCoursesScreen> {
+  List<CourseScele>? _listCourses;
+  List<CourseScele>? _searchedData;
+  bool _firstLoad = true;
+  String _searchValue = '';
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CoursesBloc>(
@@ -32,11 +38,18 @@ class _ListCoursesScreenState extends State<ListCoursesScreen> {
           child: SubsConsumer<CoursesBloc, CoursesState>(
             builder: (context, state) {
               if (state is FetchSubscribedCoursesSuccess) {
+                _listCourses = state.courses;
+                if (_firstLoad) {
+                  _searchedData = _listCourses;
+                  _firstLoad = false;
+                }
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 38),
                     SubsSearchBar(
                       hintText: LocaleKeys.list_class_screen_search_class.tr(),
+                      onChanged: _onSearchChanged,
                     ),
                     const SizedBox(height: 24),
                     Container(
@@ -77,19 +90,22 @@ class _ListCoursesScreenState extends State<ListCoursesScreen> {
                       ),
                     ),
                     const SizedBox(height: 18),
+                    if (_searchValue.isNotEmpty)
+                      Text(LocaleKeys.search_result.tr()),
+                    if (_searchValue.isNotEmpty) const SizedBox(height: 10),
                     ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: state.courses.length,
+                      itemCount: _searchedData!.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 6.0),
                           child: SubsListTile(
-                            title: state.courses[index].name,
+                            title: _searchedData![index].name,
                             titleWeight: FontWeight.normal,
                             onTap: () => Navigator.of(context).pushNamed(
                                 Routes.courseDetail,
-                                arguments: state.courses[index]),
+                                arguments: _searchedData![index]),
                             isActive: true,
                             actionButtons: const [
                               Icon(
@@ -115,55 +131,14 @@ class _ListCoursesScreenState extends State<ListCoursesScreen> {
     );
   }
 
-  // void _navigateToCourseDetail(int index) {
-  //   Navigator.of(context).pushNamed(
-  //     Routes.courseDetail,
-  //     arguments: _searchedData![index],
-  //   );
-  // }
-
-  // void _onSearchChanged(String value) {
-  //   _searchValue = value;
-  //   _searchedData = [];
-  //   for (var course in _listCourses) {
-  //     if (course.title.toLowerCase().contains((value.toLowerCase()))) {
-  //       _searchedData!.add(course);
-  //     }
-  //     setState(() {});
-  //   }
-  // }
-
-  // Column _buildListWithIndex(
-  //     String previousLetter, BuildContext context, int index) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       const SizedBox(height: 16.0),
-  //       Text(
-  //         previousLetter,
-  //         style: Theme.of(context).textTheme.subtitle1!.copyWith(
-  //               color: ColorPalettes.primary,
-  //             ),
-  //       ),
-  //       const Divider(color: ColorPalettes.whiteGray),
-  //       const SizedBox(height: 8.0),
-  //       SubsListTile(
-  //         title: _listCourses[index].title,
-  //         titleWeight: FontWeight.normal,
-  //         onTap: () {
-  //           _navigateToCourseDetail(index);
-  //         },
-  //         isActive: true,
-  //         actionButtons: const [
-  //           Icon(
-  //             Icons.arrow_forward_ios,
-  //             color: ColorPalettes.dark50,
-  //             size: 14.0,
-  //           ),
-  //         ],
-  //       ),
-  //       const SizedBox(height: 8.0),
-  //     ],
-  //   );
-  // }
+  void _onSearchChanged(String value) {
+    _searchValue = value;
+    _searchedData = [];
+    for (var data in _listCourses!) {
+      if (data.name.toLowerCase().contains((value.toLowerCase()))) {
+        _searchedData!.add(data);
+      }
+    }
+    setState(() {});
+  }
 }

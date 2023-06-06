@@ -50,6 +50,8 @@ class AttendanceRepository {
       duration: duration,
       startTime: startTime,
       isGeofence: isGeofence,
+      latitude: latitude,
+      longitude: longitude,
     );
   }
 }

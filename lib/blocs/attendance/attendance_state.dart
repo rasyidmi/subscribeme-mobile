@@ -92,3 +92,17 @@ class FetchClassAbsenceFailed extends AttendanceState {
           message: message,
         );
 }
+
+class CreateAttendanceSuccess extends AttendanceState {}
+
+class CreateAttendanceLoading extends AttendanceState {}
+
+class CreateAttendanceFailed extends AttendanceState {
+  const CreateAttendanceFailed({
+    ResponseStatus? status,
+    String? message,
+  }) : super(
+          status: status,
+          message: message,
+        );
+}

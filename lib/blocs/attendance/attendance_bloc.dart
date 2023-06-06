@@ -22,6 +22,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     on<RecordAttendance>(_onRecordAttendanceHandler);
     on<FetchClassSession>(_onFetchClassSession);
     on<FetchClassAbsence>(_onFetchClassAbsence);
+    on<CreateAttendance>(_onCreateAttendanceHandler);
   }
 
   Future<void> _onFetchClassDetailDataHandler(
@@ -79,7 +80,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     } catch (f) {
       log('ERROR: $f');
       emit(
-          const FetchClassDetailDataFailed(status: ResponseStatus.maintenance));
+          const RecordAttendanceFailed(status: ResponseStatus.maintenance));
     }
   }
 
@@ -91,14 +92,14 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
           await _attendanceRepository.getClassSession(event.classCode);
       emit(FetchClassSessionSuccess(sessionList));
     } on SubsHttpException catch (e) {
-      emit(FetchClassDetailDataFailed(
+      emit(FetchClassSessionFailed(
         status: e.status,
         message: e.message,
       ));
     } catch (f) {
       log('ERROR: $f');
       emit(
-          const FetchClassDetailDataFailed(status: ResponseStatus.maintenance));
+          const FetchClassSessionFailed(status: ResponseStatus.maintenance));
     }
   }
 
@@ -110,14 +111,48 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
           await _attendanceRepository.getClassAbsence(event.sessionId);
       emit(FetchClassAbsenceSuccess(sessionData));
     } on SubsHttpException catch (e) {
-      emit(FetchClassDetailDataFailed(
+      emit(FetchClassAbsenceFailed(
         status: e.status,
         message: e.message,
       ));
     } catch (f) {
       log('ERROR: $f');
       emit(
-          const FetchClassDetailDataFailed(status: ResponseStatus.maintenance));
+          const FetchClassAbsenceFailed(status: ResponseStatus.maintenance));
+    }
+  }
+
+  Future<void> _onCreateAttendanceHandler(
+      CreateAttendance event, Emitter<AttendanceState> emit) async {
+    emit(CreateAttendanceLoading());
+    try {
+      Position? position;
+      // If lecture enable geofencing, fetch lat and lon.
+      if (event.isGeofence) {
+        position = await _determinePosition();
+      }
+      final response = await _attendanceRepository.createAttendance(
+        classCode: event.classCode,
+        duration: event.duration,
+        isGeofence: event.isGeofence,
+        startTime: event.startTime,
+        latitude: position?.latitude,
+        longitude: position?.longitude,
+      );
+      if (response) {
+        emit(CreateAttendanceSuccess());
+      } else {
+        emit(const CreateAttendanceFailed(status: ResponseStatus.failed));
+      }
+    } on SubsHttpException catch (e) {
+      emit(CreateAttendanceFailed(
+        status: e.status,
+        message: e.message,
+      ));
+    } catch (f) {
+      log('ERROR: $f');
+      emit(
+          const CreateAttendanceFailed(status: ResponseStatus.maintenance));
     }
   }
 

@@ -36,4 +36,20 @@ class AttendanceRepository {
   Future<Map<String, dynamic>> getClassAbsence(String sessionId) async {
     return _attendanceApi.getClassAbsence(sessionId);
   }
+
+  Future<bool> createAttendance({
+    required String classCode,
+    required int duration,
+    required DateTime startTime,
+    required bool isGeofence,
+    double? latitude,
+    double? longitude,
+  }) async {
+    return _attendanceApi.createAttendance(
+      classCode: classCode,
+      duration: duration,
+      startTime: startTime,
+      isGeofence: isGeofence,
+    );
+  }
 }

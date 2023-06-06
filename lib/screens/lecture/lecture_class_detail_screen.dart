@@ -68,8 +68,9 @@ class LectureClassDetailScreen extends StatelessWidget {
                           ),
                           const Spacer(),
                           InkWell(
-                            onTap: () => Navigator.of(context)
-                                .pushNamed(Routes.addAttendance),
+                            onTap: () => Navigator.of(context).pushNamed(
+                                Routes.addAttendance,
+                                arguments: classData.classCode),
                             child: Text(
                               "+ Tambah Absen",
                               style: Theme.of(context)

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,8 +8,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:subscribeme_mobile/blocs/auth/auth_bloc.dart';
@@ -21,6 +22,16 @@ import 'package:subscribeme_mobile/service_locator/service_locator.dart';
 import 'service_locator/navigation_service.dart';
 import 'package:subscribeme_mobile/widgets/dismiss_keyboard.dart';
 
+// FIREBASE MESSAGING HANDLER
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  await Firebase.initializeApp();
+
+  print("Handling a background message: ${message.messageId}");
+}
+
 void main() async {
   await dotenv.load(fileName: ".env");
 
@@ -28,8 +39,7 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await Firebase.initializeApp();
-  // Initialize date formatting to Bahasa Indonesia.
-  await initializeDateFormatting('id_ID', null);
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   setupLocator();
 
@@ -75,6 +85,12 @@ class MyApp extends StatelessWidget {
             title: 'SubscribeMe',
             theme: appTheme,
             navigatorKey: locator<NavigationService>().navigatorKey,
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: const [Locale('id')],
             onGenerateRoute: (settings) {
               return MaterialPageRoute(
                 settings: settings,

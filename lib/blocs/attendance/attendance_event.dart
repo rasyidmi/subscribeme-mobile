@@ -40,3 +40,19 @@ class FetchClassAbsence extends AttendanceEvent {
   @override
   List<Object?> get props => [sessionId];
 }
+
+class CreateAttendance extends AttendanceEvent {
+  final String classCode;
+  final int duration;
+  final DateTime startTime;
+  final bool isGeofence;
+
+  CreateAttendance({
+    required this.classCode,
+    required this.duration,
+    required this.startTime,
+    required this.isGeofence,
+  });
+  @override
+  List<Object?> get props => [classCode, duration, startTime, isGeofence];
+}

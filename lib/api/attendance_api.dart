@@ -85,4 +85,28 @@ class AttendanceApi {
     }
     return data;
   }
+
+  Future<bool> createAttendance({
+    required String classCode,
+    required int duration,
+    required DateTime startTime,
+    required bool isGeofence,
+    double? latitude,
+    double? longitude,
+  }) async {
+    Map<String, dynamic> data = {
+      "start_time": startTime.toUtc().toIso8601String(),
+      "duration": duration,
+      "class_code": classCode,
+      "is_geofence": isGeofence,
+      "latitude": latitude,
+      "longitude": longitude,
+    };
+    final response = await RequestHelper.post('$_attendancePath/session', data);
+    if (response.status == ResponseStatus.success &&
+        response.data!["data"] != null) {
+      return true;
+    }
+    return false;
+  }
 }

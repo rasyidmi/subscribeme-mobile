@@ -24,3 +24,19 @@ class RecordAttendance extends AttendanceEvent {
   @override
   List<Object?> get props => [sessionId, isGeofence];
 }
+
+class FetchClassSession extends AttendanceEvent {
+  final String classCode;
+
+  FetchClassSession(this.classCode);
+  @override
+  List<Object?> get props => [classCode];
+}
+
+class FetchClassAbsence extends AttendanceEvent {
+  final String sessionId;
+
+  FetchClassAbsence(this.sessionId);
+  @override
+  List<Object?> get props => [sessionId];
+}

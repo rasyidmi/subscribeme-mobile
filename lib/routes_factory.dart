@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:subscribeme_mobile/routes.dart';
-import 'package:subscribeme_mobile/screens/lecture_class_detail_screen.dart';
-import 'package:subscribeme_mobile/screens/lecture_class_screen.dart';
-import 'package:subscribeme_mobile/screens/subscribe_course_screen.dart';
 import 'package:subscribeme_mobile/screens/screens.dart';
-import 'package:subscribeme_mobile/screens/settings_screen.dart';
-import 'package:subscribeme_mobile/screens/sso_web_view_screen.dart';
-import 'package:subscribeme_mobile/screens/wrapper_screen.dart';
 
 Widget getScreenByName(String name) {
   switch (name) {
@@ -24,14 +18,18 @@ Widget getScreenByName(String name) {
       return const CourseDetailScreen();
     case Routes.classDetail:
       return const ClassDetailScreen();
-    case Routes.setting:
-      return const SettingsScreen();
     case Routes.ssoWebView:
       return const SSOWebViewScreen();
-    case Routes.lectureClass:
-      return const LectureClassScreen();
     case Routes.lectureClassDetail:
       return const LectureClassDetailScreen();
+    case Routes.lectureAttendance:
+      return const LectureAttendanceScreen();
+    case Routes.addAttendance:
+      return const AddAttendanceScreen();
+    case Routes.lecture:
+      return const LectureMainScreen();
+    case Routes.onBoarding:
+      return const OnboardingMainScreen();
     default:
       return const WrapperScreen();
   }

@@ -1,3 +1,4 @@
+export 'wrapper_screen.dart';
 export 'main_screen.dart';
 export 'home_screen.dart';
 export 'profile_screen.dart';
@@ -9,3 +10,11 @@ export 'class_detail_screen.dart';
 export 'maintenance_screen.dart';
 export 'my_class_screen.dart';
 export 'login_confirmation_screen.dart';
+export 'sso_web_view_screen.dart';
+export 'subscribe_course_screen.dart';
+export 'lecture/lecture_class_screen.dart';
+export 'lecture/lecture_class_detail_screen.dart';
+export 'lecture/lecture_attendance_screen.dart';
+export 'lecture/lecture_main_screen.dart';
+export 'lecture/add_attendance_screen.dart';
+export 'onboarding/onboarding_main_screen.dart';

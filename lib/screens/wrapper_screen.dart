@@ -1,9 +1,12 @@
+// ignore_for_file: curly_braces_in_flow_control_structures, use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:is_first_run/is_first_run.dart';
 import 'package:subscribeme_mobile/blocs/auth/auth_bloc.dart';
 import 'package:subscribeme_mobile/commons/constants/response_status.dart';
 import 'package:subscribeme_mobile/routes.dart';
@@ -36,7 +39,7 @@ class _WrapperScreenState extends State<WrapperScreen> {
   @override
   Widget build(BuildContext context) {
     return SubsConsumer<AuthBloc, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is LoginSuccess) {
           log("Auto login success");
           FlutterNativeSplash.remove();
@@ -45,9 +48,17 @@ class _WrapperScreenState extends State<WrapperScreen> {
         } else if (state is AuthFailed &&
             state.status == ResponseStatus.unauthorized) {
           log("Auto login failed");
+          // If first install, navigate to onboarding page.
+          bool firstCall = await IsFirstRun.isFirstCall();
+          log('The app is running for the first time: $firstCall');
           FlutterNativeSplash.remove();
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil(Routes.login, (route) => false);
+          if (firstCall) {
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil(Routes.onBoarding, (route) => false);
+          } else {
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil(Routes.login, (route) => false);
+          }
         }
       },
       builder: (context, state) {

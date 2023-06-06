@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,7 +5,6 @@ import 'package:subscribeme_mobile/blocs/auth/auth_bloc.dart';
 import 'package:subscribeme_mobile/commons/constants/sizes.dart';
 import 'package:subscribeme_mobile/commons/resources/icons.dart';
 import 'package:subscribeme_mobile/commons/resources/images.dart';
-import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/routes.dart';
 import 'package:subscribeme_mobile/widgets/subs_rounded_button.dart';
@@ -44,7 +40,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24.0),
-              Text(LocaleKeys.profile_screen_full_name.tr()),
+              const Text("Nama Lengkap"),
               const SizedBox(height: 6.0),
               Text(
                 state.user.name,
@@ -54,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
                     .copyWith(fontSize: 16),
               ),
               const SizedBox(height: 22.0),
-              Text(LocaleKeys.profile_screen_npm.tr()),
+              const Text("NPM"),
               const SizedBox(height: 6.0),
               Text(
                 state.user.npm,
@@ -64,7 +60,7 @@ class ProfileScreen extends StatelessWidget {
                     .copyWith(fontSize: 16),
               ),
               const SizedBox(height: 22.0),
-              Text(LocaleKeys.profile_screen_email.tr()),
+              const Text("Email"),
               const SizedBox(height: 6.0),
               Text(
                 '${state.user.username}@ui.ac.id',
@@ -76,14 +72,13 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 34.0),
               SubsRoundedButton(
                 onTap: () {
-                  log("message");
                   context.read<AuthBloc>().add(Logout());
                 },
                 textStyle: Theme.of(context)
                     .textTheme
                     .button!
                     .copyWith(color: ColorPalettes.alertButtonText),
-                buttonText: LocaleKeys.logout.tr(),
+                buttonText: "Keluar",
                 buttonStyle: Theme.of(context).textButtonTheme.style!.copyWith(
                     backgroundColor:
                         MaterialStateProperty.all(ColorPalettes.alertButton)),

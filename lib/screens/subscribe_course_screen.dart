@@ -1,8 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subscribeme_mobile/blocs/courses/courses_bloc.dart';
-import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/models/course.dart';
 import 'package:subscribeme_mobile/repositories/courses_repository.dart';
@@ -35,8 +33,8 @@ class _SubscribeCourseScreenState extends State<SubscribeCourseScreen> {
         return CoursesBloc(repository)..add(FetchUserCourses());
       },
       child: Scaffold(
-        appBar: SecondaryAppbar(
-            title: LocaleKeys.list_course_screen_choosen_course.tr()),
+        appBar: const SecondaryAppbar(
+            title: "Mata Kuliah Terpilih"),
         body: SubsConsumer<CoursesBloc, CoursesState>(
           listener: (context, state) {
             if (state is SubscribeCourseLoading) {

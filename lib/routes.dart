@@ -17,4 +17,9 @@ class Routes {
   static const lecture = '/lecture';
   static const lectureClass = '$lecture/class';
   static const lectureClassDetail = '$lecture/class-detail';
+  static const lectureAttendance = '$lecture/attendance';
+  static const addAttendance = '$lecture/add-attendance';
+
+  // Onboarding
+  static const onBoarding = '/onboarding';
 }

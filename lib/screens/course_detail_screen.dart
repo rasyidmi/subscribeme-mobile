@@ -1,13 +1,11 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subscribeme_mobile/blocs/courses/courses_bloc.dart';
 import 'package:subscribeme_mobile/commons/extensions/date_time_extension.dart';
-import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/models/course_scele.dart';
 import 'package:subscribeme_mobile/repositories/courses_repository.dart';
-import 'package:subscribeme_mobile/widgets/list_courses/custom_search_bar.dart';
+import 'package:subscribeme_mobile/widgets/custom_search_bar.dart';
 import 'package:subscribeme_mobile/widgets/shimmer/list_shimmer.dart';
 import 'package:subscribeme_mobile/widgets/subs_bottomsheet.dart';
 import 'package:subscribeme_mobile/widgets/subs_consumer.dart';
@@ -47,7 +45,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
-                          LocaleKeys.course_detail_screen_course_task.tr(),
+                          "Tugas Kelas Ini",
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
@@ -55,12 +53,10 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: SubsSearchBar(
-                          hintText: LocaleKeys
-                              .course_detail_screen_search_course_task
-                              .tr(),
+                          hintText: "Cari tugas di kelas ini...",
                         ),
                       ),
                       SubsConsumer<CoursesBloc, CoursesState>(
@@ -159,7 +155,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
         ),
         const SizedBox(width: 12),
         Text(
-          LocaleKeys.course_detail_screen_remind_me.tr(),
+          "Ingatkan Aku Pada?",
           style: Theme.of(context)
               .textTheme
               .subtitle2!
@@ -179,7 +175,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
       child: Row(
         children: [
           Text(
-            LocaleKeys.course_detail_screen_choose_reminder_date.tr(),
+            "Pilih Tanggal Pengingat",
             style: Theme.of(context)
                 .textTheme
                 .subtitle2!
@@ -208,7 +204,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
         ),
         const SizedBox(width: 12),
         Text(
-          LocaleKeys.course_detail_screen_mark_as_done.tr(),
+          "Tandai Sudah Selesai",
           style: Theme.of(context)
               .textTheme
               .bodyText1!
@@ -223,7 +219,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
       children: [
         Expanded(
           child: SubsSecondaryButton(
-            buttonText: LocaleKeys.cancel.tr(),
+            buttonText: "Batalkan",
             onTap: () {
               Navigator.pop(context);
             },
@@ -232,7 +228,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
         const SizedBox(width: 12),
         Expanded(
           child: SubsRoundedButton(
-            buttonText: LocaleKeys.save_changes.tr(),
+            buttonText: "Simpan Perubahan",
             onTap: () {},
           ),
         ),
@@ -246,7 +242,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
         const _SmallDivider(),
         const SizedBox(width: 12),
         Text(
-          LocaleKeys.or.tr().toLowerCase(),
+          "Atau".toLowerCase(),
           style: Theme.of(context).textTheme.subtitle2,
         ),
         const SizedBox(width: 12),

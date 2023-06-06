@@ -28,4 +28,12 @@ class AttendanceRepository {
       longitude: longitude,
     );
   }
+
+  Future<List<AttendanceSlot>> getClassSession(String classCode) async {
+    return _attendanceApi.getClassSession(classCode);
+  }
+
+  Future<Map<String, dynamic>> getClassAbsence(String sessionId) async {
+    return _attendanceApi.getClassAbsence(sessionId);
+  }
 }

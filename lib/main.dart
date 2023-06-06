@@ -3,16 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:subscribeme_mobile/blocs/auth/auth_bloc.dart';
-import 'package:subscribeme_mobile/blocs/locale/locale_bloc.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/commons/styles/themes.dart';
 import 'package:subscribeme_mobile/repositories/auth_repository.dart';
@@ -26,10 +25,11 @@ void main() async {
   await dotenv.load(fileName: ".env");
 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await Firebase.initializeApp();
+  // Initialize date formatting to Bahasa Indonesia.
+  await initializeDateFormatting('id_ID', null);
 
   setupLocator();
 
@@ -51,15 +51,7 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarColor: ColorPalettes.white));
 
-  runApp(
-    EasyLocalization(
-      path: 'assets/translations',
-      fallbackLocale: const Locale('in'),
-      startLocale: const Locale('in'),
-      supportedLocales: const [Locale('en'), Locale('in')],
-      child: const MyApp(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -77,19 +69,11 @@ class MyApp extends StatelessWidget {
               return AuthBloc(repository);
             },
           ),
-          BlocProvider<LocaleBloc>(
-            create: (context) {
-              return LocaleBloc();
-            },
-          ),
         ],
         child: DismissKeyboard(
           child: MaterialApp(
             title: 'SubscribeMe',
             theme: appTheme,
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
             navigatorKey: locator<NavigationService>().navigatorKey,
             onGenerateRoute: (settings) {
               return MaterialPageRoute(

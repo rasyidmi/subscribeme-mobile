@@ -1,9 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:subscribeme_mobile/blocs/attendance/attendance_bloc.dart';
-import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/commons/extensions/date_time_extension.dart';
 import 'package:subscribeme_mobile/models/class.dart';
@@ -82,17 +80,17 @@ class ClassDetailScreen extends StatelessWidget {
                               courseCode: classData.courseCode,
                               lectureName: classData.lectureName,
                               credit: classData.credit,
+                              curriculumCode: classData.curriculumCode,
                             ),
                             const SizedBox(height: 20),
                             const Divider(
                               height: 0,
-                              thickness: 2,
+                              thickness: 1,
                             ),
                             const SizedBox(height: 20),
                             // CLASS SCHEDULE
                             Text(
-                              LocaleKeys.class_detail_screen_class_schedule
-                                  .tr(),
+                              "Jadwal Kelas",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2!
@@ -103,7 +101,7 @@ class ClassDetailScreen extends StatelessWidget {
                             ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount: classData.schedule.length,
+                              itemCount: classData.schedule!.length,
                               itemBuilder: (context, index) {
                                 return OutlinedContainer(
                                   child: Row(
@@ -111,7 +109,7 @@ class ClassDetailScreen extends StatelessWidget {
                                       const Icon(Icons.calendar_today_outlined),
                                       const SizedBox(width: 8),
                                       Text(
-                                          '${classData.schedule[index].day}, ${classData.schedule[index].startTime.substring(0, 5)} - ${classData.schedule[index].endTime.substring(0, 5)}'),
+                                          '${classData.schedule![index].day}, ${classData.schedule![index].startTime.substring(0, 5)} - ${classData.schedule![index].endTime.substring(0, 5)}'),
                                     ],
                                   ),
                                 );
@@ -120,13 +118,12 @@ class ClassDetailScreen extends StatelessWidget {
                             const SizedBox(height: 26),
                             const Divider(
                               height: 0,
-                              thickness: 2,
+                              thickness: 1,
                             ),
                             const SizedBox(height: 22),
                             // ATTENDANCE HISTORY
                             Text(
-                              LocaleKeys.class_detail_screen_attendance_history
-                                  .tr(),
+                              "Riwayat Absensi",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2!
@@ -159,8 +156,7 @@ class ClassDetailScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         SubsRoundedButton(
-                          buttonText:
-                              LocaleKeys.class_detail_screen_attend_class.tr(),
+                          buttonText: "Absen Kelas Ini",
 
                           /// If slot is opened and user not record his/her attendance yet,
                           /// enable attendance.
@@ -213,9 +209,7 @@ class BottomText extends StatelessWidget {
         ),
         const SizedBox(width: 10),
         Text(
-          enabled
-              ? LocaleKeys.class_detail_screen_attendance_available.tr()
-              : LocaleKeys.class_detail_screen_attendance_not_available.tr(),
+          enabled ? "Absensi tersedia" : "Absensi selanjutnya belum tersedia",
           style: Theme.of(context)
               .textTheme
               .subtitle2!
@@ -273,8 +267,8 @@ class AttendanceItem extends StatelessWidget {
                 children: [
                   Text(
                     isAttend
-                        ? LocaleKeys.class_detail_screen_present.tr()
-                        : LocaleKeys.class_detail_screen_not_present.tr(),
+                        ? "Hadir"
+                        : "Tidak Hadir",
                     style: Theme.of(context).textTheme.subtitle2!.copyWith(
                           fontWeight: FontWeight.w600,
                           color: isAttend

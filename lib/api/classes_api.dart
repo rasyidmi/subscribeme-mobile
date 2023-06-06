@@ -18,6 +18,31 @@ class ClassesApi {
     return classes;
   }
 
+  Future<List<Class>> getLectureClass() async {
+    final response = await RequestHelper.get('$_classesPath/nim');
+    List<Class> classes = [];
+    if (response.status == ResponseStatus.success &&
+        response.data!["data"] != null) {
+      final course = response.data!["data"];
+      for (var i = 0; i < course.length; i++) {
+        final classList = course[i]["class_detail"];
+        for (var y = 0; y < classList.length; y++) {
+          final classData = Class(
+            classCode: classList[y]["class_code"],
+            name: classList[y]["class_name"],
+            courseCode: course[i]["course_code"],
+            courseName: course[i]["course_name"],
+            lectureName: classList[y]["lectures"],
+            credit: course[i]["total_sks"],
+            curriculumCode: course[i]["curriculum_code"],
+          );
+          classes.add(classData);
+        }
+      }
+    }
+    return classes;
+  }
+
   Future<void> subscribeClass(int id) async {
     final response =
         await RequestHelper.post('$_classesPath/subscribe/$id', null);

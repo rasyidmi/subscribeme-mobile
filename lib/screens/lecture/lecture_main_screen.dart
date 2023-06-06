@@ -3,14 +3,14 @@ import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/screens/screens.dart';
 import 'package:subscribeme_mobile/widgets/primary_appbar.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+class LectureMainScreen extends StatefulWidget {
+  const LectureMainScreen({Key? key}) : super(key: key);
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<LectureMainScreen> createState() => _LectureMainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _LectureMainScreenState extends State<LectureMainScreen> {
   final PageController _pageViewController = PageController(initialPage: 0);
   int _selectedPage = 0;
 
@@ -26,16 +26,13 @@ class _MainScreenState extends State<MainScreen> {
       color: Colors.white,
       child: SafeArea(
         child: Scaffold(
-          appBar: _selectedPage == 3 ? null : const PrimaryAppbar(),
+          appBar: _selectedPage == 1 ? null : const PrimaryAppbar(),
           body: PageView(
             controller: _pageViewController,
             children: [
-              const HomeScreen(),
-              const ListCoursesScreen(),
-              MyClassScreen(
-                pageController: _pageViewController,
-              ),
-              const ProfileScreen()
+              const LectureClassScreen(),
+              // ProfileScreen(),
+              Container(),
             ],
             onPageChanged: (index) {
               setState(() {
@@ -77,11 +74,7 @@ class _MainScreenState extends State<MainScreen> {
                 BottomNavigationBarItem(
                     icon: Icon(Icons.home), label: "Beranda"),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.dns), label: "Mata Kuliah"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.book), label: "Absensi"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.account_circle), label: "Profile"),
+                    icon: Icon(Icons.account_circle), label: "Profil"),
               ],
             ),
           ),

@@ -9,4 +9,5 @@ class SubsImages {
   static const salySorry = '$imagesDir/saly_sorry.png';
   static const salyRocket = '$imagesDir/saly_rocket.png';
   static const salyComputer = '$imagesDir/saly_computer.png';
+  static const firstOnboarding = '$imagesDir/background_onboarding_1.png';
 }

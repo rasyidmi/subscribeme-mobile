@@ -1,13 +1,11 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subscribeme_mobile/blocs/courses/courses_bloc.dart';
-import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/models/course_scele.dart';
 import 'package:subscribeme_mobile/repositories/courses_repository.dart';
 import 'package:subscribeme_mobile/routes.dart';
-import 'package:subscribeme_mobile/widgets/list_courses/custom_search_bar.dart';
+import 'package:subscribeme_mobile/widgets/custom_search_bar.dart';
 import 'package:subscribeme_mobile/widgets/shimmer/list_shimmer.dart';
 import 'package:subscribeme_mobile/widgets/subs_consumer.dart';
 import 'package:subscribeme_mobile/widgets/subs_list_tile.dart';
@@ -48,7 +46,7 @@ class _ListCoursesScreenState extends State<ListCoursesScreen> {
                   children: [
                     const SizedBox(height: 38),
                     SubsSearchBar(
-                      hintText: LocaleKeys.list_class_screen_search_class.tr(),
+                      hintText: "Cari kelas...",
                       onChanged: _onSearchChanged,
                     ),
                     const SizedBox(height: 24),
@@ -66,8 +64,7 @@ class _ListCoursesScreenState extends State<ListCoursesScreen> {
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              LocaleKeys.list_course_screen_please_choose_course
-                                  .tr(),
+                              "Pilih mata kuliah yang hanya kamu ambil pada semester ini.",
                               style: Theme.of(context).textTheme.subtitle2,
                             ),
                           ),
@@ -76,7 +73,7 @@ class _ListCoursesScreenState extends State<ListCoursesScreen> {
                             onTap: () => Navigator.of(context)
                                 .pushNamed(Routes.subscribeCourse),
                             child: Text(
-                              LocaleKeys.list_course_screen_choose_course.tr(),
+                              "Pilih Matkul",
                               style: Theme.of(context)
                                   .textTheme
                                   .subtitle2!
@@ -91,7 +88,7 @@ class _ListCoursesScreenState extends State<ListCoursesScreen> {
                     ),
                     const SizedBox(height: 18),
                     if (_searchValue.isNotEmpty)
-                      Text(LocaleKeys.search_result.tr()),
+                      const Text("Hasil pencarian..."),
                     if (_searchValue.isNotEmpty) const SizedBox(height: 10),
                     ListView.builder(
                       shrinkWrap: true,

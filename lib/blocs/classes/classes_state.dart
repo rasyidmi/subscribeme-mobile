@@ -67,3 +67,24 @@ class FetchUserClassFailed extends ClassesState {
           message: message,
         );
 }
+
+class FetchLectureClassLoading extends ClassesState {}
+
+class FetchLectureClassSuccess extends ClassesState {
+  final List<Class> classes;
+
+  const FetchLectureClassSuccess(this.classes);
+
+  @override
+  List<Object?> get props => [classes];
+}
+
+class FetchLectureClassFailed extends ClassesState {
+  const FetchLectureClassFailed({
+    ResponseStatus? status,
+    String? message,
+  }) : super(
+          status: status,
+          message: message,
+        );
+}

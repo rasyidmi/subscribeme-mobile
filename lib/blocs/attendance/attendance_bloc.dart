@@ -20,6 +20,8 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
   AttendanceBloc(this._attendanceRepository) : super(AttendanceInit()) {
     on<FetchClassDetailData>(_onFetchClassDetailDataHandler);
     on<RecordAttendance>(_onRecordAttendanceHandler);
+    on<FetchClassSession>(_onFetchClassSession);
+    on<FetchClassAbsence>(_onFetchClassAbsence);
   }
 
   Future<void> _onFetchClassDetailDataHandler(
@@ -81,6 +83,45 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     }
   }
 
+  Future<void> _onFetchClassSession(
+      FetchClassSession event, Emitter<AttendanceState> emit) async {
+    emit(FetchClassSessionLoading());
+    try {
+      final sessionList =
+          await _attendanceRepository.getClassSession(event.classCode);
+      emit(FetchClassSessionSuccess(sessionList));
+    } on SubsHttpException catch (e) {
+      emit(FetchClassDetailDataFailed(
+        status: e.status,
+        message: e.message,
+      ));
+    } catch (f) {
+      log('ERROR: $f');
+      emit(
+          const FetchClassDetailDataFailed(status: ResponseStatus.maintenance));
+    }
+  }
+
+  Future<void> _onFetchClassAbsence(
+      FetchClassAbsence event, Emitter<AttendanceState> emit) async {
+    emit(FetchClassAbsenceLoading());
+    try {
+      final sessionData =
+          await _attendanceRepository.getClassAbsence(event.sessionId);
+      emit(FetchClassAbsenceSuccess(sessionData));
+    } on SubsHttpException catch (e) {
+      emit(FetchClassDetailDataFailed(
+        status: e.status,
+        message: e.message,
+      ));
+    } catch (f) {
+      log('ERROR: $f');
+      emit(
+          const FetchClassDetailDataFailed(status: ResponseStatus.maintenance));
+    }
+  }
+
+  // CODE FROM https://pub.dev/packages/geolocator
   /// Determine the current position of the device.
   ///
   /// When the location services are not enabled or permissions

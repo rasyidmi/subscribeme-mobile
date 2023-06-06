@@ -13,28 +13,10 @@ class ClassesBloc extends Bloc<ClassesEvent, ClassesState> {
   final ClassesRepository _classesRepository;
 
   ClassesBloc(this._classesRepository) : super(ClassesInit()) {
-    // on<FetchClassById>(_onFetchClassById);
     on<FetchUserClass>(_onFetchUserClass);
     on<SubscribeClass>(_onSubscribeClass);
+    on<FetchLectureClass>(_onFetchLectureClass);
   }
-
-  // Future<void> _onFetchClassById(
-  //     FetchClassById event, Emitter<ClassesState> emit) async {
-  //   emit(FetchClassLoading());
-  //   await Future.delayed(const Duration(milliseconds: 500));
-  //   try {
-  //     final kelas = await _classesRepository.getClassById(event.id);
-  //     emit(FetchClassSuccess(kelas));
-  //   } on SubsHttpException catch (e) {
-  //     emit(FetchClassFailed(
-  //       status: e.status,
-  //       message: e.message,
-  //     ));
-  //   } catch (f) {
-  //     log('ERROR: $f');
-  //     emit(const FetchClassFailed(status: ResponseStatus.maintenance));
-  //   }
-  // }
 
   Future<void> _onFetchUserClass(
       FetchUserClass event, Emitter<ClassesState> emit) async {
@@ -44,6 +26,20 @@ class ClassesBloc extends Bloc<ClassesEvent, ClassesState> {
       emit(FetchUserClassSuccess(classesData));
     } on SubsHttpException catch (e) {
       emit(FetchUserClassFailed(
+        status: e.status,
+        message: e.message,
+      ));
+    }
+  }
+
+  Future<void> _onFetchLectureClass(
+      FetchLectureClass event, Emitter<ClassesState> emit) async {
+    emit(FetchLectureClassLoading());
+    try {
+      final classesData = await _classesRepository.getLectureClass();
+      emit(FetchLectureClassSuccess(classesData));
+    } on SubsHttpException catch (e) {
+      emit(FetchLectureClassFailed(
         status: e.status,
         message: e.message,
       ));

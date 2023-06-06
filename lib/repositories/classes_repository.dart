@@ -14,6 +14,10 @@ class ClassesRepository {
     return _classesApi.getUserClass();
   }
 
+  Future<List<Class>> getLectureClass() async {
+    return _classesApi.getLectureClass();
+  }
+
   Future<void> subscribeClass(int id) async {
     return _classesApi.subscribeClass(id);
   }

@@ -1,13 +1,11 @@
-import 'package:easy_localization/easy_localization.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subscribeme_mobile/blocs/classes/classes_bloc.dart';
-import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/models/class.dart';
 import 'package:subscribeme_mobile/repositories/classes_repository.dart';
 import 'package:subscribeme_mobile/routes.dart';
-import 'package:subscribeme_mobile/widgets/list_courses/custom_search_bar.dart';
+import 'package:subscribeme_mobile/widgets/custom_search_bar.dart';
 import 'package:subscribeme_mobile/widgets/shimmer/list_shimmer.dart';
 import 'package:subscribeme_mobile/widgets/subs_list_tile.dart';
 
@@ -40,7 +38,7 @@ class _MyClassScreenState extends State<MyClassScreen> {
           children: [
             const SizedBox(height: 38),
             SubsSearchBar(
-              hintText: LocaleKeys.list_class_screen_search_class.tr(),
+              hintText: "Cari kelas...",
               onChanged: _onSearchChanged,
             ),
             const SizedBox(height: 21),
@@ -50,11 +48,11 @@ class _MyClassScreenState extends State<MyClassScreen> {
                   borderRadius: BorderRadius.all(Radius.circular(12))),
               padding: const EdgeInsets.all(12),
               child: Row(
-                children: [
-                  const Icon(Icons.info_outline),
-                  const SizedBox(width: 8),
+                children: const [
+                  Icon(Icons.info_outline),
+                  SizedBox(width: 8),
                   Text(
-                    LocaleKeys.list_class_screen_info.tr(),
+                    "Kelas yang dipilih berdasarkan SIAK-NG",
                   ),
                 ],
               ),
@@ -64,7 +62,7 @@ class _MyClassScreenState extends State<MyClassScreen> {
               builder: (context, state) {
                 if (state is FetchUserClassSuccess) {
                   _listClasses = state.classes;
-                  if ( _firstLoad) {
+                  if (_firstLoad) {
                     _searchedData = _listClasses;
                     _firstLoad = false;
                   }
@@ -85,7 +83,9 @@ class _MyClassScreenState extends State<MyClassScreen> {
                               ),
                             ],
                             onTap: () {
-                              Navigator.of(context).pushNamed(Routes.classDetail, arguments: _searchedData![index]);
+                              Navigator.of(context).pushNamed(
+                                  Routes.classDetail,
+                                  arguments: _searchedData![index]);
                             },
                             isActive: true,
                             titleWeight: FontWeight.normal,

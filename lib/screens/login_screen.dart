@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:subscribeme_mobile/blocs/auth/auth_bloc.dart';
 import 'package:subscribeme_mobile/commons/constants/response_status.dart';
 import 'package:subscribeme_mobile/commons/resources/icons.dart';
 import 'package:subscribeme_mobile/routes.dart';
+import 'package:subscribeme_mobile/services/secure_storage.dart';
 import 'package:subscribeme_mobile/widgets/circular_loading.dart';
 import 'package:subscribeme_mobile/widgets/subs_consumer.dart';
 import 'package:subscribeme_mobile/widgets/subs_rounded_button.dart';
@@ -81,9 +84,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       SubsRoundedButton(
                         buttonText: "Dosen",
-                        onTap: () => Navigator.of(context)
-                            .pushNamed(
-                                Routes.lectureClassDetail),
+                        onTap: () async {
+                          // FOR DEVELOPING, REFACTOR SOON
+                          final LocalStorageService storageService =
+                              LocalStorageService();
+                          await storageService.writeSecureData("token",
+                              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1hIjoiRHIuIElyLiBFcmRlZmkgUmFrdW4gTS5TYy4iLCJ1c2VybmFtZSI6ImlpcyIsIm5wbSI6IjEwMDIxMDUxMDI3MTYwOTU5MSIsImp1cnVzYW4iOnsiZmFjdWx0eSI6IklsbXUgS29tcHV0ZXIiLCJzaG9ydEZhY3VsdHkiOiJGYXNpbGtvbSIsIm1ham9yIjoiU2lzdGVtIEluZm9ybWFzaSAoSW5mb3JtYXRpb24gU3lzdGVtKSIsInByb2dyYW0iOiJTMSBQYXJhbGVsIChTMSBQYXJhbGVsKSJ9LCJyb2xlIjoiRG9zZW4iLCJleHAiOjE3MTc1ODAyNzd9.56Hw6udbWqQ0lWQUaSzkGh1T_5vnCiWUmV7p3Jx0Ir4");
+                          Navigator.of(context).pushNamed(Routes.lecture);
+                        },
                       )
                     ],
                   ),

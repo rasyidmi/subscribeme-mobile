@@ -20,6 +20,9 @@ class FetchClassDetailDataSuccess extends AttendanceState {
     required this.attendanceList,
     this.attendanceSlot,
   });
+
+  @override
+  List<Object?> get props => [attendanceList, attendanceSlot];
 }
 
 class FetchClassDetailDataLoading extends AttendanceState {}
@@ -39,7 +42,49 @@ class RecordAttendanceSuccess extends AttendanceState {}
 class RecordAttendanceLoading extends AttendanceState {}
 
 class RecordAttendanceFailed extends AttendanceState {
-   const RecordAttendanceFailed({
+  const RecordAttendanceFailed({
+    ResponseStatus? status,
+    String? message,
+  }) : super(
+          status: status,
+          message: message,
+        );
+}
+
+class FetchClassSessionSuccess extends AttendanceState {
+  final List<AttendanceSlot> sessionList;
+
+  const FetchClassSessionSuccess(this.sessionList);
+
+  @override
+  List<Object?> get props => [sessionList];
+}
+
+class FetchClassSessionLoading extends AttendanceState {}
+
+class FetchClassSessionFailed extends AttendanceState {
+  const FetchClassSessionFailed({
+    ResponseStatus? status,
+    String? message,
+  }) : super(
+          status: status,
+          message: message,
+        );
+}
+
+class FetchClassAbsenceSuccess extends AttendanceState {
+  final Map<String,dynamic> sessionData;
+
+  const FetchClassAbsenceSuccess(this.sessionData);
+
+  @override
+  List<Object?> get props => [sessionData];
+}
+
+class FetchClassAbsenceLoading extends AttendanceState {}
+
+class FetchClassAbsenceFailed extends AttendanceState {
+  const FetchClassAbsenceFailed({
     ResponseStatus? status,
     String? message,
   }) : super(

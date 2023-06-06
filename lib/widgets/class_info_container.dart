@@ -1,16 +1,16 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:subscribeme_mobile/commons/resources/locale_keys.g.dart';
 
 class ClassInfoContainer extends StatelessWidget {
   final String courseCode;
   final List<dynamic> lectureName;
   final int credit;
+  final String curriculumCode;
   const ClassInfoContainer({
     Key? key,
     required this.courseCode,
     required this.lectureName,
     required this.credit,
+    required this.curriculumCode,
   }) : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class ClassInfoContainer extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          LocaleKeys.class_detail_screen_course_detail.tr(),
+          "Detail Mata Kuliah",
           style: Theme.of(context)
               .textTheme
               .bodyText2!
@@ -27,19 +27,19 @@ class ClassInfoContainer extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         ClassDetailInfoContainer(
-          info: LocaleKeys.class_detail_screen_course_code.tr(),
+          info: "Kode Mata Kuliah",
           data: courseCode,
         ),
         const SizedBox(height: 8),
         ClassDetailInfoContainer(
-          info: LocaleKeys.class_detail_screen_curriculum_code.tr(),
-          data: "08.00.12.01-2020",
+          info: "Kode Kurikulum",
+          data: curriculumCode,
         ),
         const SizedBox(height: 8),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(LocaleKeys.class_detail_screen_lecturer.tr()),
+            const Text("Dosen Pengajar"),
             const Spacer(),
             Expanded(
               flex: 2,
@@ -52,7 +52,7 @@ class ClassInfoContainer extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         ClassDetailInfoContainer(
-          info: LocaleKeys.class_detail_screen_credit.tr(),
+          info: "SKS",
           data: credit.toString(),
         ),
       ],

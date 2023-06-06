@@ -31,11 +31,12 @@ dependencies:
   syncfusion_flutter_datepicker: ^21.2.3
   flutter_secure_storage: ^8.0.0 # For storing jwt in local storage
   jwt_decoder: ^2.0.1
-  easy_localization: ^3.0.1
   url_launcher: ^6.1.11
   device_info_plus: ^9.0.2
   shared_preferences: ^2.1.1
   geolocator: ^9.0.2
+  is_first_run: ^1.0.0 # To handle onboarding
+  intl: ^0.17.0
   
 dev_dependencies:
   flutter_test:

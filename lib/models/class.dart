@@ -7,7 +7,8 @@ class Class {
   final String courseName;
   final List<dynamic> lectureName;
   final int credit;
-  final List<ClassSchedule> schedule;
+  final String curriculumCode;
+  final List<ClassSchedule>? schedule;
 
   Class({
     required this.classCode,
@@ -16,7 +17,8 @@ class Class {
     required this.courseName,
     required this.lectureName,
     required this.credit,
-    required this.schedule,
+    required this.curriculumCode,
+    this.schedule,
   });
 
   factory Class.fromJson(Map<String, dynamic> json) => Class(
@@ -26,6 +28,7 @@ class Class {
         courseName: json["course"]["course_name"],
         lectureName: json["lectures"],
         credit: json["course"]["total_sks"],
+        curriculumCode: json["course"]["curriculum_code"],
         schedule: Class.convertSchedule(json["class_schedule"]),
       );
 

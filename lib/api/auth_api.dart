@@ -72,7 +72,9 @@ class AuthApi {
     return await _storageService.readSecureData("token");
   }
 
-  Future<String?> getRefreshToken() async {
-    return await _storageService.readSecureData("refreshToken");
+  Future<bool> updateFcmToken(String fcmToken) async {
+    Map<String, String> body = {"fcm_token": fcmToken};
+    final response = await RequestHelper.put("/user", body);
+    return response.status == ResponseStatus.success;
   }
 }

@@ -4,7 +4,7 @@ class Attendance {
   final String deviceCode;
   final bool isAttend;
   final String npm;
-  final String openedTime;
+  final DateTime openedTime;
   final DateTime? recordTime;
 
   Attendance({
@@ -23,7 +23,7 @@ class Attendance {
         deviceCode: json["device_code"],
         isAttend: json["present"],
         npm: json["student_npm"],
-        openedTime: json["class_absence_open_time"],
+        openedTime: DateTime.parse(json["class_absence_open_time"]),
         recordTime:
             json["present"] ? DateTime.parse(json["present_time"]) : null,
       );

@@ -21,4 +21,8 @@ class AuthRepository {
   Future<void> logout() async {
     await _authApi.logout();
   }
+
+  Future<bool> updateFcmToken(String fcmToken) async {
+    return _authApi.updateFcmToken(fcmToken);
+  }
 }

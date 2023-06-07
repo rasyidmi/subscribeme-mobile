@@ -55,4 +55,10 @@ class CoursesApi {
     final response = await RequestHelper.post('$_coursesPath/subscribe', body);
     return response.status == ResponseStatus.success;
   }
+
+  Future<bool> unsubscribeCourse(Course unsubscribeCourse) async {
+    final body = unsubscribeCourse.toJson();
+    final response = await RequestHelper.post('$_coursesPath/unsubscribe', body);
+    return response.status == ResponseStatus.success;
+  }
 }

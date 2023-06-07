@@ -17,6 +17,16 @@ class SubscribeCourse extends CoursesEvent {
   List<Object?> get props => [course];
 }
 
+class UnsubscribeCourse extends CoursesEvent {
+  final Course course;
+
+  UnsubscribeCourse(this.course);
+  @override
+  List<Object?> get props => [course];
+}
+
+class SubscribeCourseFinished extends CoursesEvent {}
+
 class FetchCourseEvents extends CoursesEvent {
   final String courseId;
 

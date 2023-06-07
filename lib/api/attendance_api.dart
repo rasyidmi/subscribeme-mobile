@@ -91,6 +91,7 @@ class AttendanceApi {
     required int duration,
     required DateTime startTime,
     required bool isGeofence,
+    int? radius,
     double? latitude,
     double? longitude,
   }) async {
@@ -99,6 +100,7 @@ class AttendanceApi {
       "duration": duration,
       "class_code": classCode,
       "is_geofence": isGeofence,
+      "geo_radius": radius,
       "latitude": latitude,
       "longitude": longitude,
     };

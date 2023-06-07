@@ -42,6 +42,7 @@ class AttendanceRepository {
     required int duration,
     required DateTime startTime,
     required bool isGeofence,
+    int? radius,
     double? latitude,
     double? longitude,
   }) async {
@@ -50,6 +51,7 @@ class AttendanceRepository {
       duration: duration,
       startTime: startTime,
       isGeofence: isGeofence,
+      radius: radius,
       latitude: latitude,
       longitude: longitude,
     );

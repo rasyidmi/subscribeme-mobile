@@ -30,7 +30,7 @@ class SubsFlushbar {
               .textTheme
               .bodyText2!
               .copyWith(color: Colors.white)),
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 2),
     ).show(context);
   }
 
@@ -52,8 +52,8 @@ class SubsFlushbar {
       ),
       shouldIconPulse: false,
       icon: const Padding(
-        padding:  EdgeInsets.only(left:8.0),
-        child:  FaIcon(
+        padding: EdgeInsets.only(left: 8.0),
+        child: FaIcon(
           FontAwesomeIcons.solidCircleXmark,
           color: Colors.white,
         ),
@@ -63,7 +63,43 @@ class SubsFlushbar {
               .textTheme
               .bodyText2!
               .copyWith(color: Colors.white)),
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 2),
+    ).show(context);
+  }
+
+  static showNotification(BuildContext context, String title, String body) {
+    Flushbar(
+      title: title,
+      titleColor: ColorPalettes.dark70,
+      messageText: Text(body,
+          style: Theme.of(context)
+              .textTheme
+              .bodyText2!
+              .copyWith(color: ColorPalettes.dark50)),
+      duration: const Duration(seconds: 2),
+      flushbarPosition: FlushbarPosition.TOP,
+      backgroundColor: ColorPalettes.white,
+      borderRadius: BorderRadius.circular(8),
+      boxShadows: [
+        BoxShadow(
+          offset: const Offset(2, 4),
+          blurRadius: 4,
+          color: Colors.black.withOpacity(0.25),
+        ),
+      ],
+      margin: const EdgeInsets.only(
+        left: 8.0,
+        right: 8.0,
+        top: 8.0,
+      ),
+      shouldIconPulse: false,
+      icon: const Padding(
+          padding: EdgeInsets.only(left: 8.0),
+          child: Icon(
+            Icons.notifications,
+            color: ColorPalettes.primary,
+            size: 28,
+          )),
     ).show(context);
   }
 }

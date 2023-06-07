@@ -79,8 +79,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       ));
     } catch (f) {
       log('ERROR: $f');
-      emit(
-          const RecordAttendanceFailed(status: ResponseStatus.maintenance));
+      emit(const RecordAttendanceFailed(status: ResponseStatus.maintenance));
     }
   }
 
@@ -98,8 +97,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       ));
     } catch (f) {
       log('ERROR: $f');
-      emit(
-          const FetchClassSessionFailed(status: ResponseStatus.maintenance));
+      emit(const FetchClassSessionFailed(status: ResponseStatus.maintenance));
     }
   }
 
@@ -117,8 +115,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       ));
     } catch (f) {
       log('ERROR: $f');
-      emit(
-          const FetchClassAbsenceFailed(status: ResponseStatus.maintenance));
+      emit(const FetchClassAbsenceFailed(status: ResponseStatus.maintenance));
     }
   }
 
@@ -126,6 +123,13 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       CreateAttendance event, Emitter<AttendanceState> emit) async {
     emit(CreateAttendanceLoading());
     try {
+      // Check is attendance opentime payload is after current time, if not dont proceed.
+      if (event.startTime
+          .add(const Duration(minutes: 1))
+          .isBefore(DateTime.now())) {
+        throw SubsHttpException(
+            ResponseStatus.failed, "Waktu buka absensi tidak bisa di masa lampau.");
+      }
       Position? position;
       // If lecture enable geofencing, fetch lat and lon.
       if (event.isGeofence) {
@@ -136,6 +140,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
         duration: event.duration,
         isGeofence: event.isGeofence,
         startTime: event.startTime,
+        radius: event.radius,
         latitude: position?.latitude,
         longitude: position?.longitude,
       );
@@ -151,8 +156,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       ));
     } catch (f) {
       log('ERROR: $f');
-      emit(
-          const CreateAttendanceFailed(status: ResponseStatus.maintenance));
+      emit(const CreateAttendanceFailed(status: ResponseStatus.maintenance));
     }
   }
 

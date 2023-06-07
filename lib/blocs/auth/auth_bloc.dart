@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subscribeme_mobile/blocs/bloc_state.dart';
 import 'package:subscribeme_mobile/commons/arguments/http_exception.dart';
@@ -42,6 +43,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(LoginLoading());
     try {
       final user = await _authRepository.login(event.ticket);
+      // If user agree to save data, update fcm token on sever.
+      if (user.isExist!) {
+        final fcmToken = await FirebaseMessaging.instance.getToken();
+        await _authRepository.updateFcmToken(fcmToken!);
+      }
       emit(LoginSuccess(user));
     } on SubsHttpException catch (e) {
       emit(AuthFailed(

@@ -20,6 +20,10 @@ class CoursesRepository {
     return _coursesApi.subscribeCourse(course);
   }
 
+  Future<bool> unsubscribeCourse(Course course) async {
+    return _coursesApi.unsubscribeCourse(course);
+  }
+
   Future<List<Event>> getCourseEvents(String courseId) async {
     return _coursesApi.getCourseEvents(courseId);
   }

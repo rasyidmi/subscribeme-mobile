@@ -139,8 +139,8 @@ class ClassDetailScreen extends StatelessWidget {
                                     child: AttendanceItem(
                                   isAttend:
                                       state.attendanceList[index].isAttend,
-                                  openedTime:
-                                      state.attendanceList[index].openedTime,
+                                  openedTime: state
+                                      .attendanceList[index].openedTime.getDate,
                                   recordTime:
                                       state.attendanceList[index].recordTime,
                                 ));
@@ -161,7 +161,11 @@ class ClassDetailScreen extends StatelessWidget {
                           /// If slot is opened and user not record his/her attendance yet,
                           /// enable attendance.
                           onTap: (state.attendanceSlot != null &&
-                                  !state.attendanceList[0].isAttend)
+                                  state.attendanceSlot!.isOpen! &&
+                                  !state
+                                      .attendanceList[
+                                          state.attendanceList.length - 1]
+                                      .isAttend)
                               ? () {
                                   BlocProvider.of<AttendanceBloc>(context)
                                       .add(RecordAttendance(
@@ -174,7 +178,11 @@ class ClassDetailScreen extends StatelessWidget {
                         ),
                         BottomText(
                             enabled: state.attendanceSlot != null &&
-                                !state.attendanceList[0].isAttend),
+                                  state.attendanceSlot!.isOpen! &&
+                                  !state
+                                      .attendanceList[
+                                          state.attendanceList.length - 1]
+                                      .isAttend),
                       ],
                     ),
                   ),
@@ -266,9 +274,7 @@ class AttendanceItem extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    isAttend
-                        ? "Hadir"
-                        : "Tidak Hadir",
+                    isAttend ? "Hadir" : "Tidak Hadir",
                     style: Theme.of(context).textTheme.subtitle2!.copyWith(
                           fontWeight: FontWeight.w600,
                           color: isAttend

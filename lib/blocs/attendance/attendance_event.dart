@@ -46,13 +46,16 @@ class CreateAttendance extends AttendanceEvent {
   final int duration;
   final DateTime startTime;
   final bool isGeofence;
+  final int? radius;
 
   CreateAttendance({
     required this.classCode,
     required this.duration,
     required this.startTime,
     required this.isGeofence,
+    this.radius,
   });
   @override
-  List<Object?> get props => [classCode, duration, startTime, isGeofence];
+  List<Object?> get props =>
+      [classCode, duration, startTime, isGeofence, radius];
 }

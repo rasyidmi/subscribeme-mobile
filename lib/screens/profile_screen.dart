@@ -71,7 +71,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 34.0),
               SubsRoundedButton(
-                onTap: () {
+                onTap: () async {
                   context.read<AuthBloc>().add(Logout());
                 },
                 textStyle: Theme.of(context)

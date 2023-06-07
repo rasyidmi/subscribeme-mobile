@@ -55,18 +55,13 @@ class _AddAttendanceScreenState extends State<AddAttendanceScreen> {
                 buttonText: "Simpan Mata Kuliah Terpilih",
                 onTap: isFormComplete
                     ? () {
-                        // context.read<AttendanceBloc>().add(CreateAttendance(
-                        //       isGeofence: isGeo,
-                        //       classCode: classCode,
-                        //       duration: duration!,
-                        //       startTime: _combineDateAndTime(),
-                        //     ));
                         BlocProvider.of<AttendanceBloc>(context)
                             .add(CreateAttendance(
                           isGeofence: isGeo,
                           classCode: classCode,
                           duration: duration!,
                           startTime: _combineDateAndTime(),
+                          radius: radius,
                         ));
                       }
                     : null,
@@ -95,9 +90,10 @@ class _AddAttendanceScreenState extends State<AddAttendanceScreen> {
                   .popUntil((route) => route.settings.name == Routes.lecture);
               SubsFlushbar.showSuccess(context, "Slot absensi berhasil dibuat");
             } else if (state is CreateAttendanceFailed) {
+              final message = state.message ?? "Slot absensi gagal dibuat.";
               Navigator.of(context)
                   .popUntil((route) => route.settings.name == Routes.lecture);
-              SubsFlushbar.showFailed(context, "Slot absensi gagal dibuat");
+              SubsFlushbar.showFailed(context, message);
             }
           },
           builder: (context, state) {

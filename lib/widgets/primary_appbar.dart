@@ -13,7 +13,7 @@ class PrimaryAppbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: SvgPicture.asset(SubsIcons.appBarLogo),
-      actions: actions,
+      actions: actions,backgroundColor: Colors.transparent,
     );
   }
 

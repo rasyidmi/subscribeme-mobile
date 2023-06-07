@@ -33,8 +33,7 @@ class _SubscribeCourseScreenState extends State<SubscribeCourseScreen> {
         return CoursesBloc(repository)..add(FetchUserCourses());
       },
       child: Scaffold(
-        appBar: const SecondaryAppbar(
-            title: "Mata Kuliah Terpilih"),
+        appBar: const SecondaryAppbar(title: "Mata Kuliah Terpilih"),
         body: SubsConsumer<CoursesBloc, CoursesState>(
           listener: (context, state) {
             if (state is SubscribeCourseLoading) {
@@ -139,6 +138,14 @@ class _SubscribeCourseScreenState extends State<SubscribeCourseScreen> {
         BlocProvider.of<CoursesBloc>(context)
             .add(SubscribeCourse(_coursesData[i]));
       }
+      // Unsubscribe
+      else if (_coursesData[i].isSubscribe &&
+          _coursesData[i].isSubscribe != _mutableCourse[i].isSubscribe) {
+        BlocProvider.of<CoursesBloc>(context)
+            .add(UnsubscribeCourse(_coursesData[i]));
+      }
     }
+    BlocProvider.of<CoursesBloc>(context)
+            .add(SubscribeCourseFinished());
   }
 }

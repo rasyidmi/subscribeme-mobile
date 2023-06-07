@@ -20,6 +20,8 @@ class CoursesBloc extends Bloc<CoursesEvent, CoursesState> {
   CoursesBloc(this._coursesRepository) : super(CoursesInit()) {
     on<FetchUserCourses>(_onFetchUserCourses);
     on<SubscribeCourse>(_onSubscribeCourse);
+    on<UnsubscribeCourse>(_onUnsubscribeCourseHandler);
+    on<SubscribeCourseFinished>(_onSubscribeCourseFinished);
     on<FetchSubscribedCourses>(_onFetchSubscribedCoursesHandler);
     on<FetchCourseEvents>(_onFetchCourseEvents);
   }
@@ -48,9 +50,7 @@ class CoursesBloc extends Bloc<CoursesEvent, CoursesState> {
     emit(SubscribeCourseLoading());
     try {
       final isSuccess = await _coursesRepository.subscribeCourse(event.course);
-      if (isSuccess) {
-        emit(SubscribeCourseSuccess());
-      } else {
+      if (!isSuccess) {
         emit(const SubscribeCourseFailed(status: ResponseStatus.failed));
       }
     } on SubsHttpException catch (e) {
@@ -64,6 +64,33 @@ class CoursesBloc extends Bloc<CoursesEvent, CoursesState> {
       log('ERROR: $f');
       emit(const SubscribeCourseFailed(status: ResponseStatus.maintenance));
     }
+  }
+
+  Future<void> _onUnsubscribeCourseHandler(
+      UnsubscribeCourse event, Emitter<CoursesState> emit) async {
+    emit(SubscribeCourseLoading());
+    try {
+      final isSuccess =
+          await _coursesRepository.unsubscribeCourse(event.course);
+      if (!isSuccess) {
+        emit(const SubscribeCourseFailed(status: ResponseStatus.failed));
+      }
+    } on SubsHttpException catch (e) {
+      emit(
+        SubscribeCourseFailed(
+          status: e.status,
+          message: e.message,
+        ),
+      );
+    } catch (f) {
+      log('ERROR: $f');
+      emit(const SubscribeCourseFailed(status: ResponseStatus.maintenance));
+    }
+  }
+
+  Future<void> _onSubscribeCourseFinished(
+      SubscribeCourseFinished event, Emitter<CoursesState> emit) async {
+    emit(SubscribeCourseSuccess());
   }
 
   Future<void> _onFetchSubscribedCoursesHandler(

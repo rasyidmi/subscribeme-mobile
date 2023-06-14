@@ -162,10 +162,7 @@ class ClassDetailScreen extends StatelessWidget {
                           /// enable attendance.
                           onTap: (state.attendanceSlot != null &&
                                   state.attendanceSlot!.isOpen! &&
-                                  !state
-                                      .attendanceList[
-                                          state.attendanceList.length - 1]
-                                      .isAttend)
+                                  !state.attendanceList[0].isAttend)
                               ? () {
                                   BlocProvider.of<AttendanceBloc>(context)
                                       .add(RecordAttendance(
@@ -178,11 +175,10 @@ class ClassDetailScreen extends StatelessWidget {
                         ),
                         BottomText(
                             enabled: state.attendanceSlot != null &&
-                                  state.attendanceSlot!.isOpen! &&
-                                  !state
-                                      .attendanceList[
-                                          state.attendanceList.length - 1]
-                                      .isAttend),
+                                state.attendanceSlot!.isOpen! &&
+                                !state
+                                    .attendanceList[0]
+                                    .isAttend),
                       ],
                     ),
                   ),

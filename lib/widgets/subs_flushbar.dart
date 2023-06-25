@@ -71,12 +71,12 @@ class SubsFlushbar {
     Flushbar(
       title: title,
       titleColor: ColorPalettes.dark70,
+      dismissDirection: FlushbarDismissDirection.HORIZONTAL,
       messageText: Text(body,
           style: Theme.of(context)
               .textTheme
               .bodyText2!
               .copyWith(color: ColorPalettes.dark50)),
-      duration: const Duration(seconds: 2),
       flushbarPosition: FlushbarPosition.TOP,
       backgroundColor: ColorPalettes.white,
       borderRadius: BorderRadius.circular(8),

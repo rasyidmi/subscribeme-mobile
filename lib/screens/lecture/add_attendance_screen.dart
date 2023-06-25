@@ -9,6 +9,7 @@ import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/commons/extensions/date_time_extension.dart';
 import 'package:subscribeme_mobile/repositories/attendance_repository.dart';
 import 'package:subscribeme_mobile/routes.dart';
+import 'package:subscribeme_mobile/services/date_time_picker.dart';
 import 'package:subscribeme_mobile/widgets/bottom_button_container.dart';
 import 'package:subscribeme_mobile/widgets/circular_loading.dart';
 import 'package:subscribeme_mobile/widgets/secondary_appbar.dart';
@@ -52,7 +53,7 @@ class _AddAttendanceScreenState extends State<AddAttendanceScreen> {
           builder: (context) {
             return BottomContainer(
               child: SubsRoundedButton(
-                buttonText: "Simpan Mata Kuliah Terpilih",
+                buttonText: "Simpan Absensi",
                 onTap: isFormComplete
                     ? () {
                         BlocProvider.of<AttendanceBloc>(context)
@@ -60,7 +61,7 @@ class _AddAttendanceScreenState extends State<AddAttendanceScreen> {
                           isGeofence: isGeo,
                           classCode: classCode,
                           duration: duration!,
-                          startTime: _combineDateAndTime(),
+                          startTime: attendanceDate!,
                           radius: radius,
                         ));
                       }
@@ -104,7 +105,7 @@ class _AddAttendanceScreenState extends State<AddAttendanceScreen> {
                 children: [
                   const SizedBox(height: 24),
                   Text(
-                    "Tanggal Buka Absensi",
+                    "Waktu Buka Absensi",
                     style: Theme.of(context)
                         .textTheme
                         .subtitle2!
@@ -112,7 +113,12 @@ class _AddAttendanceScreenState extends State<AddAttendanceScreen> {
                   ),
                   const SizedBox(height: 12),
                   InkWell(
-                    onTap: () => _showDatePicker(context),
+                    onTap: () async {
+                      attendanceDate =
+                          await showDateTimePicker(context: context) ??
+                              attendanceDate;
+                      setState(() {});
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.0),
@@ -123,8 +129,8 @@ class _AddAttendanceScreenState extends State<AddAttendanceScreen> {
                         children: [
                           Text(
                             attendanceDate != null
-                                ? attendanceDate!.getDate
-                                : "Pilih tanggal buka absensi",
+                                ? attendanceDate!.getDateWithTime
+                                : "Pilih waktu buka absensi",
                             style: Theme.of(context)
                                 .textTheme
                                 .subtitle2!
@@ -136,46 +142,6 @@ class _AddAttendanceScreenState extends State<AddAttendanceScreen> {
                           const Spacer(),
                           const Icon(
                             Icons.date_range,
-                            color: ColorPalettes.primary,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    "Waktu Buka Absensi",
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle2!
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 12),
-                  InkWell(
-                    onTap: () => _showTimePicker(context),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(color: ColorPalettes.whiteGray),
-                      ),
-                      padding: const EdgeInsets.all(12),
-                      child: Row(
-                        children: [
-                          Text(
-                            time != null
-                                ? time!.to24HourFormat
-                                : "Pilih waktu buka absensi",
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle2!
-                                .copyWith(
-                                    color: time != null
-                                        ? ColorPalettes.dark70
-                                        : ColorPalettes.gray),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.schedule,
                             color: ColorPalettes.primary,
                           )
                         ],
@@ -268,67 +234,67 @@ class _AddAttendanceScreenState extends State<AddAttendanceScreen> {
     );
   }
 
-  void _showDatePicker(BuildContext context) async {
-    attendanceDate = await showDatePicker(
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: ColorPalettes.primary, // header background color
-              onPrimary: ColorPalettes.white, // header text color
-              onSurface: ColorPalettes.primary, // body text color
-            ),
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                foregroundColor: ColorPalettes.primary, // button text color
-              ),
-            ),
-          ),
-          child: child!,
-        );
-      },
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 30)),
-      locale: const Locale("id", "ID"),
-    );
-    setState(() {});
-  }
+  // void _showDatePicker(BuildContext context) async {
+  //   attendanceDate = await showDatePicker(
+  //     builder: (context, child) {
+  //       return Theme(
+  //         data: Theme.of(context).copyWith(
+  //           colorScheme: const ColorScheme.light(
+  //             primary: ColorPalettes.primary, // header background color
+  //             onPrimary: ColorPalettes.white, // header text color
+  //             onSurface: ColorPalettes.primary, // body text color
+  //           ),
+  //           textButtonTheme: TextButtonThemeData(
+  //             style: TextButton.styleFrom(
+  //               foregroundColor: ColorPalettes.primary, // button text color
+  //             ),
+  //           ),
+  //         ),
+  //         child: child!,
+  //       );
+  //     },
+  //     context: context,
+  //     initialDate: DateTime.now(),
+  //     firstDate: DateTime.now(),
+  //     lastDate: DateTime.now().add(const Duration(days: 30)),
+  //     locale: const Locale("id", "ID"),
+  //   );
+  //   setState(() {});
+  // }
 
-  void _showTimePicker(BuildContext context) async {
-    time = await showTimePicker(
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: ColorPalettes.primary, // header background color
-              onPrimary: ColorPalettes.white, // header text color
-              onSurface: ColorPalettes.primary, // body text color
-            ),
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                foregroundColor: ColorPalettes.primary, // button text color
-              ),
-            ),
-            timePickerTheme: TimePickerThemeData(
-              dialBackgroundColor: ColorPalettes.primary.withOpacity(0.1),
-              hourMinuteColor: ColorPalettes.primary.withOpacity(0.1),
-            ),
-          ),
-          child: child!,
-        );
-      },
-      context: context,
-      initialTime: TimeOfDay.now(),
-    );
-    setState(() {});
-  }
+  // void _showTimePicker(BuildContext context) async {
+  //   time = await showTimePicker(
+  //     builder: (context, child) {
+  //       return Theme(
+  //         data: Theme.of(context).copyWith(
+  //           colorScheme: const ColorScheme.light(
+  //             primary: ColorPalettes.primary, // header background color
+  //             onPrimary: ColorPalettes.white, // header text color
+  //             onSurface: ColorPalettes.primary, // body text color
+  //           ),
+  //           textButtonTheme: TextButtonThemeData(
+  //             style: TextButton.styleFrom(
+  //               foregroundColor: ColorPalettes.primary, // button text color
+  //             ),
+  //           ),
+  //           timePickerTheme: TimePickerThemeData(
+  //             dialBackgroundColor: ColorPalettes.primary.withOpacity(0.1),
+  //             hourMinuteColor: ColorPalettes.primary.withOpacity(0.1),
+  //           ),
+  //         ),
+  //         child: child!,
+  //       );
+  //     },
+  //     context: context,
+  //     initialTime: TimeOfDay.now(),
+  //   );
+  //   setState(() {});
+  // }
 
-  DateTime _combineDateAndTime() {
-    return attendanceDate!
-        .add(Duration(hours: time!.hour, minutes: time!.minute));
-  }
+  // DateTime _combineDateAndTime() {
+  //   return attendanceDate!
+  //       .add(Duration(hours: time!.hour, minutes: time!.minute));
+  // }
 
   bool get isFormComplete {
     return (!isGeo &&

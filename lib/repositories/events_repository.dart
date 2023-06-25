@@ -1,10 +1,15 @@
 import 'package:subscribeme_mobile/api/events_api.dart';
+import 'package:subscribeme_mobile/models/event.dart';
 import 'package:subscribeme_mobile/models/student_event.dart';
 
 class EventsRepository {
   final EventsApi _eventsApi;
 
   EventsRepository(this._eventsApi);
+
+  Future<bool> setReminder(Event event, DateTime time) async {
+    return _eventsApi.setReminder(event, time);
+  }
 
   // Actually no need to return bool, but somehow if the return value is void
   // when server is down the error is not catched.

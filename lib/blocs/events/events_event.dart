@@ -5,6 +5,13 @@ abstract class EventsEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+class SetReminder extends EventsEvent {
+  final Event event;
+  final DateTime time;
+
+  SetReminder(this.event, this.time);
+}
+
 class CreateEvent extends EventsEvent {
   final Map<String, dynamic> data;
 

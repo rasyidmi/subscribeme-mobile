@@ -12,6 +12,20 @@ abstract class EventsState extends BlocState {
 
 class EventsInitial extends EventsState {}
 
+class SetReminderSuccess extends EventsState {}
+
+class SetReminderLoading extends EventsState {}
+
+class SetReminderFailed extends EventsState {
+  const SetReminderFailed({
+    ResponseStatus? status,
+    String? message,
+  }) : super(
+          status: status,
+          message: message,
+        );
+}
+
 // Create event
 class CreateEventLoading extends EventsState {}
 

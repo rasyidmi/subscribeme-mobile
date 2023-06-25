@@ -3,12 +3,14 @@ class Event implements Comparable {
   String name;
   DateTime deadlineTime;
   bool isDone;
+  String type;
 
   Event({
     required this.name,
     required this.id,
     required this.deadlineTime,
     required this.isDone,
+    required this.type,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) => Event(
@@ -16,6 +18,7 @@ class Event implements Comparable {
         name: json["class_event"]["event_name"],
         isDone: json["is_done"],
         deadlineTime: DateTime.parse(json["class_event"]["date"].toString()),
+        type: json["class_event"]["type"],
       );
 
   int get remainingDays => deadlineTime.difference(DateTime.now()).inDays;

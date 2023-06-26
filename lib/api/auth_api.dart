@@ -65,7 +65,7 @@ class AuthApi {
   }
 
   Future<void> logout() async {
-    await _storageService.writeSecureData("token", "");
+    await _storageService.deleteSecureData("token");
   }
 
   Future<String?> getToken() async {

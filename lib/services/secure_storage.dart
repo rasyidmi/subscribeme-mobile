@@ -11,4 +11,8 @@ class LocalStorageService {
     var data = await _secureStorage.read(key: key);
     return data;
   }
+
+  Future<void> deleteSecureData(String key) async {
+    await _secureStorage.delete(key: key);
+  }
 }

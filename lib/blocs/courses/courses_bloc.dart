@@ -24,6 +24,7 @@ class CoursesBloc extends Bloc<CoursesEvent, CoursesState> {
     on<SubscribeCourseFinished>(_onSubscribeCourseFinished);
     on<FetchSubscribedCourses>(_onFetchSubscribedCoursesHandler);
     on<FetchCourseEvents>(_onFetchCourseEvents);
+    on<FetchHomeData>(_onFetchHomeData);
   }
 
   Future<void> _onFetchUserCourses(
@@ -130,6 +131,29 @@ class CoursesBloc extends Bloc<CoursesEvent, CoursesState> {
       log('ERROR: $f');
       emit(const FetchSubscribedCoursesFailed(
           status: ResponseStatus.maintenance));
+    }
+  }
+
+  Future<void> _onFetchHomeData(
+      FetchHomeData event, Emitter<CoursesState> emit) async {
+    emit(FetchHomeDataLoading());
+    try {
+      final todayDeadline = await _coursesRepository.getTodayDeadline();
+      final sevenDayDeadline = await _coursesRepository.getSevenDayDeadline();
+      emit(FetchHomeDataSuccess(
+        todayDeadline: todayDeadline,
+        sevenDayDeadline: sevenDayDeadline,
+      ));
+    } on SubsHttpException catch (e) {
+      emit(
+        FetchHomeDataFailed(
+          status: e.status,
+          message: e.message,
+        ),
+      );
+    } catch (f) {
+      log('ERROR: $f');
+      emit(const FetchHomeDataFailed(status: ResponseStatus.maintenance));
     }
   }
 }

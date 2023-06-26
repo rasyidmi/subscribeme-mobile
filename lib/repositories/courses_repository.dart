@@ -27,4 +27,12 @@ class CoursesRepository {
   Future<List<Event>> getCourseEvents(String courseId) async {
     return _coursesApi.getCourseEvents(courseId);
   }
+
+  Future<List<Event>> getTodayDeadline() async {
+    return _coursesApi.getTodayDeadline();
+  }
+
+  Future<List<Event>> getSevenDayDeadline() async {
+    return _coursesApi.getSevenDayDeadline();
+  }
 }

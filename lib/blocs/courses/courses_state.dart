@@ -85,3 +85,27 @@ class FetchCourseEventsFailed extends CoursesState {
           message: message,
         );
 }
+
+class FetchHomeDataSuccess extends CoursesState {
+  final List<Event> todayDeadline;
+  final List<Event> sevenDayDeadline;
+
+  const FetchHomeDataSuccess({
+    required this.todayDeadline,
+    required this.sevenDayDeadline,
+  });
+  @override
+  List<Object?> get props => [todayDeadline, sevenDayDeadline];
+}
+
+class FetchHomeDataLoading extends CoursesState {}
+
+class FetchHomeDataFailed extends CoursesState {
+  const FetchHomeDataFailed({
+    ResponseStatus? status,
+    String? message,
+  }) : super(
+          status: status,
+          message: message,
+        );
+}

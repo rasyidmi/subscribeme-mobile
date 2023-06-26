@@ -58,7 +58,34 @@ class CoursesApi {
 
   Future<bool> unsubscribeCourse(Course unsubscribeCourse) async {
     final body = unsubscribeCourse.toJson();
-    final response = await RequestHelper.post('$_coursesPath/unsubscribe', body);
+    final response =
+        await RequestHelper.post('$_coursesPath/unsubscribe', body);
     return response.status == ResponseStatus.success;
+  }
+
+  Future<List<Event>> getTodayDeadline() async {
+    final response = await RequestHelper.get('$_coursesPath/deadline/today');
+    List<Event> events = [];
+    if (response.status == ResponseStatus.success &&
+        response.data!["data"] != null) {
+      for (var i = 0; i < response.data!["data"].length; i++) {
+        final event = Event.fromJson(response.data!["data"][i]);
+        events.add(event);
+      }
+    }
+    return events;
+  }
+
+    Future<List<Event>> getSevenDayDeadline() async {
+    final response = await RequestHelper.get('$_coursesPath/deadline/7-days');
+    List<Event> events = [];
+    if (response.status == ResponseStatus.success &&
+        response.data!["data"] != null) {
+      for (var i = 0; i < response.data!["data"].length; i++) {
+        final event = Event.fromJson(response.data!["data"][i]);
+        events.add(event);
+      }
+    }
+    return events;
   }
 }

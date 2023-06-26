@@ -34,3 +34,5 @@ class FetchCourseEvents extends CoursesEvent {
   @override
   List<Object?> get props => [courseId];
 }
+
+class FetchHomeData extends CoursesEvent {}

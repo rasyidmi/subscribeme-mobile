@@ -19,7 +19,7 @@ class User {
         npm: json["npm"],
         name: json["nama"],
         username: json["username"],
-        role: json["role"] == 'dosen' ? Role.lecturer : Role.student,
+        role: json["role"] == 'Dosen' ? Role.lecturer : Role.student,
         isExist: json["is_user_exist"],
       );
 
@@ -27,6 +27,6 @@ class User {
         "npm": name,
         "name": name,
         "username": username,
-        "role": role == Role.lecturer ? 'dosen' : 'mahasiswa',
+        "role": role == Role.lecturer ? 'Dosen' : 'Mahasiswa',
       };
 }

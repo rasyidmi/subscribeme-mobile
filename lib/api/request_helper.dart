@@ -77,6 +77,10 @@ class RequestHelper {
   static Future<HttpResponse> post(
       String path, Map<String, dynamic>? body) async {
     final token = await locator<AuthApi>().getToken();
+    // Check token is expired or not.
+    if (RequestHelper._isTokenExpired(token!)) {
+      throw SubsHttpException(ResponseStatus.tokenExpire, null);
+    }
     final urlPath = '$apiPath$path';
 
     final response = await http.post(
@@ -97,7 +101,7 @@ class RequestHelper {
       String path, Map<String, dynamic>? body) async {
     final token = await locator<AuthApi>().getToken();
     final urlPath = '$apiPath$path';
-    
+
     // Check token is expired or not.
     if (RequestHelper._isTokenExpired(token!)) {
       throw SubsHttpException(ResponseStatus.tokenExpire, null);
@@ -144,58 +148,6 @@ class RequestHelper {
   static bool _isTokenExpired(String token) {
     return JwtDecoder.isExpired(token);
   }
-
-  // static Future<HttpResponse> _handleExpiredToken(
-  //   String url,
-  //   Map<String, dynamic>? data,
-  //   String method,
-  // ) async {
-  //   final token = await locator<AuthApi>().getRefreshToken();
-  //   final urlPath = '$apiPath/user/refresh';
-
-  //   final response = await http.post(
-  //     Uri.parse(urlPath),
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': 'Bearer $token'
-  //     },
-  //   );
-  //   // Both token expired.
-  //   if (response.statusCode != 200) {
-  //     return HttpResponse(status: ResponseStatus.tokenExpire, data: null);
-  //   }
-  //   final decodedBody = json.decode(response.body);
-  //   final newAccessToken = decodedBody!["data"]["accessToken"];
-  //   // Store token in local storage.
-  //   await _storageService.writeSecureData("accessToken", newAccessToken);
-  //   await _storageService.writeSecureData(
-  //       "refreshToken", decodedBody!["data"]["refreshToken"]);
-  //   // Hit the API again.
-  //   http.Response newResponse;
-  //   final parsedUrl = Uri.parse(url);
-  //   if (method == "GET") {
-  //     newResponse = await http.get(
-  //       parsedUrl,
-  //       headers: {'Authorization': 'Bearer $newAccessToken'},
-  //     );
-  //   } else if (method == "POST") {
-  //     newResponse = await http.post(
-  //       parsedUrl,
-  //       headers: {'Authorization': 'Bearer $newAccessToken'},
-  //       body: json.encoder.convert(data),
-  //     );
-  //   } else {
-  //     newResponse = await http.delete(
-  //       parsedUrl,
-  //       headers: {'Authorization': 'Bearer $newAccessToken'},
-  //       body: json.encoder.convert(data),
-  //     );
-  //   }
-  //   final newDecodedBody = json.decode(newResponse.body);
-
-  //   return _responseHandler(
-  //       newResponse.statusCode, newDecodedBody, data, method, url);
-  // }
 }
 
 class HttpResponse {

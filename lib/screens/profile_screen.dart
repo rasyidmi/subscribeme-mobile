@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:subscribeme_mobile/blocs/auth/auth_bloc.dart';
+import 'package:subscribeme_mobile/commons/constants/role.dart';
 import 'package:subscribeme_mobile/commons/constants/sizes.dart';
 import 'package:subscribeme_mobile/commons/resources/icons.dart';
 import 'package:subscribeme_mobile/commons/resources/images.dart';
@@ -50,7 +51,7 @@ class ProfileScreen extends StatelessWidget {
                     .copyWith(fontSize: 16),
               ),
               const SizedBox(height: 22.0),
-              const Text("NPM"),
+              Text(state.user.role == Role.lecturer ? "NIM" : "NPM"),
               const SizedBox(height: 6.0),
               Text(
                 state.user.npm,

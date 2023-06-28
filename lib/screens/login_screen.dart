@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               LocalStorageService();
                           await storageService.writeSecureData("token",
                               "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1hIjoiRHIuIElyLiBFcmRlZmkgUmFrdW4gTS5TYy4iLCJ1c2VybmFtZSI6ImlpcyIsIm5wbSI6IjEwMDIxMDUxMDI3MTYwOTU5MSIsImp1cnVzYW4iOnsiZmFjdWx0eSI6IklsbXUgS29tcHV0ZXIiLCJzaG9ydEZhY3VsdHkiOiJGYXNpbGtvbSIsIm1ham9yIjoiU2lzdGVtIEluZm9ybWFzaSAoSW5mb3JtYXRpb24gU3lzdGVtKSIsInByb2dyYW0iOiJTMSBQYXJhbGVsIChTMSBQYXJhbGVsKSJ9LCJyb2xlIjoiRG9zZW4iLCJleHAiOjE3MTc1ODAyNzd9.56Hw6udbWqQ0lWQUaSzkGh1T_5vnCiWUmV7p3Jx0Ir4");
-                          Navigator.of(context).pushNamed(Routes.lecture);
+                          Navigator.of(context).pushReplacementNamed("Wrapper");
                         },
                       )
                     ],

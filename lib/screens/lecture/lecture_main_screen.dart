@@ -29,10 +29,9 @@ class _LectureMainScreenState extends State<LectureMainScreen> {
           appBar: _selectedPage == 1 ? null : const PrimaryAppbar(),
           body: PageView(
             controller: _pageViewController,
-            children: [
-              const LectureClassScreen(),
-              // ProfileScreen(),
-              Container(),
+            children: const [
+              LectureClassScreen(),
+              ProfileScreen(),
             ],
             onPageChanged: (index) {
               setState(() {

@@ -22,6 +22,7 @@ class ProfileScreen extends StatelessWidget {
               .pushNamedAndRemoveUntil(Routes.login, (route) => false);
         }
       },
+      buildWhen: (previous, current) => current is LoginSuccess,
       builder: (context, state) {
         if (state is LoginSuccess) {
           return Padding(

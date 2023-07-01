@@ -7,6 +7,6 @@ class CourseScele {
 
   factory CourseScele.fromJson(Map<String, dynamic> json) => CourseScele(
       id: json["id"],
-      sceleId: json["course_secele_id"],
+      sceleId: json["course_scele_id"],
       name: json["course_scele_name"]);
 }

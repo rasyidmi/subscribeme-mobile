@@ -101,7 +101,7 @@ class HomeScreen extends StatelessWidget {
                                       const EdgeInsets.symmetric(vertical: 8.0),
                                   child: SubsListTile(
                                     title: event.name,
-                                    secondLine: "Matkul Enak - A",
+                                    secondLine: event.courseName,
                                     thirdLine:
                                         event.deadlineTime.displayDeadline,
                                     onTap: event.isDone ? null : () {},
@@ -147,7 +147,7 @@ class HomeScreen extends StatelessWidget {
                                   child: SubsListTile(
                                     title: event.name,
                                     fontSize: 12,
-                                    secondLine: "Matkul Ajib - B",
+                                    secondLine: event.courseName,
                                     thirdLine:
                                         event.deadlineTime.displayDeadline,
                                     onTap: event.isDone
@@ -159,7 +159,7 @@ class HomeScreen extends StatelessWidget {
                                               builder: (context) =>
                                                   StatefulBottomSheet(
                                                 event: event,
-                                                courseName: "Matkul Ajib - B",
+                                                courseName: event.courseName,
                                               ),
                                             ),
                                     isActive: !event.isDone,

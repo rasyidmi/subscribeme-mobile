@@ -55,12 +55,13 @@ class _StatefulBottomSheetState extends State<StatefulBottomSheet> {
               },
             );
           } else if (state is SetReminderSuccess) {
-            Navigator.popUntil(
-                context, (route) => route.settings.name == Routes.courseDetail);
+            Navigator.pushNamedAndRemoveUntil(
+                context, Routes.main, (route) => false);
             SubsFlushbar.showSuccess(context, "Reminder berhasil dibuat!");
           } else if (state is SetReminderFailed) {
-            Navigator.pop(context);
-            SubsFlushbar.showSuccess(context, "Reminder gagal dibuat!");
+            Navigator.pushNamedAndRemoveUntil(
+                context, Routes.main, (route) => false);
+            SubsFlushbar.showFailed(context, "Reminder gagal dibuat!");
           }
         },
         builder: (context, state) {
@@ -163,7 +164,11 @@ class _StatefulBottomSheetState extends State<StatefulBottomSheet> {
                     child: Checkbox(
                       value: widget.event.isDone,
                       activeColor: ColorPalettes.primary,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        setState(() {
+                          widget.event.isDone = value!;
+                        });
+                      },
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -195,7 +200,7 @@ class _StatefulBottomSheetState extends State<StatefulBottomSheet> {
                       onTap: isFormComplete
                           ? () {
                               BlocProvider.of<EventsBloc>(context).add(
-                                  SetReminder(widget.event, selectedDate!));
+                                  SetReminder(widget.event, selectedDate));
                             }
                           : null,
                     ),
@@ -210,7 +215,7 @@ class _StatefulBottomSheetState extends State<StatefulBottomSheet> {
   }
 
   bool get isFormComplete {
-    return selectedDate != null;
+    return selectedDate != null || widget.event.isDone;
   }
 }
 

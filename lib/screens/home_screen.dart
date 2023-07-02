@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subscribeme_mobile/blocs/courses/courses_bloc.dart';
+import 'package:subscribeme_mobile/commons/constants/response_status.dart';
 import 'package:subscribeme_mobile/commons/constants/sizes.dart';
 import 'package:subscribeme_mobile/commons/extensions/date_time_extension.dart';
 import 'package:subscribeme_mobile/commons/resources/images.dart';
@@ -167,6 +168,21 @@ class HomeScreen extends StatelessWidget {
                                 );
                               },
                             ),
+                        ],
+                      );
+                    } else if (state is FetchHomeDataFailed &&
+                        state.status == ResponseStatus.saveDataDisabled) {
+                      return Column(
+                        children: [
+                          Image.asset(
+                            SubsImages.salySorry,
+                            height: getScreenSize(context).height * 0.4,
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            state.message!,
+                            textAlign: TextAlign.center,
+                          ),
                         ],
                       );
                     } else {

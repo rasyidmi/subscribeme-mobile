@@ -24,7 +24,6 @@ class AuthApi {
           "token", response.data!["data"]["token"]);
       final decodedJwt = JwtDecoder.decode(response.data!["data"]["token"]);
       log('Token pengguna: ${response.data!["data"]["token"]}');
-      decodedJwt["is_user_exist"] = response.data!["data"]["is_user_exists"];
       final user = User.fromJson(decodedJwt);
       return user;
     } else if (response.status == ResponseStatus.unauthorized) {

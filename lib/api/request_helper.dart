@@ -7,6 +7,7 @@ import 'package:subscribeme_mobile/api/auth_api.dart';
 import 'package:subscribeme_mobile/commons/arguments/http_exception.dart';
 import 'package:subscribeme_mobile/commons/constants/response_status.dart';
 import 'package:subscribeme_mobile/service_locator/service_locator.dart';
+import 'package:subscribeme_mobile/services/secure_storage.dart';
 
 class RequestHelper {
   static final apiPath = baseUrl;
@@ -118,7 +119,7 @@ class RequestHelper {
 
     final decodedBody = json.decode(response.body);
 
-    return _responseHandler(response.statusCode, decodedBody, "POST", urlPath);
+    return _responseHandler(response.statusCode, decodedBody, "PUT", urlPath);
   }
 
   static Future<HttpResponse> _responseHandler(
@@ -147,6 +148,13 @@ class RequestHelper {
 
   static bool _isTokenExpired(String token) {
     return JwtDecoder.isExpired(token);
+  }
+
+  static Future<bool> isUserExists() async {
+    final LocalStorageService storageService = LocalStorageService();
+    final token = await storageService.readSecureData("token");
+    final decodedToken = JwtDecoder.decode(token!);
+    return decodedToken["is_exists"];
   }
 }
 

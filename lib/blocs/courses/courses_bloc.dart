@@ -102,7 +102,7 @@ class CoursesBloc extends Bloc<CoursesEvent, CoursesState> {
       emit(FetchSubscribedCoursesSuccess(listCourses));
     } on SubsHttpException catch (e) {
       emit(
-        FetchUserCoursesFailed(
+        FetchSubscribedCoursesFailed(
           status: e.status,
           message: e.message,
         ),

@@ -20,7 +20,7 @@ class User {
         name: json["nama"],
         username: json["username"],
         role: json["role"] == 'Dosen' ? Role.lecturer : Role.student,
-        isExist: json["is_user_exist"],
+        isExist: json["is_exists"],
       );
 
   Map<String, dynamic> toJson() => {

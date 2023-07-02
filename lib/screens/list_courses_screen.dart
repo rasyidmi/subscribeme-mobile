@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:subscribeme_mobile/blocs/courses/courses_bloc.dart';
+import 'package:subscribeme_mobile/commons/constants/response_status.dart';
+import 'package:subscribeme_mobile/commons/constants/sizes.dart';
+import 'package:subscribeme_mobile/commons/resources/images.dart';
 import 'package:subscribeme_mobile/commons/styles/color_palettes.dart';
 import 'package:subscribeme_mobile/models/course_scele.dart';
 import 'package:subscribeme_mobile/repositories/courses_repository.dart';
@@ -116,6 +119,22 @@ class _ListCoursesScreenState extends State<ListCoursesScreen> {
                       },
                     ),
                     const SizedBox(height: 10),
+                  ],
+                );
+              } else if (state is FetchSubscribedCoursesFailed &&
+                  state.status == ResponseStatus.saveDataDisabled) {
+                return Column(
+                  children: [
+                    SizedBox(height: getScreenSize(context).height * 0.1),
+                    Image.asset(
+                      SubsImages.salySorry,
+                      height: getScreenSize(context).height * 0.4,
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      state.message!,
+                      textAlign: TextAlign.center,
+                    ),
                   ],
                 );
               } else {

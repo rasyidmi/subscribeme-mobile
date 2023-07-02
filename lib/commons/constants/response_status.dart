@@ -8,4 +8,5 @@ enum ResponseStatus {
   autoLoginFailed,
   duplicateData,
   locationServiceDisabled,
+  saveDataDisabled,
 }

@@ -1,4 +1,5 @@
 import 'package:subscribeme_mobile/api/request_helper.dart';
+import 'package:subscribeme_mobile/commons/arguments/http_exception.dart';
 import 'package:subscribeme_mobile/commons/constants/response_status.dart';
 import 'package:subscribeme_mobile/models/course.dart';
 import 'package:subscribeme_mobile/models/course_scele.dart';
@@ -24,6 +25,15 @@ class CoursesApi {
   }
 
   Future<List<CourseScele>> getSubscribedCourse() async {
+     // Check is user enable save data.
+    final isUserExists = await RequestHelper.isUserExists();
+    if (!isUserExists) {
+      throw SubsHttpException(
+        ResponseStatus.saveDataDisabled,
+        "Kamu tidak mengizinkan penyimpanan data, fitur ini tidak bisa digunakan.",
+      );
+    }
+
     final response = await RequestHelper.get(_coursesPath);
     List<CourseScele> listCourses = [];
     if (response.status == ResponseStatus.success &&
@@ -64,6 +74,15 @@ class CoursesApi {
   }
 
   Future<List<Event>> getTodayDeadline() async {
+    // Check is user enable save data.
+    final isUserExists = await RequestHelper.isUserExists();
+    if (!isUserExists) {
+      throw SubsHttpException(
+        ResponseStatus.saveDataDisabled,
+        "Kamu tidak mengizinkan penyimpanan data, fitur ini tidak bisa digunakan.",
+      );
+    }
+
     final response = await RequestHelper.get('$_coursesPath/deadline/today');
     List<Event> events = [];
     if (response.status == ResponseStatus.success &&
@@ -76,7 +95,16 @@ class CoursesApi {
     return events;
   }
 
-    Future<List<Event>> getSevenDayDeadline() async {
+  Future<List<Event>> getSevenDayDeadline() async {
+    // Check is user enable save data.
+    final isUserExists = await RequestHelper.isUserExists();
+    if (!isUserExists) {
+      throw SubsHttpException(
+        ResponseStatus.saveDataDisabled,
+        "Kamu tidak mengizinkan penyimpanan data, fitur ini tidak bisa digunakan.",
+      );
+    }
+
     final response = await RequestHelper.get('$_coursesPath/deadline/7-days');
     List<Event> events = [];
     if (response.status == ResponseStatus.success &&

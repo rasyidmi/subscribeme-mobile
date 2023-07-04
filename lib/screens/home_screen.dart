@@ -105,7 +105,16 @@ class HomeScreen extends StatelessWidget {
                                     secondLine: event.courseName,
                                     thirdLine:
                                         event.deadlineTime.displayDeadline,
-                                    onTap: event.isDone ? null : () {},
+                                    onTap: event.isDone ? null : () => showModalBottomSheet(
+                                              context: context,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              builder: (context) =>
+                                                  StatefulBottomSheet(
+                                                event: event,
+                                                courseName: event.courseName,
+                                              ),
+                                            ),
                                     isActive: !event.isDone,
                                     fontSize: 12,
                                   ),
